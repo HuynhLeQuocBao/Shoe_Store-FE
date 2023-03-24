@@ -1,0 +1,53 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+
+}
+
+@layer components {
+}
+.responsive-iframe {
+  @apply w-full h-80 xl:w-[540px] md:h-[400px];
+}
+.slick-slide > div {
+  @apply h-full;
+}
+
+.slick-slider .slick-dots {
+  @apply top-[80%] md:top-[90%];
+}
+
+.slick-slider .slick-dots li,
+.slick-slider .slick-dots li button {
+  @apply w-auto h-auto p-0 mr-[6px];
+}
+
+.slick-slider .slick-dots > :not([hidden]) ~ :not([hidden]) {
+  @apply ml-2 md:ml-5;
+}
+
+.slick-slider .slick-dots li button::before {
+  content: "";
+  @apply top-[90%] text-[4px] rounded-[50%] border border-solid border-transparent w-3 h-3 opacity-100 inline-block transition-all duration-300 ease-linear bg-[#ffffff4d];
+}
+
+.slick-slider .slick-dots li.slick-active button::before,
+.slick-slider .slick-dots li button:hover:before {
+  @apply bg-[#88c8bc] cursor-pointer;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.inputForm {
+  @apply px-3 py-2 mt-2 border border-black;
+}
