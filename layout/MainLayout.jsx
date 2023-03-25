@@ -8,7 +8,7 @@ export function MainLayout({ children }) {
       <main>{children}</main>
       <ScrollToTop
         smooth
-        className='!rounded-[50%]'
+        className="!rounded-[50%]"
         component={<BackToTop />}
       />
       <Footer />

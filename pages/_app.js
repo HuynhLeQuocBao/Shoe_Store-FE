@@ -1,20 +1,20 @@
-import { SessionProvider, getSession } from 'next-auth/react';
-import { SWRConfig } from 'swr';
-import { AnimatePresence } from 'framer-motion';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import '../styles/globals.css';
-import { MainLayout } from '@/layout/index';
-import axiosClient from '../apiClient/axiosClient';
-import Head from 'next/head';
-import App from 'next/app';
+import { SessionProvider, getSession } from "next-auth/react";
+import { SWRConfig } from "swr";
+import { AnimatePresence } from "framer-motion";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+import "../styles/globals.css";
+import { MainLayout } from "@/layout/index";
+import axiosClient from "../apiClient/axiosClient";
+import Head from "next/head";
+import App from "next/app";
 
 function MyApp(props) {
   const { Component, pageProps, session } = props;
   const Layout = Component.Layout ?? MainLayout;
 
   const handleExitComplete = () => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       window.scrollTo({ top: 0 });
     }
   };
@@ -23,8 +23,8 @@ function MyApp(props) {
     <>
       <Head>
         <title>Footwear</title>
-        <meta property='og:title' content='Footwear' key='title' />
-        <link rel='shortcut icon' href='/favicon.png' />
+        <meta property="og:title" content="Footwear" key="title" />
+        <link rel="shortcut icon" href="/favicon.png" />
       </Head>
 
       <SWRConfig
