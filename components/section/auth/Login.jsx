@@ -118,7 +118,7 @@ export function Login() {
         </form>
         <div className="flex items-center justify-center flex-col">
           <p>
-            Don't have an account?
+            Do not have an account?
             <Link href="/register">
               <span className="cursor-pointer ml-1 hover:text-primary font-bold">
                 Register
