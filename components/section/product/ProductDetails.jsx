@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-img-element */
 import { productApi } from "@/apiClient/product";
 import { Container } from "@/components/common/index";
 import { useEffect, useState } from "react";
@@ -8,6 +7,7 @@ import Slider from "react-slick";
 import { useSession } from "next-auth/react";
 import { cartApi } from "@/apiClient/cartAPI";
 import { ToastContainer, toast } from "react-toastify";
+import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 
 export function ProductDetail() {
@@ -107,7 +107,7 @@ export function ProductDetail() {
           <Slider {...settings}>
             {data?.arrayImage?.map((item, index) => (
               <div key={index} className="w-full">
-                <img
+                <Image
                   className="w-full h-full object-cover"
                   src={`https://shoestore-backend-0uam.onrender.com/upload/${item?.filename}`}
                 />

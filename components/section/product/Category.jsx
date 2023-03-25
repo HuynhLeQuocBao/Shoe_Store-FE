@@ -45,14 +45,14 @@ export function Category({ onDataFilter }) {
             {data?.brand?.map((item, index) => (
               <div className="flex items-center" key={index}>
                 <input
-                  class="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2"
+                  className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-blue-600 checked:border-blue-600 focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2"
                   type="checkbox"
                   value={item.cateId}
                   {...register("brand")}
                 />
                 <label
                   class="inline-block text-gray-800 "
-                  for="flexCheckDefault"
+                  htmlFor="flexCheckDefault"
                 >
                   {item.cateName}
                 </label>

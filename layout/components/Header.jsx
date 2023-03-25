@@ -136,16 +136,16 @@ export function Header() {
   useEffect(() => {
     try {
       const fechPublic = async () => {
-        if (session && session != null) {
-          const dataCart = await cartApi.getAllCart();
-          setData(dataCart);
-        }
+        const dataCart = await cartApi.getAllCart();
+        setData(dataCart);
       };
       fechPublic();
     } catch (error) {
       console.log("Error");
     }
-  }, [data]);
+  }, [true]);
+
+  console.log(data?.results?.length);
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {

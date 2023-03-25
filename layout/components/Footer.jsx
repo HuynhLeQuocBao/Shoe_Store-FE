@@ -10,21 +10,19 @@ import Link from "next/link";
 
 export function FooterTitle({ mainTitle, titlesArr = [] }, link) {
   return (
-    <div className="flex flex-col md:px-5 xl:px-10 uppercase">
-      <div className="mb-3 md:mb-5">
+    <div className="flex flex-col md:px-5 xl:px-10">
+      <div className="mb-3 md:mb-5 uppercase">
         <h4 className="font-Rokkitt whitespace-nowrap text-base text-white font-semibold">
           {mainTitle}
         </h4>
       </div>
-      <div className="">
+      <div>
         {titlesArr.map((title) => (
           <div
             key={title}
             className="font-Rokkitt text-sm text-white font-light text-left mb-2"
           >
-            <Link href={link}>
-              <div>{title}</div>
-            </Link>
+            <div>{title}</div>
           </div>
         ))}
       </div>
@@ -66,20 +64,18 @@ export function Footer() {
     {
       mainTitle: "Contact Information",
       subTitle: [
-        "291 South 21th Street",
-        "Suite 721 New York NY 10016",
-        "+ 1235 2355 98",
-        "info@yoursite.com",
-        "yoursite.com",
+        "273 An Duong Vuong Street, Ward 3, District 5, Ho Chi Minh City, Vietnam",
+        "+84 937 192 146",
+        "huynhlequocbao2001@gmail.com",
       ],
       link: "/contact",
     },
   ];
 
   return (
-    <footer className="px-4 md:px-0 bg-secondary">
+    <footer className="py-10 px-4 md:px-0 bg-secondary">
       <Container>
-        <div className="flex flex-col xl:justify-center flex-wrap md:flex-row xl:flex-nowrap py-10">
+        <div className="flex flex-col xl:justify-center flex-wrap md:flex-row xl:flex-nowrap">
           <div className="flex flex-col mb-10 md:px-5 xl:px-10">
             <div className="mb-3 md:mb-5">
               <h4 className="font-Rokkitt whitespace-nowrap text-base text-white md:text-base font-semibold">
@@ -93,16 +89,28 @@ export function Footer() {
               </p>
             </div>
             <div className="flex items-center space-x-4 mb-2">
-              <a href="#">
+              <a
+                href="https://www.facebook.com/profile.php?id=100091295227477"
+                target="_blank"
+              >
                 <FaTwitter className="text-white" />
               </a>
-              <a href="#">
+              <a
+                href="https://www.facebook.com/profile.php?id=100091295227477"
+                target="_blank"
+              >
                 <FaFacebookF className="text-white" />
               </a>
-              <a href="#">
+              <a
+                href="https://www.facebook.com/profile.php?id=100091295227477"
+                target="_blank"
+              >
                 <FaLinkedin className="text-white" />
               </a>
-              <a href="#">
+              <a
+                href="https://www.facebook.com/profile.php?id=100091295227477"
+                target="_blank"
+              >
                 <FaInstagram className="text-white" />
               </a>
             </div>

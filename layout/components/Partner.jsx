@@ -33,8 +33,8 @@ export function Partner() {
 
   return (
     <Container>
-      <div className="py-10">
-        <div className="text-xl pb-20 text-center text-[#0000004D] font-Rokkitt font-semibold">
+      <div className="py-14">
+        <div className="text-xl pb-10 text-center text-[#0000004D] font-Rokkitt font-semibold">
           <p>TRUSTED PARTNERS</p>
         </div>
         <div className="flex items-center justify-center md:flex-col">
