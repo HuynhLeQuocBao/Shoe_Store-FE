@@ -44,7 +44,6 @@ function MenuIconCloseSVG() {
   return <img src="images/svg/close.svg" />;
 }
 
-
 function MobileNavigation({ cartLength, ShowModal }) {
   const router = useRouter();
   const { data: session } = useSession();
@@ -92,7 +91,10 @@ function MobileNavigation({ cartLength, ShowModal }) {
                   </li>
                 ))}
                 <li onClick={close}>
-                  <Link href={session ? "/shopping-cart" : "/login"} className="cursor-pointer">
+                  <Link
+                    href={session ? "/shopping-cart" : "/login"}
+                    className="cursor-pointer"
+                  >
                     <div className="flex flex-row  text-white md:text-black font-Rokkitt font-normal hover:text-primary focus:text-primary">
                       <div className="text-2xl">
                         <FaShoppingCart />
@@ -102,7 +104,7 @@ function MobileNavigation({ cartLength, ShowModal }) {
                     </div>
                   </Link>
                 </li>
-                <li >
+                <li>
                   <MenuProfile ShowModal={ShowModal} />
                 </li>
               </Popover.Panel>
@@ -121,7 +123,7 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
-  console.log(session)
+  console.log(session);
   const {
     register,
     control,
@@ -145,19 +147,19 @@ export function Header() {
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
-    console.log(value)
+    console.log(value);
     try {
       const fechPublic = async () => {
         const dataProduct = await productApi.searchProducts(value.search);
-        console.log(dataProduct)
+        console.log(dataProduct);
         // console.log('dataProduct', router.query.slug)
       };
       fechPublic();
     } catch (error) {
       console.log("Error");
     }
-    router.push(`/search-product/${value.search}`)
-  }
+    router.push(`/search-product/${value.search}`);
+  };
   return (
     <header
       className={clsx("md:sticky z-50 top-0 bg-white", {
@@ -165,14 +167,17 @@ export function Header() {
       })}
     >
       <Container>
-        <div className="flex flex-col md:justify-evenly md:h-[120px] ">
+        <div className="flex flex-col md:justify-evenly md:h-[120px]">
           <div className="flex flex-col mx-4 md:mx-0 md:flex-row md:justify-between">
             <div className="">
-              <div className="mb-5 flex flex-row items-center justify-between md:mb-0" >
+              <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
                 <a href="/" className="text-secondary text-4xl font-bold">
                   Footwear
                 </a>
-                <MobileNavigation cartLength={data?.results?.length} ShowModal={ShowModal} />
+                <MobileNavigation
+                  cartLength={data?.results?.length}
+                  ShowModal={ShowModal}
+                />
               </div>
             </div>
             <div className="mb-5 md:mb-0">
@@ -188,7 +193,10 @@ export function Header() {
                         className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
                         {...register("search")}
                       />
-                      <button type="submit" className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary">
+                      <button
+                        type="submit"
+                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                      >
                         <div className="text-2xl flex items-center justify-center">
                           <MdSearch />
                         </div>
@@ -231,6 +239,7 @@ export function Header() {
           </div>
         </div>
       </Container>
+      <div className="border-b-2"></div>
     </header>
   );
 }
