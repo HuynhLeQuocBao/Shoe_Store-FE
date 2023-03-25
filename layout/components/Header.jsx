@@ -37,7 +37,7 @@ const navigation = [
 ];
 
 function MenuIconSVG() {
-  return <img src="images/svg/menu-unfold-one.svg" />;
+  return <img src="images/svg/menu-unfold-one.svg" alt="button mobile" />;
 }
 
 function MenuIconCloseSVG() {

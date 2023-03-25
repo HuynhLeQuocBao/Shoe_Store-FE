@@ -29,6 +29,7 @@ export function Banner() {
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner1.jpg"
+            alt="banner1"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
             <motion.div
@@ -59,6 +60,7 @@ export function Banner() {
           <img
             className="w-full h-full object-cover "
             src="/images/banner/banner2.jpg"
+            alt="banner2"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
             <motion.div
@@ -89,6 +91,7 @@ export function Banner() {
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner3.jpg"
+            alt="banner3"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
             <motion.div
