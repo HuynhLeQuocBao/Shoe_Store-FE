@@ -102,20 +102,21 @@ export function ProductDetail() {
   return (
     <Container>
       <ToastContainer />
-      <div className="grid grid-cols-1 xl:grid-cols-8 md:gap-12 mx-6 md:mx-0 py-24">
-        <div className="mb-8 col-span-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
+        <div className="mb-8 col-span-1">
           <Slider {...settings}>
             {data?.arrayImage?.map((item, index) => (
-              <div key={index} className="w-full">
-                <Image
+              <div key={index} className="w-full h-96">
+                <img
                   className="w-full h-full object-cover"
                   src={`https://shoestore-backend-0uam.onrender.com/upload/${item?.filename}`}
+                  alt="product details"
                 />
               </div>
             ))}
           </Slider>
         </div>
-        <div className="col-span-3">
+        <div className="col-span-1">
           {
             <div className="flex flex-col justify-between">
               <h2 className="mb-4 text-xl font-semibold">{data.name}</h2>
