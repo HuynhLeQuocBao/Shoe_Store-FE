@@ -132,17 +132,20 @@ export function Header() {
   } = useForm({
     mode: "onChange",
   });
+
   useEffect(() => {
     try {
       const fechPublic = async () => {
-        const dataCart = await cartApi.getAllCart();
-        setData(dataCart);
+        if (session && session != null) {
+          const dataCart = await cartApi.getAllCart();
+          setData(dataCart);
+        }
       };
       fechPublic();
     } catch (error) {
       console.log("Error");
     }
-  }, [true]);
+  }, [data]);
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
