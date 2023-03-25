@@ -123,7 +123,6 @@ export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [data, setData] = useState([]);
-  console.log(session);
   const {
     register,
     control,
@@ -147,18 +146,19 @@ export function Header() {
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
-    console.log(value);
     try {
       const fechPublic = async () => {
         const dataProduct = await productApi.searchProducts(value.search);
-        console.log(dataProduct);
-        // console.log('dataProduct', router.query.slug)
       };
       fechPublic();
     } catch (error) {
       console.log("Error");
     }
-    router.push(`/search-product/${value.search}`);
+    if (value.search) {
+      router.push(`/search-product/${value.search}`);
+    } else {
+      router.push("/");
+    }
   };
   return (
     <header

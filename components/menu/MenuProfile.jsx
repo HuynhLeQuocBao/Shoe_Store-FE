@@ -8,8 +8,6 @@ import { FaUserAlt } from "react-icons/fa";
 export function MenuProfile() {
   const { data: session } = useSession();
 
-  console.log(session);
-
   return (
     <Menu as="div" className="relative">
       <div className="flex items-center space-x-2 justify-center lg:justify-start cursor-pointer">
