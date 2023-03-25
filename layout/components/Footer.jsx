@@ -72,6 +72,25 @@ export function Footer() {
     },
   ];
 
+  const socials = [
+    {
+      logo: <FaTwitter />,
+      link: "https://www.facebook.com/profile.php?id=100091295227477",
+    },
+    {
+      logo: <FaFacebookF />,
+      link: "https://www.facebook.com/profile.php?id=100091295227477",
+    },
+    {
+      logo: <FaLinkedin />,
+      link: "https://www.facebook.com/profile.php?id=100091295227477",
+    },
+    {
+      logo: <FaInstagram />,
+      link: "https://www.facebook.com/profile.php?id=100091295227477",
+    },
+  ];
+
   return (
     <footer className="py-10 px-4 md:px-0 bg-secondary">
       <Container>
@@ -89,30 +108,13 @@ export function Footer() {
               </p>
             </div>
             <div className="flex items-center space-x-4 mb-2">
-              <a
-                href="https://www.facebook.com/profile.php?id=100091295227477"
-                target="_blank"
-              >
-                <FaTwitter className="text-white" />
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=100091295227477"
-                target="_blank"
-              >
-                <FaFacebookF className="text-white" />
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=100091295227477"
-                target="_blank"
-              >
-                <FaLinkedin className="text-white" />
-              </a>
-              <a
-                href="https://www.facebook.com/profile.php?id=100091295227477"
-                target="_blank"
-              >
-                <FaInstagram className="text-white" />
-              </a>
+              {socials.map((item) => (
+                <>
+                  <a className="text-white" key={item} href={item.link}>
+                    {item.logo}
+                  </a>
+                </>
+              ))}
             </div>
           </div>
           {titles.map((title, index) => (

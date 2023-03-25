@@ -45,7 +45,7 @@ export function ContactSection() {
               className="max-w-[300px] flex items-center text-base test-[#595959] font-light mb-2 md:mb-0 hover:text-primary"
             >
               <div className="h-5 w-5">{item.icon}</div>
-              <a className="ml-2" href={item.link} target="_blank">
+              <a className="ml-2" href={item.link}>
                 {item.content}
               </a>
             </div>
