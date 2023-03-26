@@ -166,7 +166,7 @@ export function Header() {
   };
   return (
     <header
-      className={clsx("sticky z-50 top-0 bg-white", {
+      className={clsx("sticky z-50 top-0 bg-white shadow-header-line", {
         "md:shadow-lg": isScrolled,
       })}
     >
@@ -248,7 +248,6 @@ export function Header() {
           </div>
         </div>
       </div>
-      <div className="border-b-2"></div>
     </header>
   );
 }

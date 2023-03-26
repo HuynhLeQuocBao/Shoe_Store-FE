@@ -174,3 +174,45 @@ input[type="number"] {
   transition: all 0.5s;
   transform: scale(1.07);
 }
+
+.hover-child-2 {
+  opacity: 0;
+}
+
+.hover-parent:hover .hover-child-1 {
+  opacity: 0.3;
+}
+
+.hover-parent:hover .hover-child-2 {
+  opacity: 1;
+}
+
+.icon-cart::after {
+  content: "Add to cart";
+  background-color: #ccc;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: -30px;
+  font-size:12px;
+  padding: 3px 5px;
+  width: max-content;
+  font-weight: bold;
+  background-color: #88c8bc;
+  border-radius: 5px;
+}
+
+.icon-compare::after {
+  content: "Compare";
+  background-color: #ccc;
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0);
+  top: -30px;
+  font-size:12px;
+  padding: 3px 5px;
+  width: max-content;
+  font-weight: bold;
+  background-color: #88c8bc;
+  border-radius: 5px;
+}
