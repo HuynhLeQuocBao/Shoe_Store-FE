@@ -9,7 +9,7 @@ export function MainLayout({ children }) {
       <main>{children}</main>
       <ScrollToTop
         smooth
-        className="!rounded-[50%]"
+        className="rounded-full z-50 fixed bottom-5"
         component={<BackToTop />}
       />
       <FacebookMessenger />

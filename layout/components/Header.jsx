@@ -50,10 +50,10 @@ function MobileNavigation({ cartLength, ShowModal }) {
   const { data: session } = useSession();
 
   return (
-    <Popover className="ml-auto md:hidden z-[9999]">
+    <Popover className="lg:hidden z-[9998] flex items-center justify-center">
       {({ open, close }) => (
         <>
-          <Popover.Button className="relative z-30 flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl">
+          <Popover.Button className="relative z-[9999] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl">
             <span className="sr-only">Toggle Navigation</span>
             {open ? <MenuIconCloseSVG /> : <MenuIconSVG />}
           </Popover.Button>
@@ -105,7 +105,7 @@ function MobileNavigation({ cartLength, ShowModal }) {
                     </div>
                   </Link>
                 </li>
-                <li>
+                <li onClick={close} className="md:hidden">
                   <MenuProfile ShowModal={ShowModal} />
                 </li>
               </Popover.Panel>
@@ -166,56 +166,57 @@ export function Header() {
   };
   return (
     <header
-      className={clsx("md:sticky z-50 top-0 bg-white", {
+      className={clsx("sticky z-50 top-0 bg-white", {
         "md:shadow-lg": isScrolled,
       })}
     >
-      <Container>
-        <div className="flex flex-col md:justify-evenly md:h-[120px]">
-          <div className="flex flex-col mx-4 md:mx-0 md:flex-row md:justify-between">
-            <div className="">
-              <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
-                <a href="/" className="text-secondary text-4xl font-bold">
-                  <Image src={logo} objectFit="fill" />
-                </a>
-                <MobileNavigation
-                  cartLength={data?.results?.length}
-                  ShowModal={ShowModal}
-                />
-              </div>
-            </div>
-            <div className="mb-5 md:mb-0 flex items-center">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <Controller
-                  control={control}
-                  name="search"
-                  render={({ field }) => (
-                    <div className="flex relative">
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
-                        {...register("search")}
-                      />
-                      <button
-                        type="submit"
-                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
-                      >
-                        <div className="text-2xl flex items-center justify-center">
-                          <MdSearch />
-                        </div>
-                      </button>
-                    </div>
-                  )}
-                />
-              </form>
+      <div className="flex flex-col md:justify-evenly md:h-[80px]">
+        <div className="flex flex-col mx-4 md:mx-0 md:flex-row md:justify-between">
+          <div className="mb-5 flex flex-row items-center justify-between md:mb-0 xl:ml-28">
+            <a
+              href="/"
+              className="text-secondary text-4xl font-bold h-full w-[130px]"
+            >
+              <Image src={logo} width={130} height={70} />
+            </a>
+            <div className="flex items-center justify-between md:hidden">
+              <MobileNavigation
+                cartLength={data?.results?.length}
+                ShowModal={ShowModal}
+              />
             </div>
           </div>
+          <div className="mb-5 md:mb-0 flex items-center md:w-[308px] xl:w-[450px]">
+            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+              <Controller
+                control={control}
+                name="search"
+                render={({ field }) => (
+                  <div className="flex relative">
+                    <input
+                      type="text"
+                      placeholder="Search"
+                      className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
+                      {...register("search")}
+                    />
+                    <button
+                      type="submit"
+                      className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                    >
+                      <div className="text-2xl flex items-center justify-center">
+                        <MdSearch />
+                      </div>
+                    </button>
+                  </div>
+                )}
+              />
+            </form>
+          </div>
 
-          <div className="hidden font-Rokkitt md:flex md:flex-row md:justify-between">
+          <div className="hidden font-Rokkitt lg:flex md:flex-row md:justify-between">
             <ul className="flex flex-row items-center">
               {navigation.map((item) => (
-                <li key={item.name} className="my-2 mr-8">
+                <li key={item.name} className="mx-2 text-base">
                   <MenuItem
                     href={item.href}
                     name={item.name}
@@ -223,26 +224,30 @@ export function Header() {
                   />
                 </li>
               ))}
-            </ul>
-            <ul className="flex items-center my-2 mr-3">
               <li className="my-2 mr-8">
                 <Link href={session ? "/shopping-cart" : "/login"}>
                   <div className="flex flex-row cursor-pointer text-black hover:text-primary focus:text-primary">
-                    <div className="m-auto text-2xl">
-                      <FaShoppingCart />
-                    </div>
                     <p className="mx-2">CART</p>
                     <p>[{data?.results?.length || 0}]</p>
                   </div>
                 </Link>
               </li>
-              <li>
+              <li className="flex mr-3 xl:mr-8 md:hidden lg:flex">
                 <MenuProfile ShowModal={ShowModal} />
               </li>
             </ul>
           </div>
+
+          <div className="hidden mr-3 md:flex md:items-center md:justify-between lg:hidden">
+            <MenuProfile ShowModal={ShowModal} />
+            <div className="mx-3"></div>
+            <MobileNavigation
+              cartLength={data?.results?.length}
+              ShowModal={ShowModal}
+            />
+          </div>
         </div>
-      </Container>
+      </div>
       <div className="border-b-2"></div>
     </header>
   );
