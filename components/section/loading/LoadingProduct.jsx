@@ -9,7 +9,7 @@ const LoadingProduct = ({ numberOfCards, className }) => {
   return (
     <>
       {data.map((item) => (
-        <span className={`${className} loader`}></span>
+        <span key={item} className={`${className} loader`}></span>
       ))}
     </>
   );
