@@ -12,7 +12,8 @@ import { MdSearch } from "react-icons/md";
 import { cartApi } from "@/apiClient/cartAPI";
 import { productApi } from "@/apiClient/product";
 import { useForm, Controller } from "react-hook-form";
-
+import Image from "next/image";
+import logo from "../../public/images/logo/logo.png";
 const navigation = [
   {
     name: "HOME",
@@ -175,7 +176,7 @@ export function Header() {
             <div className="">
               <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
                 <a href="/" className="text-secondary text-4xl font-bold">
-                  Footwear
+                  <Image src={logo} objectFit="fill" />
                 </a>
                 <MobileNavigation
                   cartLength={data?.results?.length}
@@ -183,7 +184,7 @@ export function Header() {
                 />
               </div>
             </div>
-            <div className="mb-5 md:mb-0">
+            <div className="mb-5 md:mb-0 flex items-center">
               <form onSubmit={handleSubmit(onSubmit)}>
                 <Controller
                   control={control}
