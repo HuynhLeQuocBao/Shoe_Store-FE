@@ -180,14 +180,15 @@ input[type="number"] {
 }
 
 .hover-parent:hover .hover-child-1 {
-  opacity: 0.3;
+  opacity: 0.5;
+  transition: all 0.5s;
 }
 
 .hover-parent:hover .hover-child-2 {
   opacity: 1;
 }
 
-.icon-cart::after {
+.icon-cart-details {
   content: "Add to cart";
   background-color: #ccc;
   position: absolute;
@@ -200,9 +201,14 @@ input[type="number"] {
   font-weight: bold;
   background-color: #88c8bc;
   border-radius: 5px;
+  opacity: 0;
 }
 
-.icon-compare::after {
+.icon-cart:hover .icon-cart-details {
+  opacity: 1;
+}
+
+.icon-compare-details {
   content: "Compare";
   background-color: #ccc;
   position: absolute;
@@ -215,4 +221,9 @@ input[type="number"] {
   font-weight: bold;
   background-color: #88c8bc;
   border-radius: 5px;
+  opacity: 0;
+}
+
+.icon-compare:hover .icon-compare-details {
+  opacity: 1;
 }

@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Menu, Transition } from "@headlessui/react";
-import { FaUserAlt } from "react-icons/fa";
 
 export function MenuProfile() {
   const { data: session } = useSession();
@@ -15,7 +14,7 @@ export function MenuProfile() {
           {!session ? (
             <Link href="/login">
               <div className="flex items-center text-base">
-                <span className="mx-2">SIGN IN</span>
+                <span className="mx-2">LOG IN</span>
               </div>
             </Link>
           ) : (

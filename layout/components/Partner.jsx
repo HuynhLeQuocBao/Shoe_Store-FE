@@ -1,47 +1,73 @@
-/* eslint-disable @next/next/no-img-element */
+import Slider from "react-slick";
 import { Container } from "@/components/common/index";
 
-export function PartnerImage({ images = [] }) {
-  return (
-    <div className="items-center text-center inline-flex flex-col">
-      <div className="flex flex-row flex-wrap items-center justify-center xl:flex-nowrap space-8">
-        {images.map((image) => (
-          <div
-            key={image}
-            className="w-[204px] h-[130px] relative flex items-center justify-center"
-          >
-            <img src={`/images/brand/${image}`} alt="" className="w-full" />
-          </div>
-        ))}
-      </div>
-    </div>
-  );
-}
-
 export function Partner() {
+  const settings = {
+    dots: false,
+    infinite: true,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+    autoplay: true,
+    speed: 2000,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
+
   const images = [
-    {
-      images: [
-        "brand-1.jpg",
-        "brand-4.jpg",
-        "brand-3.jpg",
-        "brand-5.jpg",
-        "brand-2.jpg",
-      ],
-    },
+    "brand-1.jpg",
+    "brand-2.jpg",
+    "brand-3.jpg",
+    "brand-4.jpg",
+    "brand-5.jpg",
+    "brand-6.png",
+    "brand-7.png",
   ];
 
   return (
     <Container>
-      <div className="py-14">
+      <div className="py-14 overflow-x-hidden">
         <div className="text-xl pb-10 text-center text-[#0000004D] font-Rokkitt font-semibold">
           <p>TRUSTED PARTNERS</p>
         </div>
-        <div className="flex items-center justify-center md:flex-col">
+        {/* <div className="flex flex-col items-center justify-center md:flex-row"> */}
+        <Slider {...settings}>
           {images.map((image, index) => (
-            <PartnerImage key={index} images={image.images} />
+            <div
+              key={index}
+              className="w-[204px] h-[130px] relative flex items-center justify-center"
+            >
+              <img
+                src={`/images/brand/${image}`}
+                alt={image}
+                className="w-full"
+              />
+            </div>
           ))}
-        </div>
+        </Slider>
+        {/* </div> */}
       </div>
     </Container>
   );
