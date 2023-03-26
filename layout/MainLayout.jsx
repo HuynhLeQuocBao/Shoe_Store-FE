@@ -1,5 +1,6 @@
 import { Header, Footer, BackToTop, Partner } from "./components";
 import ScrollToTop from "react-scroll-to-top";
+import FacebookMessenger from "utils/FacebookMessenger";
 export function MainLayout({ children }) {
   return (
     <div>
@@ -8,9 +9,10 @@ export function MainLayout({ children }) {
       <main>{children}</main>
       <ScrollToTop
         smooth
-        className='!rounded-[50%]'
+        className="!rounded-[50%]"
         component={<BackToTop />}
       />
+      <FacebookMessenger />
       <Partner />
       <Footer />
     </div>
