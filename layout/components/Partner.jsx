@@ -9,8 +9,6 @@ export function Partner() {
     slidesToScroll: 1,
     autoplay: true,
     speed: 2000,
-    autoplaySpeed: 2000,
-    cssEase: "linear",
     responsive: [
       {
         breakpoint: 1024,
