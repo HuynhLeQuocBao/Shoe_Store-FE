@@ -7,6 +7,8 @@ import Slider from "react-slick";
 import { useSession } from "next-auth/react";
 import { cartApi } from "@/apiClient/cartAPI";
 import { ToastContainer, toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addToCartStore } from "../../../store/features/cartSlice";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -18,7 +20,7 @@ export function ProductDetail() {
   const { data: session } = useSession();
   const router = useRouter();
   const productId = router.query.slug;
-
+  const dispatch = useDispatch();
   const settings = {
     dots: true,
     arrows: false,
@@ -63,13 +65,21 @@ export function ProductDetail() {
             quantity: quantity,
             size: size,
           });
+
           if (result) {
             toast.success("Success Add to Cart !", {
               position: toast.POSITION.TOP_RIGHT,
             });
-            setTimeout(() => {
-              router.reload(window.location.pathname);
-            }, 100);
+            dispatch(
+              addToCartStore({
+                product: result.product,
+                quantity,
+                size: result.cart.size,
+              })
+            );
+            // setTimeout(() => {
+            //   router.reload(window.location.pathname);
+            // }, 100);
           }
         } catch (error) {
           toast.error(error, {

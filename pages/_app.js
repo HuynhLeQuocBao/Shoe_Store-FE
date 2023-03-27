@@ -8,6 +8,9 @@ import { MainLayout } from "@/layout/index";
 import axiosClient from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
+import { store, persistor } from "../store/store";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
 
 function MyApp(props) {
   const { Component, pageProps, session } = props;
@@ -43,9 +46,13 @@ function MyApp(props) {
       >
         <SessionProvider session={session}>
           <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <Provider store={store}>
+              <PersistGate loading={null} persistor={persistor}>
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </PersistGate>
+            </Provider>
           </AnimatePresence>
         </SessionProvider>
       </SWRConfig>

@@ -14,6 +14,8 @@ import { productApi } from "@/apiClient/product";
 import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCartStore, doGetCartList } from "store/features/cartSlice";
 const navigation = [
   {
     name: "HOME",
@@ -123,7 +125,10 @@ export function Header() {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const [quantityCart, setQuantityCart] = useState(0);
   const [data, setData] = useState([]);
+  const quantity = useSelector((state) => state.cart.quantity);
+  const dispatch = useDispatch();
   const {
     register,
     control,
@@ -135,18 +140,28 @@ export function Header() {
   });
 
   useEffect(() => {
-    try {
-      const fechPublic = async () => {
-        const dataCart = await cartApi.getAllCart();
-        setData(dataCart);
-      };
-      fechPublic();
-    } catch (error) {
-      console.log("Error");
-    }
-  }, [true]);
-
-  console.log(data?.results?.length);
+    const fetchGetCart = async () => {
+      try {
+        const result = await cartApi.getAllCart();
+        if (quantity === 0) {
+          result.results.map((product) => {
+            dispatch(
+              addToCartStore({
+                product,
+                quantity: product.quantity,
+                size: parseInt(product.size),
+              })
+            );
+          });
+        }
+        setData(result.results);
+      } catch (error) {}
+    };
+    fetchGetCart();
+  }, []);
+  useEffect(() => {
+    setQuantityCart(quantity);
+  }, [quantity]);
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
@@ -228,7 +243,11 @@ export function Header() {
                 <Link href={session ? "/shopping-cart" : "/login"}>
                   <div className="flex flex-row cursor-pointer text-black hover:text-primary focus:text-primary">
                     <p className="mx-2">CART</p>
-                    <p>[{data?.results?.length || 0}]</p>
+                    {quantityCart > 0 ? (
+                      <p>{quantityCart}</p>
+                    ) : (
+                      <p>{data?.length}</p>
+                    )}
                   </div>
                 </Link>
               </li>
@@ -241,10 +260,7 @@ export function Header() {
           <div className="hidden mr-3 md:flex md:items-center md:justify-between lg:hidden">
             <MenuProfile ShowModal={ShowModal} />
             <div className="mx-3"></div>
-            <MobileNavigation
-              cartLength={data?.results?.length}
-              ShowModal={ShowModal}
-            />
+            <MobileNavigation cartLength={quantityCart} ShowModal={ShowModal} />
           </div>
         </div>
       </div>
