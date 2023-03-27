@@ -47,7 +47,7 @@ export function Breadcum() {
     },
     {
       name: "Compare",
-      href: "/compare",
+      href: "/compare/[...slug]",
     },
   ];
   return (
