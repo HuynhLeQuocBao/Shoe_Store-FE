@@ -158,7 +158,7 @@ export function Header() {
       } catch (error) {}
     };
     fetchGetCart();
-  }, []);
+  }, [session]);
   useEffect(() => {
     setQuantityCart(quantity);
   }, [quantity]);
@@ -243,7 +243,7 @@ export function Header() {
                 <Link href={session ? "/shopping-cart" : "/login"}>
                   <div className="flex flex-row cursor-pointer text-black hover:text-primary focus:text-primary">
                     <p className="mx-2">CART</p>
-                    {quantityCart > 0 ? (
+                    {quantityCart > 0 && session ? (
                       <p>{quantityCart}</p>
                     ) : (
                       <p>{data?.length}</p>
