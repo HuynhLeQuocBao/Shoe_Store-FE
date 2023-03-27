@@ -115,7 +115,7 @@ export function ProductDetail() {
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
         <div className="mb-8 col-span-1">
           <Slider {...settings}>
-            {data?.arrayImage?.map((item, index) => (
+            {data?.shoeDetail?.arrayImage?.map((item, index) => (
               <div key={index} className="w-full h-96">
                 <img
                   className="w-full h-full object-cover"
@@ -129,17 +129,19 @@ export function ProductDetail() {
         <div className="col-span-1">
           {
             <div className="flex flex-col justify-between">
-              <h2 className="mb-4 text-xl font-semibold">{data.name}</h2>
+              <h2 className="mb-4 text-xl font-semibold">
+                {data?.shoeDetail?.name}
+              </h2>
               <h3 className="mb-2 text-lg">
-                ${parseFloat(data.price).toFixed(2)}
+                ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
               </h3>
               <h3 className="mb-4 text-xs">RATING</h3>
               <p className="text-sm text-secondary font-light text-justify">
-                {data.introduce}
+                {data?.shoeDetail?.introduce}
               </p>
               <div className="w-full mt-4 mb-8">
                 <h3 className="pb-2">SIZE</h3>
-                {sizes.map((item, index) => (
+                {data?.listCateSize?.map((item, index) => (
                   <button
                     onClick={() => setSize(item)}
                     className={`w-10 h-10 mr-1 mb-1 hover:bg-primary rounded-sm  text-white cursor-pointer ${
