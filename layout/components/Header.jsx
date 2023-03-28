@@ -15,7 +15,7 @@ import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCartStore, doGetCartList } from "store/features/cartSlice";
+import { getDataFromCartApi, resetCart } from "store/features/cartSlice";
 const navigation = [
   {
     name: "HOME",
@@ -125,7 +125,7 @@ export function Header() {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [quantityCart, setQuantityCart] = useState(0);
+  const [flag, setFlag] = useState(false);
   const [data, setData] = useState([]);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
@@ -139,29 +139,35 @@ export function Header() {
     mode: "onChange",
   });
 
+  // useEffect(() => {
+  //   fetchGetCart();
+  //   console.log(1);
+  // }, []);
   useEffect(() => {
+    if (quantity > 0 && !session) {
+      dispatch(resetCart());
+    }
     const fetchGetCart = async () => {
       try {
         const result = await cartApi.getAllCart();
-        if (quantity === 0) {
-          result.results.map((product) => {
+        if (quantity === 0 && session?.user) {
+          dispatch(resetCart());
+          result.results.map((cartItem) => {
             dispatch(
-              addToCartStore({
-                product,
-                quantity: product.quantity,
-                size: parseInt(product.size),
+              getDataFromCartApi({
+                cartItem,
+                total: result.totalCart,
               })
             );
           });
         }
-        setData(result.results);
       } catch (error) {}
     };
     fetchGetCart();
   }, [session]);
-  useEffect(() => {
-    setQuantityCart(quantity);
-  }, [quantity]);
+  // useEffect(() => {
+  //   setQuantityCart(quantity);
+  // }, [quantity]);
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
@@ -195,10 +201,7 @@ export function Header() {
               <Image src={logo} width={130} height={70} />
             </a>
             <div className="flex items-center justify-between md:hidden">
-              <MobileNavigation
-                cartLength={data?.results?.length}
-                ShowModal={ShowModal}
-              />
+              <MobileNavigation cartLength={quantity} ShowModal={ShowModal} />
             </div>
           </div>
           <div className="mb-5 md:mb-0 flex items-center md:w-[308px] xl:w-[450px]">
@@ -243,11 +246,7 @@ export function Header() {
                 <Link href={session ? "/shopping-cart" : "/login"}>
                   <div className="flex flex-row cursor-pointer text-black hover:text-primary focus:text-primary">
                     <p className="mx-2">CART</p>
-                    {quantityCart > 0 && session ? (
-                      <p>{quantityCart}</p>
-                    ) : (
-                      <p>{data?.length}</p>
-                    )}
+                    {quantity > 0 && session?.user && <p>{quantity}</p>}
                   </div>
                 </Link>
               </li>
@@ -260,7 +259,10 @@ export function Header() {
           <div className="hidden mr-3 md:flex md:items-center md:justify-between lg:hidden">
             <MenuProfile ShowModal={ShowModal} />
             <div className="mx-3"></div>
-            <MobileNavigation cartLength={quantityCart} ShowModal={ShowModal} />
+            <MobileNavigation
+              cartLength={quantity > 0 && session?.user ? quantity : null}
+              ShowModal={ShowModal}
+            />
           </div>
         </div>
       </div>

@@ -41,7 +41,6 @@ export function Login() {
 
   return (
     <Container>
-      <ToastContainer />
       <div className="mx-4 md:mx-0 font-Rokkitt flex flex-col items-center">
         <div className="text-4xl font-bold text-center w-1/2">
           <h2>Log in</h2>

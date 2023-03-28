@@ -6,44 +6,78 @@ import { useState, useEffect } from "react";
 import { FormQuantity } from "./FormQuantity";
 import Link from "next/link";
 import { ProgressCart } from "./ProgressCart";
-import { HiOutlineX } from "react-icons/hi";
+import { HiMinusSm, HiOutlineX, HiPlusSm } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import { toast } from "react-toastify";
+import {
+  decreaseCartQuantity,
+  deleteProductFormCart,
+  increaseCartQuantity,
+} from "store/features/cartSlice";
+import LoadingPage from "../loading/LoadingPage";
 
 export function ShoppingCart() {
-  const [dataCart, setDataCart] = useState([]);
-  const [checkDelete, setCheckDelete] = useState(false);
-  const [check, setCheck] = useState(false);
   const [totalItem, setTotalItem] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
-  useEffect(() => {
-    try {
-      const fetchCart = async () => {
-        const data = await cartApi.getAllCart();
-        setDataCart(data?.results);
-        setSubTotal(data?.totalCart);
-        // data?.results.map((item) => setTotalItem((prev) => [...prev, item.productPrice * item.quantity]))
-        setCheck(false);
-      };
-      fetchCart();
-    } catch (error) {
-      console.log("Error");
-    }
-  }, [checkDelete, check]);
+  const cartList = useSelector((state) => state.cart.products);
+  const total = useSelector((state) => state.cart.total);
+  const dispatch = useDispatch();
 
-  const handleDeleteItemCart = (id) => {
-    const fetchDeleteCart = async () => {
-      try {
-        const result = await cartApi.deleteCart(id);
-        setCheckDelete(true);
-      } catch (error) {}
-    };
-    fetchDeleteCart();
-    setCheckDelete(false);
+  const handleDeleteCartItem = async (id) => {
+    try {
+      const result = await cartApi.deleteCart(id);
+      if (result) {
+        toast.success(
+          "Product has been successfully removed from your shopping cart ",
+          {
+            position: toast.POSITION.TOP_RIGHT,
+          }
+        );
+        dispatch(deleteProductFormCart({ cartId: id }));
+      }
+    } catch (error) {}
   };
-  const updateFieldChanged = (value) => {
-    let newArr = totalItem;
-    newArr[value.index] = value.total;
-    setTotalItem(newArr);
-    setCheck(true);
+
+  const handleIncrease = async (cartId, productId, size, quantity) => {
+    try {
+      const result = await cartApi.updateCart(cartId, {
+        productId: productId,
+        quantity: quantity + 1,
+        size,
+      });
+      if (result) {
+        dispatch(
+          increaseCartQuantity({
+            productId: productId,
+            size,
+          })
+        );
+      }
+      props.onTotal(true);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const handleDecrease = async (cartId, productId, size, quantity) => {
+    if (quantity === 1) return;
+    try {
+      const result = await cartApi.updateCart(cartId, {
+        productId: productId,
+        quantity: quantity - 1,
+        size,
+      });
+      if (result) {
+        dispatch(
+          decreaseCartQuantity({
+            productId: productId,
+            size,
+          })
+        );
+      }
+      props.onTotal(true);
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <Container>
@@ -69,8 +103,9 @@ export function ShoppingCart() {
             <span>REMOVE</span>
           </div>
         </div>
-        {dataCart?.length > 0 ? (
-          dataCart.map((item, index) => {
+        {!cartList && <LoadingPage />}
+        {cartList?.length > 0 ? (
+          cartList.map((item, index) => {
             return (
               <div
                 key={index}
@@ -82,33 +117,62 @@ export function ShoppingCart() {
                     className="w-20 h-20 object-cover"
                   />
                   <div className="ml-2">
-                    <span>{item.productName}</span>
+                    <span>{item.name}</span>
                   </div>
                 </div>
                 <div className="text-center col-span-1 flex justify-center items-center">
-                  <span>${item.productPrice}</span>
+                  <span>${item.price}</span>
                 </div>
                 <div className="text-center col-span-1 flex justify-center items-center">
                   <span>{item.size}</span>
                 </div>
                 <div className="text-center col-span-2 flex justify-center items-center">
-                  <FormQuantity
-                    quantity={item.quantity}
-                    cartId={item._id}
-                    productId={item.productId}
-                    size={item.size}
-                    index={index}
-                    price={item.productPrice}
-                    onTotal={(value) => setCheck(value)}
-                  />
+                  <div>
+                    <button
+                      className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                      onClick={() =>
+                        handleDecrease(
+                          item.cartId,
+                          item.productId,
+                          item.size,
+                          item.quantityProduct
+                        )
+                      }
+                    >
+                      <div className="flex justify-center items-center">
+                        <HiMinusSm />
+                      </div>
+                    </button>
+                    <input
+                      className="w-10 h-10 text-center item-center bg-transparent"
+                      type="text"
+                      value={item.quantityProduct}
+                      disabled={true}
+                    />
+                    <button
+                      className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                      onClick={() =>
+                        handleIncrease(
+                          item.cartId,
+                          item.productId,
+                          item.size,
+                          item.quantityProduct
+                        )
+                      }
+                    >
+                      <div className="flex justify-center items-center">
+                        <HiPlusSm />
+                      </div>
+                    </button>
+                  </div>
                 </div>
                 <div className="col-span-1  text-center flex justify-center items-center">
-                  <span>${item.total}</span>
+                  <span>${item.totalProduct}</span>
                 </div>
                 <div className="text-center col-span-2 flex justify-center items-center pr-2">
                   <button
                     className="text-blue-500 hover:text-blue-800 cursor-pointer"
-                    onClick={() => handleDeleteItemCart(item._id)}
+                    onClick={() => handleDeleteCartItem(item.cartId)}
                   >
                     <div className="w-8 h-8 border border-2 border-[#c5c3c3] shadow-lg font-bold hover:bg-red-500 hover:text-white flex justify-center items-center duration-500 rounded-full">
                       <HiOutlineX />
@@ -125,8 +189,8 @@ export function ShoppingCart() {
         )}
       </div>
       <div className="w-full px-4 my-32 md:hidden">
-        {dataCart?.length > 0 ? (
-          dataCart.map((item, index) => {
+        {cartList?.length > 0 ? (
+          cartList.map((item, index) => {
             return (
               <div
                 key={index}
@@ -141,30 +205,62 @@ export function ShoppingCart() {
 
                 <div className="col-span-6 px-2">
                   <div className="w-full font-bold ">
-                    <span>Name: {item.productName}</span>
+                    <span>Name: {item.name}</span>
                   </div>
                   <div className="w-full font-bold text-red-500">
-                    <span>Price: ${item.productPrice}</span>
+                    <span>Price: ${item.price}</span>
                   </div>
                   <div className="w-full font-bold ">
                     <span>Size: {item.size}</span>
                   </div>
                   <div className="w-full">
-                    <FormQuantity
-                      quantity={item.quantity}
-                      cartId={item._id}
-                      productId={item.productId}
-                      size={item.size}
-                    />
+                    <div>
+                      <button
+                        className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                        onClick={() =>
+                          handleDecrease(
+                            item.cartId,
+                            item.productId,
+                            item.size,
+                            item.quantityProduct
+                          )
+                        }
+                      >
+                        <div className="flex justify-center items-center">
+                          <HiMinusSm />
+                        </div>
+                      </button>
+                      <input
+                        className="w-10 h-10 text-center item-center bg-transparent"
+                        type="text"
+                        value={item.quantityProduct}
+                        disabled={true}
+                      />
+                      <button
+                        className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                        onClick={() =>
+                          handleIncrease(
+                            item.cartId,
+                            item.productId,
+                            item.size,
+                            item.quantityProduct
+                          )
+                        }
+                      >
+                        <div className="flex justify-center items-center">
+                          <HiPlusSm />
+                        </div>
+                      </button>
+                    </div>
                   </div>
                   <div className="w-full font-bold">
-                    <span>Total: ${item.total}</span>
+                    <span>Total: ${item.totalProduct}</span>
                   </div>
                 </div>
                 <div className="col-span-2 flex justify-center items-center">
                   <button
                     className="w-10 h-10 cursor-pointer"
-                    onClick={() => handleDeleteItemCart(item._id)}
+                    onClick={() => handleDeleteCartItem(item.cartId)}
                   >
                     <div className="w-8 h-8 border border-2 border-[#c5c3c3] shadow-lg font-bold hover:bg-red-500 hover:text-white flex justify-center items-center duration-500 rounded-full">
                       <HiOutlineX />
@@ -195,7 +291,7 @@ export function ShoppingCart() {
             <div className="border border-[0.5px] border-[#898787] w-full"></div>
             <div className="w-full mb-2 flex">
               <span className="w-[30%] flex justify-end">Total: </span>
-              <p className="w-[60%] pl-10">$ {subTotal}</p>
+              <p className="w-[60%] pl-10">$ {total}</p>
             </div>
           </div>
         </div>

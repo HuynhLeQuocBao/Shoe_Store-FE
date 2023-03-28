@@ -73,8 +73,7 @@ export function ProductDetail() {
             dispatch(
               addToCartStore({
                 product: result.product,
-                quantity,
-                size: result.cart.size,
+                cartItem: result.cart,
               })
             );
             // setTimeout(() => {
@@ -111,7 +110,6 @@ export function ProductDetail() {
 
   return (
     <Container>
-      <ToastContainer />
       <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
         <div className="mb-8 col-span-1">
           <Slider {...settings}>

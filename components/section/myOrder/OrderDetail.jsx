@@ -220,7 +220,6 @@ export function OrderDetail() {
           </button>
         ) : null}
       </div>
-      <ToastContainer />
     </Container>
   );
 }

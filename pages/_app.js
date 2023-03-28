@@ -11,6 +11,7 @@ import App from "next/app";
 import { store, persistor } from "../store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
+import { ToastContainer, toast } from "react-toastify";
 
 function MyApp(props) {
   const { Component, pageProps, session } = props;
@@ -49,6 +50,7 @@ function MyApp(props) {
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
                 <Layout>
+                  <ToastContainer />
                   <Component {...pageProps} />
                 </Layout>
               </PersistGate>

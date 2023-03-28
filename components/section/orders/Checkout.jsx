@@ -6,9 +6,16 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { ProgressCart } from ".";
 import { useSession } from "next-auth/react";
+import { useDispatch, useSelector } from "react-redux";
+import { resetCart } from "store/features/cartSlice";
+import { toast } from "react-toastify";
+import LoadingPage from "../loading/LoadingPage";
 
-export function Checkout() {
+export const Checkout = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const total = useSelector((state) => state.cart.total);
+  const products = useSelector((state) => state.cart.products);
   const { data: session } = useSession();
   const [data, setData] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
@@ -16,6 +23,7 @@ export function Checkout() {
   const [address, setAddress] = useState(session?.user?.address);
   const [numberphone, setNumberPhone] = useState(session?.user?.numberPhone);
   const [email, setEmail] = useState(session?.user?.email);
+  const [loading, setLoading] = useState(false);
   const {
     register,
     control,
@@ -26,21 +34,12 @@ export function Checkout() {
     mode: "onChange",
   });
   useEffect(() => {
-    try {
-      const fetchCart = async () => {
-        const dataCart = await cartApi.getAllCart();
-        setData(dataCart?.results);
-        setSubTotal(dataCart?.totalCart);
-        if (dataCart?.totalCart === 0) {
-          router.push("/shopping-cart");
-        }
-      };
-      fetchCart();
-    } catch (error) {
-      console.log("Error");
+    if (products.length === 0) {
+      router.push("/shopping-cart");
     }
   }, []);
   const onSubmit = (data) => {
+    setLoading(true);
     try {
       const fetchCheckoutCart = async () => {
         const result = await cartApi.checkoutCart({
@@ -49,22 +48,29 @@ export function Checkout() {
           numberPhone: data.numberPhone,
           email: data.email,
         });
+
         if (result) {
+          dispatch(resetCart());
           router.push("/order-complete");
-          setTimeout(() => {
-            router.reload(window.location.pathname);
-          }, 500);
         }
       };
       fetchCheckoutCart();
     } catch (error) {
-      console.log("Error", error);
+      setLoading(false);
+      toast.error(error.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
     }
   };
   return (
     <Container>
       <ProgressCart />
-      <div className=" w-full mt-32 mb-10">
+      <div className=" w-full mt-32 mb-10 relative">
+        {loading && (
+          <div className="w-full h-full flex justify-center items-center absolute bg-opacity-20 bg-slate-400 top-0 left-0">
+            <LoadingPage />
+          </div>
+        )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-12 gap-4 w-full">
             <div className="col-span-7 w-full bg-[#f5f5f5] p-4 shadow-lg rounded-lg">
@@ -160,13 +166,16 @@ export function Checkout() {
                   <span className="w-[60%]">Subtotal </span>
                   <p className="w-[40%] text-sm">$ {subTotal}</p>
                 </div>
-                {data?.map((item) => {
+                {products?.map((item) => {
                   return (
-                    <div key={item._id} className="border-b-2 my-2 w-full flex">
+                    <div
+                      key={item.cartId}
+                      className="border-b-2 my-2 w-full flex"
+                    >
                       <span className="w-[60%]">
-                        {item?.quantity}*{item?.productName}{" "}
+                        {item?.quantityProduct}*{item?.name}{" "}
                       </span>
-                      <p className="w-[40%] text-sm">$ {item?.total}</p>
+                      <p className="w-[40%] text-sm">$ {item?.totalProduct}</p>
                     </div>
                   );
                 })}
@@ -176,7 +185,7 @@ export function Checkout() {
                 </div>
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Order Total: </span>
-                  <p className="w-[40%] text-sm">{subTotal}</p>
+                  <p className="w-[40%] text-sm">{total}</p>
                 </div>
               </div>
               <div className="w-full my-1 flex justify-center items-center">
@@ -190,4 +199,4 @@ export function Checkout() {
       </div>
     </Container>
   );
-}
+};

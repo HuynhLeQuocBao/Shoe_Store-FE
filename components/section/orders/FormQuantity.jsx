@@ -2,10 +2,16 @@ import { useForm, Controller } from "react-hook-form";
 import { cartApi } from "@/apiClient/cartAPI";
 import { useState, useEffect } from "react";
 import { HiMinusSm, HiPlusSm } from "react-icons/hi";
+import { useDispatch } from "react-redux";
+import {
+  decreaseCartQuantity,
+  increaseCartQuantity,
+} from "store/features/cartSlice";
 
 export function FormQuantity({ ...props }) {
-  const [quantity, setQuantity] = useState(props.quantity);
-  const { cartId, productId, size, price, index } = props;
+  // const [quantity, setQuantity] = useState(props.quantity);
+  const { cartId, productId, size, price, quantity } = props;
+  const dispatch = useDispatch();
   const {
     register,
     control,
@@ -16,31 +22,27 @@ export function FormQuantity({ ...props }) {
     mode: "onChange",
   });
   const handleSub = () => {
-    if (quantity <= 1) {
-      setQuantity(1);
-    } else {
-      setQuantity(quantity - 1);
-    }
+    dispatch(decreaseCartQuantity({ productId, size }));
   };
   const handleAdd = () => {
-    setQuantity(quantity + 1);
+    dispatch(increaseCartQuantity({ productId, size }));
   };
-  const onSubmit = () => {
-    const fetchUpdateCart = async () => {
-      try {
-        const result = await cartApi.updateCart(cartId, {
-          productId: productId,
-          quantity: quantity,
-          size: size,
-        });
-        props.onTotal(true);
-      } catch (error) {}
-    };
-    fetchUpdateCart();
-  };
+  // const onSubmit = () => {
+  //   const fetchUpdateCart = async () => {
+  //     try {
+  //       const result = await cartApi.updateCart(cartId, {
+  //         productId: productId,
+  //         quantity: quantity,
+  //         size: size,
+  //       });
+  //       props.onTotal(true);
+  //     } catch (error) {}
+  //   };
+  //   fetchUpdateCart();
+  // };
   return (
     <>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form>
         <Controller
           control={control}
           name="quantity"
