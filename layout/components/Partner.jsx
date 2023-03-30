@@ -46,7 +46,7 @@ export function Partner() {
 
   return (
     <Container>
-      <div className="py-14 overflow-x-hidden">
+      <div className="py-14 overflow-x-hidden ">
         <div className="text-xl pb-10 text-center text-[#0000004D] font-Rokkitt font-semibold">
           <p>TRUSTED PARTNERS</p>
         </div>
