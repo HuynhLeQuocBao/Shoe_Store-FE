@@ -16,7 +16,7 @@ const ProductTwo = ({ image, name, price }) => {
           priority={true}
         />
       </div>
-      <div className="text-center font-Rokkitt text-lg">
+      <div className="text-center font-Rokkitt text-lg w-full h-[70px] text-ellipsis flex items-center justify-center">
         <p className="pb-4">{name}</p>
         {/* <p className="pb-4">{convertCurrency(price)}</p> */}
       </div>

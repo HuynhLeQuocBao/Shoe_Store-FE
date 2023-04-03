@@ -3,11 +3,9 @@ const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
   images: {
+    // domains: ["shoestore-backend-0uam.onrender.com"],
     domains: ["localhost"],
   },
-  // images: {
-  //   domains: ["http://localhost:3010"],
-  // },
 };
 
 module.exports = nextConfig;

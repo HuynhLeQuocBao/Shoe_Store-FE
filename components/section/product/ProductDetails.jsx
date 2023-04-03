@@ -76,9 +76,6 @@ export function ProductDetail() {
                 cartItem: result.cart,
               })
             );
-            // setTimeout(() => {
-            //   router.reload(window.location.pathname);
-            // }, 100);
           }
         } catch (error) {
           toast.error(error, {

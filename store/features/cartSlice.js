@@ -24,7 +24,7 @@ export const cartSlice = createSlice({
   },
   reducers: {
     resetCart: (state, action) => {
-      localStorage.removeItem("persist");
+      localStorage.removeItem("persist:root");
       state.products = [];
       state.total = 0;
       state.quantity = 0;
@@ -47,7 +47,7 @@ export const cartSlice = createSlice({
     addToCartStore: (state, action) => {
       const { product, cartItem } = action.payload;
       const index = state.products.findIndex(
-        (p) => p.productId === product._id && p.size === size
+        (p) => p.productId === product._id && p.size === parseInt(cartItem.size)
       );
       if (index === -1) {
         state.products.push({
