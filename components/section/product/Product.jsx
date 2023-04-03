@@ -16,8 +16,8 @@ export function Product({ image, name, price }) {
           priority={true}
         />
       </div>
-      <div className="text-center font-Rokkitt text-lg">
-        <p className="pb-4">{name}</p>
+      <div className="text-center flex-col font-Rokkitt text-lg w-full h-[90px] flex-center">
+        <p className="h-[60px] text-ellipsis">{name}</p>
         <p className="pb-4">{convertCurrency(price)}</p>
       </div>
     </div>

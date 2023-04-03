@@ -11,9 +11,14 @@ import { useDispatch } from "react-redux";
 import { addToCartStore } from "../../../store/features/cartSlice";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingPage from "../loading/LoadingPage";
+import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import LoadingProductDetail from "../loading/LoadingProductDetail";
 
 export function ProductDetail() {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [loadingProduct, setLoadingProduct] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState(null);
   const [content, setContent] = useState(1);
@@ -59,6 +64,7 @@ export function ProductDetail() {
           position: toast.POSITION.TOP_RIGHT,
         });
       } else {
+        setLoading(true);
         try {
           const result = await cartApi.addCart({
             productId: productId[0],
@@ -76,11 +82,13 @@ export function ProductDetail() {
                 cartItem: result.cart,
               })
             );
+            setLoading(false);
           }
         } catch (error) {
           toast.error(error, {
             position: toast.POSITION.TOP_RIGHT,
           });
+          setLoading(false);
         }
       }
     } else {
@@ -95,144 +103,160 @@ export function ProductDetail() {
 
   useEffect(() => {
     try {
+      // setLoadingProduct(true);
       const fechPublic = async () => {
         const dataProduct = await productApi.getProductById(productId);
         setData(dataProduct);
+        setLoadingProduct(false);
       };
       fechPublic();
     } catch (error) {
       console.log("Error");
+      setLoadingProduct(false);
     }
   }, []);
 
   return (
-    <Container>
-      <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
-        <div className="mb-8 col-span-1">
-          <Slider {...settings}>
-            {data?.shoeDetail?.arrayImage?.map((item, index) => (
-              <div key={index} className="w-full h-96">
-                <img
-                  className="w-full h-full object-cover"
-                  src={`http://localhost:3010/upload/${item?.filename}`}
-                  alt="product details"
-                />
-              </div>
-            ))}
-          </Slider>
-        </div>
-        <div className="col-span-1">
-          {
-            <div className="flex flex-col justify-between">
-              <h2 className="mb-4 text-xl font-semibold">
-                {data?.shoeDetail?.name}
-              </h2>
-              <h3 className="mb-2 text-lg">
-                ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
-              </h3>
-              <h3 className="mb-4 text-xs">RATING</h3>
-              <p className="text-sm text-secondary font-light text-justify">
-                {data?.shoeDetail?.introduce}
-              </p>
-              <div className="w-full mt-4 mb-8">
-                <h3 className="pb-2">SIZE</h3>
-                {data?.listCateSize?.map((item, index) => (
-                  <button
-                    onClick={() => setSize(item)}
-                    className={`w-10 h-10 mr-1 mb-1 hover:bg-primary rounded-sm  text-white cursor-pointer ${
-                      size === item ? "bg-primary" : "bg-[#ccc]"
-                    }`}
-                    key={index}
-                  >
-                    {item}
-                  </button>
-                ))}
-              </div>
-              <div className="grid grid-cols-2 text-xl mb-8">
-                <div className="">
-                  <button
-                    className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
-                    onClick={handleDesc}
-                  >
-                    {" "}
-                    -
-                  </button>
-                  <input
-                    onChange={(e) => setQuantity(e.target.value)}
-                    className="text-center w-16 h-full outline-none"
-                    type="number"
-                    min="1"
-                    value={quantity}
-                  />
-                  <button
-                    className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
-                    onClick={handleAsc}
-                  >
-                    {" "}
-                    +
-                  </button>
-                </div>
-                <div>
-                  <button
-                    className="flex flex-row items-center w-fit hover:bg-primary rounded-sm bg-secondary text-white px-3 py-2"
-                    onClick={addToCart}
-                  >
-                    <div className="text-xl">
-                      <FaShoppingCart />
+    <div className="w-full h-full relative">
+      <LoadingPageGlobal loading={loading} />
+      <Container>
+        {loadingProduct ? (
+          <LoadingProductDetail />
+        ) : (
+          <div>
+            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
+              <div className="mb-8 col-span-1">
+                <Slider {...settings}>
+                  {data?.shoeDetail?.arrayImage?.map((item, index) => (
+                    <div key={index} className="w-full h-96">
+                      <img
+                        className="w-full h-full object-cover"
+                        src={`http://localhost:3010/upload/${item?.filename}`}
+                        alt="product details"
+                      />
                     </div>
-                    <p className="mx-2 text-base">Add to Cart</p>
-                  </button>
-                </div>
+                  ))}
+                </Slider>
+              </div>
+              <div className="col-span-1">
+                {
+                  <div className="flex flex-col justify-between">
+                    <h2 className="mb-4 text-xl font-semibold">
+                      {data?.shoeDetail?.name}
+                    </h2>
+                    <h3 className="mb-2 text-lg">
+                      ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
+                    </h3>
+                    <h3 className="mb-4 text-xs">RATING</h3>
+                    <p className="text-sm text-secondary font-light text-justify">
+                      {data?.shoeDetail?.introduce}
+                    </p>
+                    <div className="w-full mt-4 mb-8">
+                      <h3 className="pb-2">SIZE</h3>
+                      {data?.listCateSize?.map((item, index) => (
+                        <button
+                          onClick={() => setSize(item)}
+                          className={`w-10 h-10 mr-1 mb-1 hover:bg-primary rounded-sm  text-white cursor-pointer ${
+                            size === item ? "bg-primary" : "bg-[#ccc]"
+                          }`}
+                          key={index}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
+                    <div className="grid grid-cols-2 text-xl mb-8">
+                      <div className="">
+                        <button
+                          className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
+                          onClick={handleDesc}
+                        >
+                          {" "}
+                          -
+                        </button>
+                        <input
+                          onChange={(e) => setQuantity(e.target.value)}
+                          className="text-center w-16 h-full outline-none"
+                          type="number"
+                          min="1"
+                          value={quantity}
+                        />
+                        <button
+                          className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
+                          onClick={handleAsc}
+                        >
+                          {" "}
+                          +
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          className="flex flex-row items-center w-fit hover:bg-primary rounded-sm bg-secondary text-white px-3 py-2"
+                          onClick={addToCart}
+                        >
+                          <div className="text-xl">
+                            <FaShoppingCart />
+                          </div>
+                          <p className="mx-2 text-base">Add to Cart</p>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                }
               </div>
             </div>
-          }
-        </div>
-      </div>
-      <div className="text-justify mx-6 md:mx-0">
-        <div className="grid grid-cols-3 gap-1 w-fit text-sm md:text-base text-black">
-          <button
-            onClick={() => setContent(1)}
-            className={`${
-              content == 1 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-            } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-          >
-            Description
-          </button>
-          <button
-            onClick={() => setContent(2)}
-            className={`${
-              content == 2 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-            } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-          >
-            Manufacturer
-          </button>
-          <button
-            onClick={() => setContent(3)}
-            className={`${
-              content == 3 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-            } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-          >
-            Review
-          </button>
-        </div>
-        {content == 1 && (
-          <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-            <h3 className="text-sm text-secondary pb-6">{data?.description}</h3>
+            <div className="text-justify mx-6 md:mx-0">
+              <div className="grid grid-cols-3 gap-1 w-fit text-sm md:text-base text-black">
+                <button
+                  onClick={() => setContent(1)}
+                  className={`${
+                    content == 1 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
+                  } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
+                >
+                  Description
+                </button>
+                <button
+                  onClick={() => setContent(2)}
+                  className={`${
+                    content == 2 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
+                  } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
+                >
+                  Manufacturer
+                </button>
+                <button
+                  onClick={() => setContent(3)}
+                  className={`${
+                    content == 3 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
+                  } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
+                >
+                  Review
+                </button>
+              </div>
+              {content == 1 && (
+                <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
+                  <h3 className="text-sm text-secondary pb-6">
+                    {data?.description}
+                  </h3>
+                </div>
+              )}
+              {content == 2 && (
+                <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
+                  <h3 className="text-sm text-secondary pb-6">
+                    Chưa có API Manufacturer
+                  </h3>
+                </div>
+              )}
+              {content == 3 && (
+                <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
+                  <h3 className="text-sm text-secondary pb-6">
+                    Chưa có API Review
+                  </h3>
+                </div>
+              )}
+            </div>
           </div>
         )}
-        {content == 2 && (
-          <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-            <h3 className="text-sm text-secondary pb-6">
-              Chưa có API Manufacturer
-            </h3>
-          </div>
-        )}
-        {content == 3 && (
-          <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-            <h3 className="text-sm text-secondary pb-6">Chưa có API Review</h3>
-          </div>
-        )}
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

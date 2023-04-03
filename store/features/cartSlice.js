@@ -36,9 +36,9 @@ export const cartSlice = createSlice({
         productId: cartItem.productId,
         image: cartItem.image,
         name: cartItem.productName,
-        price: parseInt(cartItem.productPrice),
+        price: parseFloat(cartItem.productPrice),
         quantityProduct: cartItem.quantity,
-        size: parseInt(cartItem.size),
+        size: parseFloat(cartItem.size),
         totalProduct: cartItem.total,
       });
       state.total = total;
@@ -47,7 +47,8 @@ export const cartSlice = createSlice({
     addToCartStore: (state, action) => {
       const { product, cartItem } = action.payload;
       const index = state.products.findIndex(
-        (p) => p.productId === product._id && p.size === parseInt(cartItem.size)
+        (p) =>
+          p.productId === product._id && p.size === parseFloat(cartItem.size)
       );
       if (index === -1) {
         state.products.push({
@@ -55,9 +56,9 @@ export const cartSlice = createSlice({
           productId: product._id,
           image: product.arrayImage[0].filename,
           name: product.name,
-          price: parseInt(product.price),
+          price: parseFloat(product.price),
           quantityProduct: cartItem.quantity,
-          size: parseInt(cartItem.size),
+          size: parseFloat(cartItem.size),
           totalProduct: cartItem.total,
         });
       } else {
@@ -69,7 +70,8 @@ export const cartSlice = createSlice({
     increaseCartQuantity: (state, action) => {
       const { productId, size } = action.payload;
       const index = state.products.findIndex(
-        (p) => p.productId === productId && parseInt(p.size) === parseInt(size)
+        (p) =>
+          p.productId === productId && parseFloat(p.size) === parseFloat(size)
       );
       if (index !== -1) {
         state.products[index].quantityProduct += 1;
