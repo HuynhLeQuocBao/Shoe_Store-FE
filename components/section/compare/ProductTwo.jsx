@@ -2,7 +2,7 @@ import { convertCurrency } from "@/utils/currency";
 import Image from "next/image";
 
 const ProductTwo = ({ image, name, price }) => {
-  const src = `https://shoestore-backend-0uam.onrender.com/upload/${image}`;
+  const src = `http://localhost:3010/upload/${image}`;
 
   return (
     <div className="mb-7 flex flex-col items-center justify-center md:mb-0 shadow-product-line ">

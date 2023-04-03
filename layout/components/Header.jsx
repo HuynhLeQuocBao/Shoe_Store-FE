@@ -5,7 +5,6 @@ import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
-import { Container } from "@/components/common/index";
 import { MenuItem, MenuProfile } from "@/components/menu/index";
 import { FaShoppingCart } from "react-icons/fa";
 import { MdSearch } from "react-icons/md";
@@ -16,6 +15,8 @@ import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataFromCartApi, resetCart } from "store/features/cartSlice";
+import { BsBagCheck } from "react-icons/bs";
+
 const navigation = [
   {
     name: "HOME",
@@ -47,7 +48,7 @@ function MenuIconCloseSVG() {
   return <img src="images/svg/close.svg" />;
 }
 
-function MobileNavigation({ cartLength, ShowModal }) {
+function TabletNavigation() {
   const router = useRouter();
   const { data: session } = useSession();
 
@@ -82,7 +83,7 @@ function MobileNavigation({ cartLength, ShowModal }) {
             >
               <Popover.Panel
                 as="ul"
-                className="absolute inset-x-3 top-40 space-y-4 rounded-2xl bg-primary p-6 shadow-xl flex flex-col items-center justify-around z-30 font-Rokkitt"
+                className="absolute inset-x-3 top-40 space-y-4 rounded-2xl bg-primary p-6 shadow-xl flex flex-col items-center justify-around z-30"
               >
                 {navigation.map((item) => (
                   <li key={item.name} onClick={close}>
@@ -93,23 +94,6 @@ function MobileNavigation({ cartLength, ShowModal }) {
                     />
                   </li>
                 ))}
-                <li onClick={close}>
-                  <Link
-                    href={session ? "/shopping-cart" : "/login"}
-                    className="cursor-pointer"
-                  >
-                    <div className="flex flex-row  text-white md:text-black font-Rokkitt font-normal hover:text-primary focus:text-primary">
-                      <div className="text-2xl">
-                        <FaShoppingCart />
-                      </div>
-                      <p className="mx-2">CART</p>
-                      <p>[{cartLength || 0}]</p>
-                    </div>
-                  </Link>
-                </li>
-                <li onClick={close} className="md:hidden">
-                  <MenuProfile ShowModal={ShowModal} />
-                </li>
               </Popover.Panel>
             </Transition.Child>
           </Transition.Root>
@@ -118,15 +102,12 @@ function MobileNavigation({ cartLength, ShowModal }) {
     </Popover>
   );
 }
-``;
 
 export function Header() {
   const router = useRouter();
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [flag, setFlag] = useState(false);
-  const [data, setData] = useState([]);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   const {
@@ -139,10 +120,6 @@ export function Header() {
     mode: "onChange",
   });
 
-  // useEffect(() => {
-  //   fetchGetCart();
-  //   console.log(1);
-  // }, []);
   useEffect(() => {
     if (quantity > 0 && !session) {
       dispatch(resetCart());
@@ -165,9 +142,6 @@ export function Header() {
     };
     fetchGetCart();
   }, [session]);
-  // useEffect(() => {
-  //   setQuantityCart(quantity);
-  // }, [quantity]);
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
@@ -187,54 +161,28 @@ export function Header() {
   };
   return (
     <header
-      className={clsx("sticky z-50 top-0 bg-white shadow-header-line", {
-        "md:shadow-lg": isScrolled,
-      })}
+      className={clsx(
+        "md:sticky z-50 top-0 bg-white shadow-header-line px-8 py-8 md:py-0",
+        {
+          "md:shadow-lg": isScrolled,
+        }
+      )}
     >
-      <div className="flex flex-col md:justify-evenly md:h-[80px]">
-        <div className="flex flex-col mx-4 md:mx-0 md:flex-row md:justify-between">
-          <div className="mb-5 flex flex-row items-center justify-between md:mb-0 xl:ml-28">
+      <div className="flex flex-col justify-evenly md:h-[80px]">
+        <div className="flex mx-0 flex-row justify-between">
+          <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
             <a
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px]"
             >
               <Image src={logo} width={130} height={70} />
             </a>
-            <div className="flex items-center justify-between md:hidden">
-              <MobileNavigation cartLength={quantity} ShowModal={ShowModal} />
-            </div>
-          </div>
-          <div className="mb-5 md:mb-0 flex items-center md:w-[308px] xl:w-[450px]">
-            <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-              <Controller
-                control={control}
-                name="search"
-                render={({ field }) => (
-                  <div className="flex relative">
-                    <input
-                      type="text"
-                      placeholder="Search"
-                      className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
-                      {...register("search")}
-                    />
-                    <button
-                      type="submit"
-                      className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
-                    >
-                      <div className="text-2xl flex items-center justify-center">
-                        <MdSearch />
-                      </div>
-                    </button>
-                  </div>
-                )}
-              />
-            </form>
           </div>
 
           <div className="hidden font-Rokkitt lg:flex md:flex-row md:justify-between">
             <ul className="flex flex-row items-center">
               {navigation.map((item) => (
-                <li key={item.name} className="mx-2 text-base">
+                <li key={item.name} className="mx-3 text-base">
                   <MenuItem
                     href={item.href}
                     name={item.name}
@@ -242,28 +190,79 @@ export function Header() {
                   />
                 </li>
               ))}
-              <li className="my-2 mr-8">
-                <Link href={session ? "/shopping-cart" : "/login"}>
-                  <div className="flex flex-row cursor-pointer text-black hover:text-primary focus:text-primary">
-                    <p className="mx-2">CART</p>
-                    {quantity > 0 && session?.user && <p>{quantity}</p>}
-                  </div>
-                </Link>
-              </li>
-              <li className="flex mr-3 xl:mr-8 md:hidden lg:flex">
-                <MenuProfile ShowModal={ShowModal} />
-              </li>
             </ul>
           </div>
 
-          <div className="hidden mr-3 md:flex md:items-center md:justify-between lg:hidden">
-            <MenuProfile ShowModal={ShowModal} />
-            <div className="mx-3"></div>
-            <MobileNavigation
-              cartLength={quantity > 0 && session?.user ? quantity : null}
-              ShowModal={ShowModal}
-            />
+          <div className="flex items-center justify-between">
+            <div className="hidden mr-10 md:mb-0 md:flex items-center">
+              <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+                <Controller
+                  control={control}
+                  name="search"
+                  render={({ field }) => (
+                    <div className="flex relative">
+                      <input
+                        type="text"
+                        placeholder="Search"
+                        className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
+                        {...register("search")}
+                      />
+                      <button
+                        type="submit"
+                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                      >
+                        <div className="text-2xl flex items-center justify-center">
+                          <MdSearch />
+                        </div>
+                      </button>
+                    </div>
+                  )}
+                />
+              </form>
+            </div>
+            <div className="mr-10">
+              <Link href={session ? "/shopping-cart" : "/login"}>
+                <div className="flex cursor-pointer relative items-center justify-center">
+                  <BsBagCheck className="w-10 h-10" />
+                  <p className="absolute bottom-1 text-white bg-red-500 w-7 h-7 rounded-full text-center top-[-5px] right-[-15px]">
+                    {quantity > 0 && session?.user ? quantity : 0}
+                  </p>
+                </div>
+              </Link>
+            </div>
+            <div className="mr-10 xl:mr-0">
+              <MenuProfile ShowModal={ShowModal} />
+            </div>
+            <div className="items-center justify-between flex">
+              <TabletNavigation ShowModal={ShowModal} />
+            </div>
           </div>
+        </div>
+        <div className="flex items-center md:mb-0 md:hidden">
+          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            <Controller
+              control={control}
+              name="search"
+              render={({ field }) => (
+                <div className="flex relative">
+                  <input
+                    type="text"
+                    placeholder="Search"
+                    className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
+                    {...register("search")}
+                  />
+                  <button
+                    type="submit"
+                    className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                  >
+                    <div className="text-2xl flex items-center justify-center">
+                      <MdSearch />
+                    </div>
+                  </button>
+                </div>
+              )}
+            />
+          </form>
         </div>
       </div>
     </header>

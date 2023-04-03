@@ -88,7 +88,7 @@ export function CompareSection() {
               <div className="mb-2 font-bold w-fit">Product Image</div>
               <div className="w-80">
                 <Image
-                  src={`https://shoestore-backend-0uam.onrender.com/upload/${productOne?.shoeDetail?.arrayImage[0]?.filename}`}
+                  src={`http://localhost:3010/upload/${productOne?.shoeDetail?.arrayImage[0]?.filename}`}
                   alt="image product"
                   objectFit="cover"
                   layout="responsive"
@@ -127,7 +127,7 @@ export function CompareSection() {
                 <div className="mb-2 font-bold w-fit">Product Image</div>
                 <div className="w-80">
                   <Image
-                    src={`https://shoestore-backend-0uam.onrender.com/upload/${productTwo?.shoeDetail?.arrayImage[0]?.filename}`}
+                    src={`http://localhost:3010/upload/${productTwo?.shoeDetail?.arrayImage[0]?.filename}`}
                     alt="image product"
                     objectFit="cover"
                     layout="responsive"

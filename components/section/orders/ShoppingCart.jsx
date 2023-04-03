@@ -113,7 +113,7 @@ export function ShoppingCart() {
               >
                 <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2">
                   <img
-                    src={`https://shoestore-backend-0uam.onrender.com/upload/${item.image}`}
+                    src={`http://localhost:3010/upload/${item.image}`}
                     className="w-20 h-20 object-cover"
                   />
                   <div className="ml-2">
@@ -198,7 +198,7 @@ export function ShoppingCart() {
               >
                 <div className="w-full flex items-center col-span-4">
                   <img
-                    src={`https://shoestore-backend-0uam.onrender.com/upload/${item.image}`}
+                    src={`http://localhost:3010/upload/${item.image}`}
                     className="w-30 h-30 object-cover p-2 "
                   />
                 </div>

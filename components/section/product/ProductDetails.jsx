@@ -117,7 +117,7 @@ export function ProductDetail() {
               <div key={index} className="w-full h-96">
                 <img
                   className="w-full h-full object-cover"
-                  src={`https://shoestore-backend-0uam.onrender.com/upload/${item?.filename}`}
+                  src={`http://localhost:3010/upload/${item?.filename}`}
                   alt="product details"
                 />
               </div>
