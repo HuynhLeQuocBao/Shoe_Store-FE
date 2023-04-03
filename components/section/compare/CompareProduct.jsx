@@ -52,16 +52,21 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
                color
              </div> */}
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {product?.listCateSize?.map((size) => (
-            <div className="h-8 w-8 flex-center bg-primary ">{size}</div>
+          {product?.listCateSize?.map((size, index) => (
+            <div key={index} className="h-8 w-8 flex-center bg-primary ">
+              {size}
+            </div>
           ))}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
           {product?.shoeDetail?.description}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {product?.listAnotherCate?.map((brand) => (
-            <div className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold">
+          {product?.listAnotherCate?.map((brand, index) => (
+            <div
+              key={index}
+              className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
+            >
               {brand}
             </div>
           ))}
