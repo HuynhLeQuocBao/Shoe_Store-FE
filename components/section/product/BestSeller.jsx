@@ -40,7 +40,7 @@ export function BestSeller() {
       <Container>
         {
           <div className="mx-6 md:mx-0">
-            <div className="font-Rokkitt text-4xl font-bold text-center py-24">
+            <div className="font-Rokkitt text-4xl font-bold text-center py-14">
               <h2>Best Sellers</h2>
             </div>
             <div className=" grid-cols-1 md:grid-cols-3 xl:grid-cols-4 md:gap-8 pb-14 hidden md:grid">

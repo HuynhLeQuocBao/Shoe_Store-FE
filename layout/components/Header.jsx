@@ -162,7 +162,7 @@ export function Header() {
   return (
     <header
       className={clsx(
-        "md:sticky z-50 top-0 bg-white shadow-header-line px-8 py-8 md:py-0",
+        "md:sticky z-50 top-0 bg-white shadow-header-line px-5 py-5 md:py-0 md:px-8",
         {
           "md:shadow-lg": isScrolled,
         }
@@ -170,7 +170,7 @@ export function Header() {
     >
       <div className="flex flex-col justify-evenly md:h-[80px]">
         <div className="flex mx-0 flex-row justify-between">
-          <div className="mb-5 flex flex-row items-center justify-between md:mb-0">
+          <div className="flex flex-row items-center justify-between md:mb-0">
             <a
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px]"
@@ -220,7 +220,7 @@ export function Header() {
                 />
               </form>
             </div>
-            <div className="mr-10">
+            <div className="mr-5 md:mr-10">
               <Link href={session ? "/shopping-cart" : "/login"}>
                 <div className="flex cursor-pointer relative items-center justify-center">
                   <BsBagCheck className="w-10 h-10" />
@@ -230,7 +230,7 @@ export function Header() {
                 </div>
               </Link>
             </div>
-            <div className="mr-10 xl:mr-0">
+            <div className="mr-5 md:mr-10 xl:mr-0">
               <MenuProfile ShowModal={ShowModal} />
             </div>
             <div className="items-center justify-between flex">
