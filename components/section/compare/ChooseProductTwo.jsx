@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { MdNavigateBefore, MdNavigateNext } from "react-icons/md";
+import { MdNavigateBefore, MdNavigateNext, MdSearch } from "react-icons/md";
 import { useSession } from "next-auth/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
 import ProductTwo from "./ProductTwo";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 
 const ChooseProductTwo = ({
   data,
@@ -17,10 +17,13 @@ const ChooseProductTwo = ({
 }) => {
   const {
     register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({
+    mode: "onChange",
+  });
   const [saveData, setSaveData] = useState(data);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -37,8 +40,9 @@ const ChooseProductTwo = ({
     const newOffset = (event.selected * itemsPerPage) % saveData.length;
     setItemOffset(newOffset);
   };
-  const onSearch = ({ keyword }, e) => {
-    e.preventDefault();
+  const onSearch = (e) => {
+    // e.preventDefault();
+    const keyword = e.target.value;
     if (itemOffset !== 0) {
       setItemOffset(0);
     }
@@ -54,19 +58,31 @@ const ChooseProductTwo = ({
 
   return (
     <>
-      <form onSubmit={handleSubmit(onSearch)}>
+      <form>
         <div className="w-full pb-10 flex flex-shrink gap-4 justify-end items-center">
-          <input
-            {...register("keyword")}
-            className="w-1/3 px-2 py-1 rounded-lg text-lg border-2 border-solid border-black"
-            placeholder="Enter the name of the product"
+          <Controller
+            control={control}
+            name="search"
+            render={({ field, onChange }) => (
+              <div className="flex relative">
+                <input
+                  type="text"
+                  placeholder="Search"
+                  className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
+                  {...register("search")}
+                  onChange={(e) => onSearch(e)}
+                />
+                <button
+                  type="submit"
+                  className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                >
+                  <div className="text-2xl flex items-center justify-center">
+                    <MdSearch />
+                  </div>
+                </button>
+              </div>
+            )}
           />
-          <button
-            type="submit"
-            className=" bg-primary rounded-lg hover:bg-teal-700 duration-500 hover:cursor-pointer hover:scale-105 hover:rounded-lg hover:font-semibold px-2 py-[6px] text-white text-xl"
-          >
-            Search
-          </button>
         </div>
       </form>
       {saveData.length === 0 && (
@@ -74,11 +90,11 @@ const ChooseProductTwo = ({
           No products found
         </div>
       )}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:grid-cols-3 xl:grid-cols-4 md:gap-8 pb-14 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:gap-4 md:gap-8 pb-14 ">
         {currentItems.map((item, index) => (
           <div
             key={index}
-            className="cursor-pointer hover-parent relative hover:shadow-primary hover:shadow-lg"
+            className="cursor-pointer hover-parent relative hover:shadow-primary hover:shadow-lg mb-8"
           >
             <div>
               <ProductTwo
@@ -86,13 +102,13 @@ const ChooseProductTwo = ({
                 name={item.name}
                 price={item.price}
               />
+              <button
+                className="w-full bg-green-500 hover:bg-green-700 duration-500 hover:cursor-pointer hover:scale-105 hover:rounded-lg hover:font-semibold px-4 py-2 text-white text-xl"
+                onClick={() => getIdProduct(item._id)}
+              >
+                Choose
+              </button>
             </div>
-            <button
-              className="w-full bg-green-500 hover:bg-green-700 duration-500 hover:cursor-pointer hover:scale-105 hover:rounded-lg hover:font-semibold px-4 py-2 text-white text-xl"
-              onClick={() => getIdProduct(item._id)}
-            >
-              Choose
-            </button>
           </div>
         ))}
       </div>

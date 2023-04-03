@@ -23,7 +23,7 @@ export function CompareSection() {
   useEffect(() => {
     try {
       const fetchPublic = async () => {
-        const dataProduct = await productApi.getProductById(productId);
+        const dataProduct = await productApi.getProductById(productId[0]);
         setProductOne(dataProduct);
       };
       fetchPublic();
@@ -73,14 +73,11 @@ export function CompareSection() {
   return (
     <Container>
       <div className="mx-4 md:mx-0">
-        <h1 className="text-center text-3xl pb-5">
-          Compare product <b>{productOne?.shoeDetail?.name}</b> with product
-          <span>{openModal ? <b> Product 2</b> : " ?"}</span>
-        </h1>
-        <div className="grid grid-cols-9 shadow-product-line">
-          <div className="col-span-1 font-bold border-[1px] border-solid">
+        <h1 className="text-center text-3xl pb-5 font-bold">Compare</h1>
+        <div className="grid grid-cols-12 md:grid-cols-9 shadow-product-line">
+          <div className="col-span-2 md:col-span-1 font-bold border-[1px] border-solid text-[11px] md:text-sm">
             <div className="h-10 "></div>
-            <div className="h-72 flex-center border-[1px] border-solid border-r-0 ">
+            <div className="h-40 md:h-72 flex-center border-[1px] border-solid border-r-0  ">
               Image
             </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0 ">
@@ -92,10 +89,10 @@ export function CompareSection() {
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Amount
             </div>
-            <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+            {/* <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Color
-            </div>
-            <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+            </div> */}
+            <div className="h-28 border-[1px] border-solid flex-center border-r-0">
               Size
             </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
@@ -105,44 +102,31 @@ export function CompareSection() {
               Brand
             </div>
           </div>
-          <CompareProduct product={productOne} />
-          {/* <div className="flex flex-col items-start">
-            <div className="py-3">
-              <div className="mb-2 font-bold">Product Name</div>
-              <div>{productOne?.shoeDetail?.name}</div>
+          {productOne.length == 0 ? (
+            <div className="col-span-4 flex-center z-30 h-full bg-white">
+              <LoadingPage />
             </div>
-            <div className="py-3">
-              <div className="mb-2 font-bold w-fit">Product Image</div>
-              <div className="w-80">
-                <Image
-                  src={`http://localhost:3010/upload/${productOne?.shoeDetail?.arrayImage[0]?.filename}`}
-                  alt="image product"
-                  objectFit="cover"
-                  layout="responsive"
-                  width={500}
-                  height={500}
-                  priority={true}
-                />
-              </div>
-            </div>
-            <div className="py-3">
-              <div className="border-b-2 mb-2 font-bold">Product Price</div>
-              <div>${parseFloat(productOne?.shoeDetail?.price).toFixed(2)}</div>
-            </div>
-          </div> */}
+          ) : (
+            <>
+              <CompareProduct product={productOne} />
+            </>
+          )}
           {!openModal && !isLoading && productTwo.length === 0 ? (
-            <div className="col-span-4 content-center grid">
-              <div className="flex-center">
+            <div className="col-span-5 md:col-span-4 content-center grid">
+              <div className="flex-center flex-col gap-2">
                 <div
                   className="bg-primary rounded-full cursor-pointer"
                   onClick={() => setOpenModal(true)}
                 >
                   <HiPlus className="w-10 h-10" />
                 </div>
+                <div className="text-[10px] md:text-base text-slate-500">
+                  Choose products to compare
+                </div>
               </div>
             </div>
           ) : isLoading ? (
-            <div className="flex items-center justify-center">
+            <div className="col-span-5 md:col-span-4 flex-center">
               <LoadingPage />
             </div>
           ) : (

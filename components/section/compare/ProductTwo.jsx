@@ -5,7 +5,7 @@ const ProductTwo = ({ image, name, price }) => {
   const src = `http://localhost:3010/upload/${image}`;
 
   return (
-    <div className="mb-7 flex flex-col items-center justify-center md:mb-0 shadow-product-line ">
+    <div className=" flex flex-col items-center justify-center shadow-product-line ">
       <div>
         <Image
           loader={() => src}

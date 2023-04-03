@@ -1,14 +1,18 @@
 import Image from "next/image";
 import { AiOutlineDelete } from "react-icons/ai";
+import LoadingPage from "../loading/LoadingPage";
+import FsLightbox from "fslightbox-react";
+import { useState } from "react";
 
 const CompareProduct = ({ product, onDelete, isDelete }) => {
+  const [toggler, setToggler] = useState(false);
   return (
-    <div className="col-span-4 border-[1px] border-solid">
-      <div className="flex flex-col">
+    <div className="col-span-5 md:col-span-4 border-[1px] border-solid">
+      <div className="flex flex-col text-xs md:text-base">
         <div className="h-10 flex justify-end items-center pr-4 ">
           {isDelete && (
             <div
-              className="w-7 h-7 flex-center rounded-full font-bold hover:bg-red-500 hover:cursor-pointer text-red-500 hover:text-white border-2 border-red-500 border-solid"
+              className="w-7 h-7 hover:scale-125 duration-200 flex-center rounded-full font-bold hover:bg-red-500 hover:cursor-pointer text-red-500 hover:text-white border-2 border-red-500 border-solid"
               onClick={() => onDelete()}
             >
               <AiOutlineDelete />
@@ -16,7 +20,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           )}
         </div>
         <div className="flex-col flex-center gap-5 max-h-[288px] border-[1px] border-solid border-r-0">
-          <div className="w-72 h-72 p-4">
+          <div className="w-40 h-40 md:w-72 md:h-72 p-4 hover:cursor-pointer">
             <Image
               src={`http://localhost:3010/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`}
               alt="image product"
@@ -25,29 +29,42 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
               width={200}
               height={200}
               priority={true}
+              onClick={() => setToggler(!toggler)}
+            />
+            <FsLightbox
+              toggler={toggler}
+              sources={[
+                `http://localhost:3010/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`,
+              ]}
             />
           </div>
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0 ">
-          name
+          {product?.shoeDetail?.name}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          price
+          {product?.shoeDetail?.price}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          amount
+          {product?.totalAmount}
+        </div>
+        {/* <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+               color
+             </div> */}
+        <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
+          {product?.listCateSize?.map((size) => (
+            <div className="h-8 w-8 flex-center bg-primary ">{size}</div>
+          ))}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          color
+          {product?.shoeDetail?.description}
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          size
-        </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          description
-        </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          brand
+        <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
+          {product?.listAnotherCate?.map((brand) => (
+            <div className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold">
+              {brand}
+            </div>
+          ))}
         </div>
       </div>
     </div>
