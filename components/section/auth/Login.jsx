@@ -2,13 +2,31 @@
 import { Container } from "@/components/common/index";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { useForm, Controller } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 import { useSession, signIn } from "next-auth/react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Image from "next/image";
+import logo from "../../../public/images/logo/logo.png";
+import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import { useState } from "react";
+
+const schema = yup.object().shape({
+  accountName: yup
+    .string()
+    .required("This field is required")
+    .min(4, "Username is too short - should be 5 chars minimum."),
+  password: yup
+    .string()
+    .required("This field is required")
+    .min(8, "Password is too short - should be 8 chars minimum."),
+});
 
 export function Login() {
   const { data: session } = useSession();
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
   if (session) {
     setTimeout(() => {
@@ -18,11 +36,17 @@ export function Login() {
 
   const {
     register,
+    control,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+    setValue,
+  } = useForm({
+    mode: "onChange",
+    resolver: yupResolver(schema),
+  });
 
   const onSubmit = async (data) => {
+    setLoading(true);
     const ok = await signIn("credentials", {
       ...data,
       redirect: false,
@@ -32,100 +56,203 @@ export function Login() {
       toast.error("Login Fail. Try again!", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setLoading(false);
     } else {
       toast.success("Login Successfully!", {
         position: toast.POSITION.TOP_RIGHT,
       });
+      setLoading(false);
     }
   };
 
   return (
-    <Container>
-      <div className="mx-4 md:mx-0 font-Rokkitt flex flex-col items-center">
-        <div className="text-4xl font-bold text-center w-1/2">
-          <h2>Log in</h2>
-        </div>
-        <form method="post" onSubmit={handleSubmit(onSubmit)} className="w-1/2">
-          <div className="flex flex-col text-base text-secondary">
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="account">
-                Account Name
-              </label>
-              <input
-                className="px-3 py-2 mt-2 border border-black"
-                id="account"
-                {...register("accountName", { required: true })}
-                type="text"
-                placeholder="Enter your account name"
-              />
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="password">
-                Password
-              </label>
-              <input
-                className="px-3 py-2 mt-2 border border-black"
-                id="password"
-                {...register("password", { required: true })}
-                type="password"
-                placeholder="Enter your password"
-              />
-            </div>
-            <div className="my-4 text-center md:text-left">
-              <button
-                className="text-white bg-[#616161] rounded-[30px] hover:bg-primary px-3 py-2 w-1/3 block mx-auto"
-                type="submit"
-              >
-                Login
-              </button>
-            </div>
-            <div className="text-xl text-center">
-              <p>Log in with</p>
-            </div>
-            <div className="flex justify-center items-center">
-              <div className="my-4 text-center md:text-left">
-                <button
-                  className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
-                  type="submit"
-                  onClick={() => signIn("facebook")}
-                >
-                  <img
-                    src="/images/logo/facebook.png"
-                    alt=""
-                    className="w-full"
-                  />
-                </button>
-              </div>
-              <div className="px-4 text-xl">
-                <p>or</p>
-              </div>
-              <div className="my-4 text-center md:text-left">
-                <button
-                  className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
-                  type="submit"
-                  onClick={() => signIn("google")}
-                >
-                  <img
-                    src="/images/logo/google.png"
-                    alt=""
-                    className="w-full"
-                  />
-                </button>
+    <div className="w-full h-full relative">
+      <LoadingPageGlobal loading={loading} />
+      <Container className="gradient-form h-full shadow-login rounded-2xl sm:w-3/4">
+        <div className="container h-full">
+          <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">
+            <div className="w-full">
+              <div className="block rounded-2xl bg-white">
+                <div className="g-0 lg:flex lg:flex-wrap">
+                  <div
+                    className="hidden md:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
+                    // style={{
+                    //   background:
+                    //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
+                    // }}
+                  >
+                    <div className="px-4 py-6 text-primary md:mx-6 md:p-12">
+                      <h4 className="mb-6 text-5xl font-semibold uppercase text-center">
+                        Welcome to the shoe store
+                      </h4>
+                      <p className="text-2xl text-center">
+                        Step into our shoe store and discover a wide selection
+                        of fashionable footwear for every occasion.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="px-4 md:px-0 lg:w-6/12">
+                    <div className="md:mx-6 md:p-12">
+                      <div className="flex-center py-4">
+                        <Image
+                          src={logo}
+                          alt="logo"
+                          width={200}
+                          height={80}
+                          className=""
+                        />
+                      </div>
+                      <form onSubmit={handleSubmit(onSubmit)}>
+                        <p className="mb-4 text-center font-bold text-2xl ">
+                          Sign in
+                        </p>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="accountName"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("accountName", {
+                                    required: true,
+                                  })}
+                                  id="accountName"
+                                  className={`input-floating peer ${
+                                    errors.accountName?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="accountName"
+                                  className={`label-floating ${
+                                    errors.accountName?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Account Name
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.accountName ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.accountName?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="password"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("password", { required: true })}
+                                  id="password"
+                                  type="password"
+                                  className={`input-floating peer ${
+                                    errors.password?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="password"
+                                  className={`label-floating ${
+                                    errors.password?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Password
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.password ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.password?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div className="mb-4 pt-1 pb-1 text-center">
+                          <button
+                            className="mb-3 inline-block w-full rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                            type="submit"
+                            data-te-ripple-init
+                            data-te-ripple-color="light"
+                            style={{
+                              background:
+                                "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
+                            }}
+                          >
+                            Sign in
+                          </button>
+                          <Link href="#">
+                            <span className="cursor-pointer ml-1 underline hover:text-blue-500">
+                              Forgot password?
+                            </span>
+                          </Link>
+                        </div>
+                        <div className="text-xl text-center">
+                          <p>Log in with</p>
+                        </div>
+                        <div className="flex justify-center gap-4 items-center">
+                          <div className="my-4 text-center md:text-left">
+                            <button
+                              className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
+                              type="submit"
+                              onClick={() => signIn("facebook")}
+                            >
+                              <img
+                                src="/images/logo/facebook.png"
+                                alt=""
+                                className="w-full"
+                              />
+                            </button>
+                          </div>
+                          {/* <div className="px-4 text-xl"><p>or</p></div> */}
+                          <div className="my-4 text-center md:text-left">
+                            <button
+                              className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
+                              type="submit"
+                              onClick={() => signIn("google")}
+                            >
+                              <img
+                                src="/images/logo/google.png"
+                                alt=""
+                                className="w-full"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-center flex-col mb-4">
+                          <p>
+                            Do not have an account?
+                            <Link href="/register">
+                              <span className="cursor-pointer ml-1 underline hover:text-blue-500">
+                                Register
+                              </span>
+                            </Link>
+                          </p>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
-        </form>
-        <div className="flex items-center justify-center flex-col">
-          <p>
-            Do not have an account?
-            <Link href="/register">
-              <span className="cursor-pointer ml-1 hover:text-primary font-bold">
-                Register
-              </span>
-            </Link>
-          </p>
         </div>
-      </div>
-    </Container>
+      </Container>
+    </div>
   );
 }

@@ -6,6 +6,11 @@ import * as yup from "yup";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useRouter } from "next/router";
+import logo from "../../../public/images/logo/logo.png";
+import Link from "next/link";
+import Image from "next/image";
+import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import { useState } from "react";
 
 const isVNMobilePhone =
   /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
@@ -37,6 +42,7 @@ const schema = yup.object().shape({
 });
 
 export function Register() {
+  const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const {
@@ -51,6 +57,7 @@ export function Register() {
   });
 
   const onSubmitRegister = async (data) => {
+    setLoading(true);
     const ok = await authApi.registerUser(data);
     if (ok) {
       toast.success("Register Successfully !", {
@@ -59,184 +66,312 @@ export function Register() {
       setTimeout(() => {
         router.push("/login");
       }, 2000);
+      setLoading(false);
     }
   };
 
   return (
-    <Container>
-      <div className="mx-4 md:mx-0 font-Rokkitt flex flex-col items-center">
-        <div className="text-4xl font-bold text-center w-1/2">
-          <h2>Register</h2>
-        </div>
-        <form
-          onSubmit={handleSubmit((values) => onSubmitRegister(values))}
-          className="w-1/2"
-        >
-          <div className="flex flex-col text-base text-secondary">
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="fullname">
-                Fullname
-              </label>
-              <Controller
-                control={control}
-                name="fullname"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm ${
-                      errors.fullname?.message.length > 0
-                        ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                        : ""
-                    }`}
-                    type="text"
-                    {...register("fullname", { required: true })}
-                    placeholder="Enter your fullname"
-                  />
-                )}
-              />
-              {errors.fullname ? (
-                <p className="text-red-500 p-1 ">{errors.fullname?.message}</p>
-              ) : null}
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="email">
-                Email
-              </label>
-              <Controller
-                control={control}
-                name="email"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm ${
-                      errors.email?.message.length > 0
-                        ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                        : ""
-                    }`}
-                    type="text"
-                    {...register("email", { required: true })}
-                    placeholder="Enter your email"
-                  />
-                )}
-              />
-              {errors.email ? (
-                <p className="text-red-500 p-1 ">{errors.email?.message}</p>
-              ) : null}
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="email">
-                Account Name
-              </label>
-              <Controller
-                control={control}
-                name="accountName"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm ${
-                      errors.accountName?.message.length > 0
-                        ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                        : ""
-                    }`}
-                    type="text"
-                    {...register("accountName", { required: true })}
-                    placeholder="Enter your account name"
-                  />
-                )}
-              />
-              {errors.accountName ? (
-                <p className="text-red-500 p-1 ">
-                  {errors.accountName?.message}
-                </p>
-              ) : null}
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="password">
-                Password
-              </label>
-              <Controller
-                control={control}
-                id="password"
-                name="password"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm 
-																				${
-                                          errors.password?.message.length > 0
-                                            ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                                            : ""
-                                        }`}
-                    type="password"
-                    {...register("password", { required: true })}
-                    placeholder="Enter your password"
-                  />
-                )}
-              />
-              {errors.password ? (
-                <p className="text-red-500 p-1 ">{errors.password?.message}</p>
-              ) : null}
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="address">
-                Address
-              </label>
-              <Controller
-                control={control}
-                id="address"
-                name="address"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm 
-																				${
-                                          errors.address?.message.length > 0
-                                            ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                                            : ""
-                                        }`}
-                    type="text"
-                    {...register("address", { required: true })}
-                    placeholder="Enter your address"
-                  />
-                )}
-              />
-              {errors.address ? (
-                <p className="text-red-500 p-1 ">{errors.address?.message}</p>
-              ) : null}
-            </div>
-            <div className="flex flex-col mb-4">
-              <label className="cursor-pointer" htmlFor="phone">
-                Phone Number
-              </label>
-              <Controller
-                control={control}
-                name="numberPhone"
-                render={({ field }) => (
-                  <input
-                    className={`inputForm 
-																				${
-                                          errors.numberPhone?.message.length > 0
-                                            ? "border-red-500 focus:outline focus:outline-1 focus:outline-red-500  "
-                                            : ""
-                                        }`}
-                    type="text"
-                    {...register("numberPhone", { required: true })}
-                    placeholder="Enter your phone number"
-                  />
-                )}
-              />
-              {errors.numberPhone ? (
-                <p className="text-red-500 p-1 ">
-                  {errors.numberPhone?.message}
-                </p>
-              ) : null}
-            </div>
-            <div className="my-4 text-center md:text-left">
-              <button
-                className="text-white bg-[#616161] rounded-[30px] hover:bg-primary px-3 py-2 w-1/3 block mx-auto"
-                type="submit"
-              >
-                Register
-              </button>
+    <div className="w-full h-full relative">
+      <LoadingPageGlobal loading={loading} />
+      <Container className="gradient-form h-full shadow-login rounded-2xl sm:w-3/4">
+        <div className="container h-full">
+          <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">
+            <div className="w-full">
+              <div className="block rounded-2xl bg-white">
+                <div className="g-0 lg:flex lg:flex-wrap">
+                  <div
+                    className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
+                    // style={{
+                    //   background:
+                    //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
+                    // }}
+                  >
+                    <div className="px-4 py-6 text-primary md:mx-6 md:p-12">
+                      <h4 className="mb-6 text-5xl font-semibold uppercase text-center">
+                        Welcome to the shoe store
+                      </h4>
+                      <p className="text-2xl text-center">
+                        Step into our shoe store and discover a wide selection
+                        of fashionable footwear for every occasion.
+                      </p>
+                    </div>
+                  </div>
+                  <div className="px-4 md:px-0 lg:w-6/12">
+                    <div className="md:mx-6 md:p-12">
+                      <div className="flex-center py-4">
+                        <Image
+                          src={logo}
+                          alt="logo"
+                          width={200}
+                          height={80}
+                          className=""
+                        />
+                      </div>
+                      <form onSubmit={handleSubmit(onSubmitRegister)}>
+                        <p className="mb-4 text-center font-bold text-2xl ">
+                          Sign up
+                        </p>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="fullname"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("fullname", { required: true })}
+                                  id="fullname"
+                                  className={`input-floating peer ${
+                                    errors.fullname?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="fullname"
+                                  className={`label-floating ${
+                                    errors.fullname?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Full name
+                                </label>
+                              </>
+                            )}
+                          />
+
+                          {errors.fullname ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.fullname?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="accountName"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("accountName", {
+                                    required: true,
+                                  })}
+                                  id="accountName"
+                                  className={`input-floating peer ${
+                                    errors.accountName?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="accountName"
+                                  className={`label-floating ${
+                                    errors.accountName?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Account Name
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.accountName ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.accountName?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="email"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("email", { required: true })}
+                                  id="email"
+                                  className={`input-floating peer ${
+                                    errors.email?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="email"
+                                  className={`label-floating ${
+                                    errors.email?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Email
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.email ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.email?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="address"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("address", { required: true })}
+                                  id="address"
+                                  className={`input-floating peer ${
+                                    errors.address?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="address"
+                                  className={`label-floating ${
+                                    errors.address?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Address
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.address ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.address?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="numberPhone"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("numberPhone", {
+                                    required: true,
+                                  })}
+                                  id="numberPhone"
+                                  className={`input-floating peer ${
+                                    errors.numberPhone?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="numberPhone"
+                                  className={`label-floating ${
+                                    errors.numberPhone?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Phone
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.numberPhone ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.numberPhone?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div class="relative mb-6">
+                          <Controller
+                            control={control}
+                            name="password"
+                            render={({ field }) => (
+                              <>
+                                <input
+                                  {...register("password", { required: true })}
+                                  id="password"
+                                  type="password"
+                                  className={`input-floating peer ${
+                                    errors.password?.message.length > 0
+                                      ? "border-red-500 focus:border-red-500 "
+                                      : ""
+                                  }`}
+                                  placeholder=" "
+                                />
+                                <label
+                                  htmlFor="password"
+                                  className={`label-floating ${
+                                    errors.password?.message.length > 0
+                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      : ""
+                                  }`}
+                                >
+                                  Password
+                                </label>
+                              </>
+                            )}
+                          />
+                          {errors.password ? (
+                            <p className="text-red-500 text-xs h-4 p-1">
+                              {errors.password?.message}
+                            </p>
+                          ) : (
+                            <p className="h-4"></p>
+                          )}
+                        </div>
+                        <div className="mb-4 pt-1 pb-1 text-center">
+                          <button
+                            className="mb-3 inline-block w-full rounded px-6 pt-2.5 pb-2 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_rgba(0,0,0,0.2)] transition duration-150 ease-in-out hover:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)] focus:outline-none focus:ring-0 active:shadow-[0_8px_9px_-4px_rgba(0,0,0,0.1),0_4px_18px_0_rgba(0,0,0,0.2)]"
+                            type="submit"
+                            data-te-ripple-init
+                            data-te-ripple-color="light"
+                            style={{
+                              background:
+                                "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
+                            }}
+                          >
+                            Sign up
+                          </button>
+                        </div>
+                        <div className="flex items-center justify-center flex-col mb-4">
+                          <p>
+                            Already have a account?
+                            <Link href="/login">
+                              <span className="cursor-pointer ml-1 underline hover:text-blue-500">
+                                Sign in
+                              </span>
+                            </Link>
+                          </p>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        </form>
-      </div>
-    </Container>
+        </div>
+      </Container>
+    </div>
   );
 }

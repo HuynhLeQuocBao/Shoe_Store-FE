@@ -12,6 +12,7 @@ module.exports = {
         "header-line": "rgba(0, 0, 0, 0.24) 0px 3px 8px",
         "icon-product":
           "rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em, rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset",
+        login: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
       },
 
       borderRadius: {
@@ -40,6 +41,9 @@ module.exports = {
       },
       animation: {
         banner: "banner 2s cubic-bezier(0, 0.49, 0.82, 0.98) 1 forwards",
+      },
+      backgroundImage: {
+        login: "url('/images/login.jpg')",
       },
     },
   },
