@@ -31,7 +31,7 @@ export function Login() {
   if (session) {
     setTimeout(() => {
       router.push("/");
-    }, 1000);
+    }, 500);
   }
 
   const {
@@ -75,7 +75,7 @@ export function Login() {
               <div className="block rounded-2xl bg-white">
                 <div className="g-0 lg:flex lg:flex-wrap">
                   <div
-                    className="hidden md:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
+                    className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
                     // style={{
                     //   background:
                     //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",

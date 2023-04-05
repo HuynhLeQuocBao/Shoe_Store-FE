@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, useState, useEffect } from "react";
+import { Fragment, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
@@ -107,9 +107,13 @@ export function Header() {
   const router = useRouter();
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
+  const [keyword, setKeyword] = useState("");
+  const [productList, setProductList] = useState([]);
+  const [productSearchList, setProductSearchList] = useState([]);
   const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
+  const typingTimeoutRef = useRef(null);
   const {
     register,
     control,
@@ -127,6 +131,8 @@ export function Header() {
     const fetchGetCart = async () => {
       try {
         const result = await cartApi.getAllCart();
+        const productsData = await productApi.getAllProducts();
+        setProductList(productsData);
         if (quantity === 0 && session?.user) {
           dispatch(resetCart());
           result.results.map((cartItem) => {
@@ -159,6 +165,15 @@ export function Header() {
       router.push("/");
     }
   };
+
+  const handleSearch = (event) => {
+    setKeyword(event.target.value);
+    const results = productList.filter((product) =>
+      product.name.toLowerCase().includes(event.target.value.toLowerCase())
+    );
+    setProductSearchList(results);
+  };
+
   return (
     <header
       className={clsx(
@@ -206,6 +221,8 @@ export function Header() {
                         placeholder="Search"
                         className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
                         {...register("search")}
+                        onChange={handleSearch}
+                        value={keyword}
                       />
                       <button
                         type="submit"
@@ -215,6 +232,41 @@ export function Header() {
                           <MdSearch />
                         </div>
                       </button>
+                      {productSearchList.length > 0 && keyword !== "" ? (
+                        <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg">
+                          {productSearchList.map((product, index) => (
+                            <a
+                              key={index}
+                              href={`https://localhost:3001/product-detail/${product._id}`}
+                              className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
+                            >
+                              <div className="w-full flex gap-2">
+                                <Image
+                                  src={`http://localhost:3010/upload/${product.arrayImage[0].filename}`}
+                                  className=""
+                                  width={50}
+                                  height={50}
+                                />
+                                <div className="flex flex-col">
+                                  <p className="font-bold text-lg">
+                                    {product.name}
+                                  </p>
+                                  <p className="text-sm text-slate-500">
+                                    {product.price}$
+                                  </p>
+                                </div>
+                              </div>
+                            </a>
+                          ))}
+                        </div>
+                      ) : productSearchList.length === 0 &&
+                        keyword.length > 0 ? (
+                        <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg">
+                          <div className="flex-center py-5">
+                            No product found
+                          </div>
+                        </div>
+                      ) : null}
                     </div>
                   )}
                 />
@@ -250,7 +302,41 @@ export function Header() {
                     placeholder="Search"
                     className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
                     {...register("search")}
+                    onChange={handleSearch}
+                    value={keyword}
                   />
+                  {productSearchList.length > 0 && keyword !== "" ? (
+                    <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg">
+                      {productSearchList.map((product, index) => (
+                        <a
+                          key={index}
+                          href={`https://localhost:3001/product-detail/${product._id}`}
+                          className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
+                        >
+                          <div className="w-full flex gap-2">
+                            <Image
+                              src={`http://localhost:3010/upload/${product.arrayImage[0].filename}`}
+                              className=""
+                              width={50}
+                              height={50}
+                            />
+                            <div className="flex flex-col">
+                              <p className="font-bold text-lg">
+                                {product.name}
+                              </p>
+                              <p className="text-sm text-slate-500">
+                                {product.price}$
+                              </p>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  ) : productSearchList.length === 0 && keyword.length > 0 ? (
+                    <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg">
+                      <div className="flex-center py-5">No product found</div>
+                    </div>
+                  ) : null}
                   <button
                     type="submit"
                     className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
