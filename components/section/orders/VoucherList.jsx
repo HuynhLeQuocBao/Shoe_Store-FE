@@ -14,7 +14,7 @@ export function VoucherItem({ data, isCode }) {
       position: toast.POSITION.TOP_RIGHT,
     });
     setUse(true);
-    isCode(discount);
+    isCode(discount, voucherCode);
 
     const applyVoucher = await voucherApi.applyVoucher({
       cartTotal: total,
@@ -66,8 +66,8 @@ export function VoucherList({ isCode }) {
         <VoucherItem
           key={item.code}
           data={item}
-          isCode={(value) => {
-            isCode(value);
+          isCode={(discount, voucherCode) => {
+            isCode(discount, voucherCode);
           }}
         />
       ))}

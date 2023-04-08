@@ -26,6 +26,11 @@ export const Checkout = () => {
   const [email, setEmail] = useState(session?.user?.email);
   const [loading, setLoading] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [dataVoucherInput, setDataVoucherInput] = useState("");
+  const [voucherList, setVoucherList] = useState([]);
+  const [voucherListSubmit, setVoucherListSubmit] = useState([]);
+
+  const [discount, setDiscount] = useState(0);
   const {
     register,
     control,
@@ -49,6 +54,7 @@ export const Checkout = () => {
           address: data.address,
           numberPhone: data.numberPhone,
           email: data.email,
+          listPromoCode: voucherListSubmit,
         });
 
         if (result) {
@@ -64,11 +70,6 @@ export const Checkout = () => {
       });
     }
   };
-
-  const [dataVoucherInput, setDataVoucherInput] = useState("");
-  const [voucherList, setVoucherList] = useState([]);
-
-  const [voucher, setVoucher] = useState(0);
 
   const handleVoucher = async () => {
     if (dataVoucherInput.length === 0) {
@@ -104,13 +105,14 @@ export const Checkout = () => {
       dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
       setVoucher(parseInt(applyVoucher.discount) + voucher);
       setVoucherList([...voucherList, dataVoucherInput]);
+      setVoucherListSubmit([...voucherListSubmit, dataVoucherInput]);
     }
   };
 
   return (
     <Container>
       <ProgressCart />
-      <div className=" w-full mt-32 mb-10 relative">
+      <div className="w-full mt-32 mb-10 relative">
         {loading && (
           <div className="w-full h-full flex justify-center items-center absolute bg-opacity-20 bg-slate-400 top-0 left-0">
             <LoadingPage />
@@ -118,7 +120,7 @@ export const Checkout = () => {
         )}
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-12 gap-4 w-full">
-            <div className="col-span-7 w-full bg-[#f5f5f5] p-4 shadow-lg rounded-lg">
+            <div className="col-span-12 lg:col-span-7 w-full bg-[#f5f5f5] p-4 shadow-lg rounded-lg">
               <div className="font-bold text-2xl py-4">
                 <h1>Billing Details</h1>
               </div>
@@ -134,7 +136,6 @@ export const Checkout = () => {
                           id="fullname"
                           placeholder="Full Name"
                           defaultValue={fullname}
-                          // onChange={e => setFullname(e.target.value)}
                           className="w-full p-4 rounded-xl my-2"
                           {...register("fullname")}
                         />
@@ -154,7 +155,6 @@ export const Checkout = () => {
                         id="address"
                         placeholder="Address"
                         defaultValue={address}
-                        // onChange={e => setAddress(e.target.value)}
                         className="w-full p-4 rounded-xl my-2"
                         {...register("address")}
                       />
@@ -173,7 +173,6 @@ export const Checkout = () => {
                         id="phone"
                         placeholder="Number Phone"
                         defaultValue={numberphone}
-                        // onChange={e => setNumberPhone(e.target.value)}
                         className="w-full p-4 rounded-xl my-2"
                         {...register("numberPhone")}
                       />
@@ -192,7 +191,6 @@ export const Checkout = () => {
                         id="email"
                         name="email"
                         defaultValue={email}
-                        // onChange={e => setEmail(e.target.value)}
                         placeholder="Email"
                         className="w-full p-4 rounded-xl my-2"
                         {...register("email")}
@@ -202,7 +200,7 @@ export const Checkout = () => {
                 />
               </div>
             </div>
-            <div className="col-span-5 flex flex-col items-center justify-between">
+            <div className="col-span-12 lg:col-span-5 flex flex-col items-center justify-between">
               <div className="w-full mb-5 p-4 bg-[#f5f5f5] font-medium shadow-lg rounded-lg">
                 <div className="font-bold text-2xl py-4 flex justify-between items-center">
                   <h1>Cart Total</h1>
@@ -216,7 +214,7 @@ export const Checkout = () => {
                 </div>
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Discount </span>
-                  <p className="w-[40%] text-sm">{voucher} %</p>
+                  <p className="w-[40%] text-sm">{discount} %</p>
                 </div>
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Shipping </span>
@@ -250,8 +248,9 @@ export const Checkout = () => {
                     Voucher Available
                   </h2>
                   <VoucherList
-                    isCode={(value) => {
-                      setVoucher(parseInt(value) + voucher);
+                    isCode={(discountVoucher, voucherCode) => {
+                      setDiscount(parseInt(discountVoucher) + discount);
+                      setVoucherListSubmit([...voucherListSubmit, voucherCode]);
                     }}
                   />
                 </div>
