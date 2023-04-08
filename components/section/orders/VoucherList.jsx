@@ -9,7 +9,7 @@ export function VoucherItem({ data, isCode }) {
   const total = useSelector((state) => state.cart.total);
   const [use, setUse] = useState(false);
   const dispatch = useDispatch();
-  const handleVoucher = async (code, discount) => {
+  const handleVoucher = async (voucherCode, discount) => {
     toast.success("Use voucher successfully!", {
       position: toast.POSITION.TOP_RIGHT,
     });
