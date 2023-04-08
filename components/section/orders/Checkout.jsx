@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import LoadingPage from "../loading/LoadingPage";
 import { VoucherList } from "./VoucherList";
 import { voucherApi } from "@/apiClient/voucher";
+import Modal from "../modal/Modal";
 
 export const Checkout = () => {
   const router = useRouter();
@@ -19,13 +20,12 @@ export const Checkout = () => {
   const total = useSelector((state) => state.cart.total);
   const products = useSelector((state) => state.cart.products);
   const { data: session } = useSession();
-  const [data, setData] = useState([]);
-  const [subTotal, setSubTotal] = useState(0);
   const [fullname, setFullname] = useState(session?.user?.fullname);
   const [address, setAddress] = useState(session?.user?.address);
   const [numberphone, setNumberPhone] = useState(session?.user?.numberPhone);
   const [email, setEmail] = useState(session?.user?.email);
   const [loading, setLoading] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
   const {
     register,
     control,
@@ -71,7 +71,12 @@ export const Checkout = () => {
   const [voucher, setVoucher] = useState(0);
 
   const handleVoucher = async () => {
-    if (dataVoucherInput.length === 0) return;
+    if (dataVoucherInput.length === 0) {
+      toast.warning("Please input your voucher!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
 
     if (voucherList.includes(dataVoucherInput)) {
       toast.warning("Voucher already used!", {
@@ -199,21 +204,16 @@ export const Checkout = () => {
             </div>
             <div className="col-span-5 flex flex-col items-center justify-between">
               <div className="w-full mb-5 p-4 bg-[#f5f5f5] font-medium shadow-lg rounded-lg">
-                <div className="font-bold text-2xl py-4">
+                <div className="font-bold text-2xl py-4 flex justify-between items-center">
                   <h1>Cart Total</h1>
+                  <a
+                    className="cursor-pointer hover:text-white p-4 bg-primary hover:bg-secondary"
+                    type="button"
+                    onClick={() => setOpenModal(true)}
+                  >
+                    Watch item
+                  </a>
                 </div>
-                {products?.map((item) => {
-                  return (
-                    <div
-                      key={item.cartId}
-                      className="border-b-2 my-2 w-full flex"
-                    >
-                      <span className="w-[60%]">
-                        {item?.quantityProduct} x {item?.name}
-                      </span>
-                    </div>
-                  );
-                })}
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Discount </span>
                   <p className="w-[40%] text-sm">{voucher} %</p>
@@ -236,12 +236,13 @@ export const Checkout = () => {
                     onChange={(e) => setDataVoucherInput(e.target.value)}
                     value={dataVoucherInput}
                   />
-                  <button
+                  <a
+                    type="button"
                     onClick={handleVoucher}
-                    className="bg-primary hover:bg-secondary hover:text-white py-2 px-3"
+                    className="bg-primary hover:bg-secondary hover:text-white py-2 px-3 cursor-pointer"
                   >
                     Apply
-                  </button>
+                  </a>
                 </div>
                 <div className="border border-[0.5px] border-[#898787] w-full"></div>
                 <div className="w-full mb-2">
@@ -257,13 +258,27 @@ export const Checkout = () => {
               </div>
             </div>
             <div className="col-span-12 w-full my-10 flex justify-center items-center">
-              <button className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white">
+              <button
+                type="submit"
+                className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white"
+              >
                 Complete
               </button>
             </div>
           </div>
         </form>
       </div>
+      <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+        {products?.map((item) => {
+          return (
+            <div key={item.cartId} className="border-b-2 my-2 w-full flex">
+              <span className="w-[60%]">
+                {item?.quantityProduct} x {item?.name}
+              </span>
+            </div>
+          );
+        })}
+      </Modal>
     </Container>
   );
 };

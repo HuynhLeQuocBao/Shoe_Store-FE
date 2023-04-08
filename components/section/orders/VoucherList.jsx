@@ -64,6 +64,7 @@ export function VoucherList({ isCode }) {
     <div className="flex flex-col items-center gap-2 max-h-52 overflow-y-auto">
       {data?.listPromotion?.map((item) => (
         <VoucherItem
+          key={item.code}
           data={item}
           isCode={(value) => {
             isCode(value);
