@@ -79,23 +79,6 @@ export function Register() {
             <div className="w-full">
               <div className="block rounded-2xl bg-white">
                 <div className="g-0 lg:flex lg:flex-wrap">
-                  <div
-                    className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
-                    // style={{
-                    //   background:
-                    //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
-                    // }}
-                  >
-                    <div className="px-4 py-6 text-primary md:mx-6 md:p-12">
-                      <h4 className="mb-6 text-5xl font-semibold uppercase text-center">
-                        Welcome to the shoe store
-                      </h4>
-                      <p className="text-2xl text-center">
-                        Step into our shoe store and discover a wide selection
-                        of fashionable footwear for every occasion.
-                      </p>
-                    </div>
-                  </div>
                   <div className="px-4 md:px-0 lg:w-6/12">
                     <div className="md:mx-6 md:p-12">
                       <div className="flex-center py-4">
@@ -109,7 +92,7 @@ export function Register() {
                       </div>
                       <form onSubmit={handleSubmit(onSubmitRegister)}>
                         <p className="mb-4 text-center font-bold text-2xl ">
-                          Sign up
+                          Register
                         </p>
                         <div class="relative mb-6">
                           <Controller
@@ -350,15 +333,15 @@ export function Register() {
                                 "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
                             }}
                           >
-                            Sign up
+                            Register
                           </button>
                         </div>
                         <div className="flex items-center justify-center flex-col mb-4">
                           <p>
                             Already have a account?
                             <Link href="/login">
-                              <span className="cursor-pointer ml-1 underline hover:text-blue-500">
-                                Sign in
+                              <span className="cursor-pointer ml-1 underline hover:text-primary">
+                                <b>Log in</b>
                               </span>
                             </Link>
                           </p>
@@ -366,6 +349,7 @@ export function Register() {
                       </form>
                     </div>
                   </div>
+                  <div className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"></div>
                 </div>
               </div>
             </div>

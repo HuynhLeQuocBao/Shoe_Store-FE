@@ -74,23 +74,7 @@ export function Login() {
             <div className="w-full">
               <div className="block rounded-2xl bg-white">
                 <div className="g-0 lg:flex lg:flex-wrap">
-                  <div
-                    className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"
-                    // style={{
-                    //   background:
-                    //     "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
-                    // }}
-                  >
-                    <div className="px-4 py-6 text-primary md:mx-6 md:p-12">
-                      <h4 className="mb-6 text-5xl font-semibold uppercase text-center">
-                        Welcome to the shoe store
-                      </h4>
-                      <p className="text-2xl text-center">
-                        Step into our shoe store and discover a wide selection
-                        of fashionable footwear for every occasion.
-                      </p>
-                    </div>
-                  </div>
+                  <div className="hidden lg:flex items-center rounded-2xl lg:w-6/12 bg-login bg-cover bg-center overflow-hidden"></div>
                   <div className="px-4 md:px-0 lg:w-6/12">
                     <div className="md:mx-6 md:p-12">
                       <div className="flex-center py-4">
@@ -104,7 +88,7 @@ export function Login() {
                       </div>
                       <form onSubmit={handleSubmit(onSubmit)}>
                         <p className="mb-4 text-center font-bold text-2xl ">
-                          Sign in
+                          Log in
                         </p>
                         <div class="relative mb-6">
                           <Controller
@@ -194,10 +178,10 @@ export function Login() {
                                 "linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593)",
                             }}
                           >
-                            Sign in
+                            Log in
                           </button>
                           <Link href="#">
-                            <span className="cursor-pointer ml-1 underline hover:text-blue-500">
+                            <span className="cursor-pointer ml-1 underline hover:text-primary">
                               Forgot password?
                             </span>
                           </Link>
@@ -219,7 +203,6 @@ export function Login() {
                               />
                             </button>
                           </div>
-                          {/* <div className="px-4 text-xl"><p>or</p></div> */}
                           <div className="my-4 text-center md:text-left">
                             <button
                               className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
@@ -238,8 +221,8 @@ export function Login() {
                           <p>
                             Do not have an account?
                             <Link href="/register">
-                              <span className="cursor-pointer ml-1 underline hover:text-blue-500">
-                                Register
+                              <span className="cursor-pointer ml-1 underline hover:text-primary">
+                                <b>Register</b>
                               </span>
                             </Link>
                           </p>

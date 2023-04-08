@@ -6,7 +6,6 @@ import { Popover, Transition } from "@headlessui/react";
 import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { MenuItem, MenuProfile } from "@/components/menu/index";
-import { FaShoppingCart } from "react-icons/fa";
 import { MdSearch } from "react-icons/md";
 import { cartApi } from "@/apiClient/cartAPI";
 import { productApi } from "@/apiClient/product";
@@ -16,6 +15,7 @@ import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
 import { getDataFromCartApi, resetCart } from "store/features/cartSlice";
 import { BsBagCheck } from "react-icons/bs";
+import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
 
 const navigation = [
   {
@@ -40,14 +40,6 @@ const navigation = [
   },
 ];
 
-function MenuIconSVG() {
-  return <img src="images/svg/menu-unfold-one.svg" alt="button mobile" />;
-}
-
-function MenuIconCloseSVG() {
-  return <img src="images/svg/close.svg" />;
-}
-
 function TabletNavigation() {
   const router = useRouter();
   const { data: session } = useSession();
@@ -56,9 +48,9 @@ function TabletNavigation() {
     <Popover className="lg:hidden z-[9998] flex items-center justify-center">
       {({ open, close }) => (
         <>
-          <Popover.Button className="relative z-[9999] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl">
+          <Popover.Button className="relative z-[9999] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl text-white text-2xl">
             <span className="sr-only">Toggle Navigation</span>
-            {open ? <MenuIconCloseSVG /> : <MenuIconSVG />}
+            {open ? <AiOutlineClose /> : <AiOutlineMenuUnfold />}
           </Popover.Button>
           <Transition.Root>
             <Transition.Child

@@ -43,7 +43,7 @@ module.exports = {
         banner: "banner 2s cubic-bezier(0, 0.49, 0.82, 0.98) 1 forwards",
       },
       backgroundImage: {
-        login: "url('/images/login.jpg')",
+        login: "url('/images/banner/login.jpg')",
       },
     },
   },
