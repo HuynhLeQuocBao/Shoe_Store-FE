@@ -18,7 +18,7 @@ export function VoucherItem({ data, isCode }) {
 
     const applyVoucher = await voucherApi.applyVoucher({
       cartTotal: total,
-      listPromoCode: [code],
+      listPromoCode: [voucherCode],
     });
     dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
   };
