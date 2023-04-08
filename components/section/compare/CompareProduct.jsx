@@ -20,10 +20,11 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           )}
         </div>
         <div className="flex-col flex-center gap-5 max-h-[288px] border-[1px] border-solid border-r-0">
-          <div className="w-40 h-40 md:w-72 md:h-72 p-4 hover:cursor-pointer">
+          <div className="w-40 h-40 md:w-72 md:h-72 p-4 hover:cursor-zoom-in  ">
             <Image
-              src={`http://localhost:3010/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`}
+              src={`https://shoe-store-be.onrender.com/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`}
               alt="image product"
+              className="hover:opacity-70"
               objectFit="cover"
               layout="responsive"
               width={200}
@@ -34,7 +35,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
             <FsLightbox
               toggler={toggler}
               sources={[
-                `http://localhost:3010/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`,
+                `https://shoe-store-be.onrender.com/upload/${product?.shoeDetail?.arrayImage[0]?.filename}`,
               ]}
             />
           </div>
@@ -48,9 +49,6 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
           {product?.totalAmount}
         </div>
-        {/* <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-               color
-             </div> */}
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
           {product?.listCateSize?.map((size, index) => (
             <div key={index} className="h-8 w-8 flex-center bg-primary ">

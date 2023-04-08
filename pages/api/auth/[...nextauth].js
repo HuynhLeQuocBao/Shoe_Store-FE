@@ -11,7 +11,7 @@ export default NextAuth({
       async authorize(credentials) {
         try {
           const result = await axios.post(
-            `${process.env.API_URL}/api/v1/auth/login`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/login`,
             {
               accountName: credentials.accountName,
               password: credentials.password,
@@ -43,7 +43,7 @@ export default NextAuth({
       try {
         if (account.provider != "credentials") {
           const result = await axios.post(
-            `${process.env.API_URL}/api/v1/auth/${account.provider}`,
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/auth/${account.provider}`,
             {
               userId: user.id,
               fullname: user.name,

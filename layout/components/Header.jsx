@@ -234,7 +234,7 @@ export function Header() {
                             >
                               <div className="w-full flex gap-2">
                                 <Image
-                                  src={`http://localhost:3010/upload/${product.arrayImage[0].filename}`}
+                                  src={`https://shoe-store-be.onrender.com/upload/${product.arrayImage[0].filename}`}
                                   className=""
                                   width={50}
                                   height={50}
@@ -307,7 +307,7 @@ export function Header() {
                         >
                           <div className="w-full flex gap-2">
                             <Image
-                              src={`http://localhost:3010/upload/${product.arrayImage[0].filename}`}
+                              src={`https://shoe-store-be.onrender.com/upload/${product.arrayImage[0].filename}`}
                               className=""
                               width={50}
                               height={50}

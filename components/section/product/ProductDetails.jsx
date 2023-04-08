@@ -6,14 +6,14 @@ import { useRouter } from "next/router";
 import Slider from "react-slick";
 import { useSession } from "next-auth/react";
 import { cartApi } from "@/apiClient/cartAPI";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addToCartStore } from "../../../store/features/cartSlice";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import LoadingPage from "../loading/LoadingPage";
 import LoadingPageGlobal from "../loading/LoadingPageGlobal";
 import LoadingProductDetail from "../loading/LoadingProductDetail";
+import PreviewImage from "./PreviewImage";
 
 export function ProductDetail() {
   const [data, setData] = useState([]);
@@ -34,8 +34,6 @@ export function ProductDetail() {
     slidesToScroll: 1,
     pauseOnHover: false,
   };
-
-  const sizes = ["5", "5.5", "6", "6.5", "7", "7.5", "8", "9", "10"];
 
   const handleAsc = () => {
     if (quantity < 1) {
@@ -124,85 +122,106 @@ export function ProductDetail() {
           <LoadingProductDetail />
         ) : (
           <div>
-            <div className="grid grid-cols-1 md:grid-cols-2 md:gap-12 mx-6 md:mx-0 py-10">
-              <div className="mb-8 col-span-1">
-                <Slider {...settings}>
+            <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-12 mx-6 lg:mx-0 py-10">
+              <div className="flex flex-col justify-between lg:hidden">
+                <h2 className="mb-2 text-3xl font-semibold">
+                  {data?.shoeDetail?.name}
+                </h2>
+                <h3 className="mb-2 text-lg">
+                  ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
+                </h3>
+                <h3 className="mb-4 text-xs">RATING</h3>
+                <p className=" text-secondary font-light text-justify">
+                  {data?.shoeDetail?.description}
+                </p>
+              </div>
+              <div className="mb-8 col-span-2 ">
+                <div className="block lg:hidden">
+                  <Slider {...settings}>
+                    {data?.shoeDetail?.arrayImage?.map((item, index) => (
+                      <div key={index}>
+                        <Image
+                          src={`https://shoe-store-be.onrender.com/upload/${item?.filename}`}
+                          alt="image product"
+                          layout="responsive"
+                          width={250}
+                          height={250}
+                          priority={true}
+                        />
+                      </div>
+                    ))}
+                  </Slider>
+                </div>
+                <div className="hidden lg:flex flex-wrap gap-2">
                   {data?.shoeDetail?.arrayImage?.map((item, index) => (
-                    <div key={index} className="w-full h-96">
-                      <img
-                        className="w-full h-full object-cover"
-                        src={`http://localhost:3010/upload/${item?.filename}`}
-                        alt="product details"
-                      />
-                    </div>
+                    <PreviewImage
+                      key={index}
+                      data={item}
+                      arrayImage={data?.shoeDetail?.arrayImage}
+                    />
                   ))}
-                </Slider>
+                </div>
               </div>
               <div className="col-span-1">
-                {
-                  <div className="flex flex-col justify-between">
-                    <h2 className="mb-4 text-xl font-semibold">
-                      {data?.shoeDetail?.name}
-                    </h2>
-                    <h3 className="mb-2 text-lg">
-                      ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
-                    </h3>
-                    <h3 className="mb-4 text-xs">RATING</h3>
-                    <p className="text-sm text-secondary font-light text-justify">
-                      {data?.shoeDetail?.introduce}
-                    </p>
-                    <div className="w-full mt-4 mb-8">
-                      <h3 className="pb-2">SIZE</h3>
-                      {data?.listCateSize?.map((item, index) => (
-                        <button
-                          onClick={() => setSize(item)}
-                          className={`w-10 h-10 mr-1 mb-1 hover:bg-primary rounded-sm  text-white cursor-pointer ${
-                            size === item ? "bg-primary" : "bg-[#ccc]"
-                          }`}
-                          key={index}
-                        >
-                          {item}
-                        </button>
-                      ))}
-                    </div>
-                    <div className="grid grid-cols-2 text-xl mb-8">
-                      <div className="">
-                        <button
-                          className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
-                          onClick={handleDesc}
-                        >
-                          {" "}
-                          -
-                        </button>
-                        <input
-                          onChange={(e) => setQuantity(e.target.value)}
-                          className="text-center w-16 h-full outline-none"
-                          type="number"
-                          min="1"
-                          value={quantity}
-                        />
-                        <button
-                          className="w-10 h-10 mr-1 hover:bg-primary rounded-sm bg-[#ccc] text-white cursor-pointer"
-                          onClick={handleAsc}
-                        >
-                          {" "}
-                          +
-                        </button>
-                      </div>
-                      <div>
-                        <button
-                          className="flex flex-row items-center w-fit hover:bg-primary rounded-sm bg-secondary text-white px-3 py-2"
-                          onClick={addToCart}
-                        >
-                          <div className="text-xl">
-                            <FaShoppingCart />
-                          </div>
-                          <p className="mx-2 text-base">Add to Cart</p>
-                        </button>
-                      </div>
-                    </div>
+                <div className="flex flex-col justify-between">
+                  <h2 className="mb-2 text-3xl font-semibold hidden lg:block">
+                    {data?.shoeDetail?.name}
+                  </h2>
+                  <h3 className="mb-2 text-lg hidden lg:block">
+                    ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
+                  </h3>
+                  <h3 className="mb-4 text-xs hidden lg:block">RATING</h3>
+                  <p className=" text-secondary font-light text-justify hidden lg:block">
+                    {data?.shoeDetail?.description}
+                  </p>
+                  <div className="my-3 flex items-center">
+                    <h3 className="mr-3 h-10 flex items-center">Quantity: </h3>
+                    <button
+                      className="w-10 h-10 text-xl hover:bg-primary bg-[#ccc] text-white cursor-pointer rounded-full duration-300 shadow-icon-product"
+                      onClick={handleDesc}
+                    >
+                      <div className="flex-center">-</div>
+                    </button>
+                    <input
+                      onChange={(e) => setQuantity(e.target.value)}
+                      className="text-center outline-none border-[1px] border-solid h-10 w-16 rounded-md mx-5 shadow-product-line "
+                      type="number"
+                      min="1"
+                      value={quantity}
+                    />
+                    <button
+                      className="w-10 h-10 text-xl  hover:bg-primary bg-[#ccc] text-white cursor-pointer rounded-full duration-300 shadow-icon-product"
+                      onClick={handleAsc}
+                    >
+                      <div className="flex-center h-full">+</div>
+                    </button>
                   </div>
-                }
+                  <div className="w-full mt-4 mb-8">
+                    <h3 className="pb-2">Select Size</h3>
+                    {data?.listCateSize?.map((item, index) => (
+                      <button
+                        onClick={() => setSize(item)}
+                        className={`w-40 shadow-sm mr-2 mb-2 border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
+                          size === item ? "border-black" : ""
+                        }`}
+                        key={index}
+                      >
+                        {item}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="w-full ">
+                    <button
+                      className="flex-center  items-center  hover:bg-zinc-700 rounded-2xl bg-black text-white px-3 py-3 duration-300"
+                      onClick={addToCart}
+                    >
+                      <div className="text-xl">
+                        <FaShoppingCart />
+                      </div>
+                      <p className="mx-2 text-base">Add to Cart</p>
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
             <div className="text-justify mx-6 md:mx-0">

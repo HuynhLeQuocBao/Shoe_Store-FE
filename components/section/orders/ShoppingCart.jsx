@@ -124,7 +124,7 @@ export function ShoppingCart() {
                   <Link href={`/product-detail/${item.productId}`}>
                     <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2 hover:cursor-pointer">
                       <img
-                        src={`http://localhost:3010/upload/${item.image}`}
+                        src={`https://shoe-store-be.onrender.com/upload/${item.image}`}
                         className="w-20 h-20 object-cover"
                       />
                       <div className="ml-2">
@@ -210,7 +210,7 @@ export function ShoppingCart() {
                 >
                   <div className="w-full flex items-center col-span-4">
                     <img
-                      src={`http://localhost:3010/upload/${item.image}`}
+                      src={`https://shoe-store-be.onrender.com/upload/${item.image}`}
                       className="w-30 h-30 object-cover p-2 "
                     />
                   </div>
