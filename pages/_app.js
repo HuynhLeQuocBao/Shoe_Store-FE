@@ -11,7 +11,8 @@ import App from "next/app";
 import { store, persistor } from "../store/store";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp(props) {
   const { Component, pageProps, session } = props;

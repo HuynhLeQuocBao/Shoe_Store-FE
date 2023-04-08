@@ -1,9 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Container } from "@/components/common";
-import { useForm, Controller } from "react-hook-form";
 import { cartApi } from "@/apiClient/cartAPI";
 import { useState, useEffect } from "react";
-import { FormQuantity } from "./FormQuantity";
 import Link from "next/link";
 import { ProgressCart } from "./ProgressCart";
 import { HiMinusSm, HiOutlineX, HiPlusSm } from "react-icons/hi";
@@ -88,6 +86,7 @@ export function ShoppingCart() {
       console.log(error);
     }
   };
+
   return (
     <div className="w-full h-full relative">
       <LoadingPageGlobal loading={loading} />
@@ -201,7 +200,7 @@ export function ShoppingCart() {
             </div>
           )}
         </div>
-        <div className="w-full px-4 my-32 md:hidden">
+        <div className="w-full px-4 my-16 md:hidden">
           {cartList?.length > 0 ? (
             cartList.map((item, index) => {
               return (
@@ -295,7 +294,7 @@ export function ShoppingCart() {
             <div className="w-full bg-slate-200 p-4  rounded-lg ">
               <div className="w-full mb-2 flex">
                 <span className="w-[30%] flex justify-end">Subtotal: </span>
-                <p className="w-[60%] pl-10">$ {subTotal}</p>
+                <p className="w-[60%] pl-10">$ {total}</p>
               </div>
               <div className="w-full mb-2 flex">
                 <span className="w-[30%] flex justify-end">Delivery: </span>

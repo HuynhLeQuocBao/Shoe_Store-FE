@@ -29,6 +29,10 @@ export const cartSlice = createSlice({
       state.total = 0;
       state.quantity = 0;
     },
+    updateTotalCart: (state, action) => {
+      const { total } = action.payload;
+      state.total = total;
+    },
     getDataFromCartApi: (state, action) => {
       const { cartItem, total } = action.payload;
       state.products.push({
@@ -107,5 +111,6 @@ export const {
   getDataFromCartApi,
   deleteProductFormCart,
   resetCart,
+  updateTotalCart,
 } = cartSlice.actions;
 export default cartSlice.reducer;

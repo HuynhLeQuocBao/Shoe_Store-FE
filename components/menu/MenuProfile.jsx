@@ -9,7 +9,7 @@ export function MenuProfile() {
 
   return (
     <Menu as="div" className="relative">
-      <div className="flex items-center space-x-2 justify-center lg:justify-start cursor-pointer btn-login">
+      <div className="flex items-center space-x-2 justify-center lg:justify-start cursor-pointer">
         <Menu.Button as={session ? "button" : "div"}>
           {!session ? (
             <Link href="/login">

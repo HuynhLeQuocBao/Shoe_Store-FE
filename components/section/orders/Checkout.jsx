@@ -7,9 +7,11 @@ import { useRouter } from "next/router";
 import { ProgressCart } from ".";
 import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
-import { resetCart } from "store/features/cartSlice";
+import { resetCart, updateTotalCart } from "store/features/cartSlice";
 import { toast } from "react-toastify";
 import LoadingPage from "../loading/LoadingPage";
+import { VoucherList } from "./VoucherList";
+import { voucherApi } from "@/apiClient/voucher";
 
 export const Checkout = () => {
   const router = useRouter();
@@ -62,6 +64,44 @@ export const Checkout = () => {
       });
     }
   };
+
+  const [dataVoucherInput, setDataVoucherInput] = useState("");
+  const [voucherList, setVoucherList] = useState([]);
+
+  const [voucher, setVoucher] = useState(0);
+
+  const handleVoucher = async () => {
+    if (dataVoucherInput.length === 0) return;
+
+    if (voucherList.includes(dataVoucherInput)) {
+      toast.warning("Voucher already used!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    const applyVoucher = await voucherApi.applyVoucher({
+      cartTotal: total,
+      listPromoCode: [dataVoucherInput.toUpperCase()],
+    });
+
+    if (applyVoucher && applyVoucher.message) {
+      toast.warning(applyVoucher.message, {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      return;
+    }
+
+    if (applyVoucher) {
+      toast.success("Use voucher successfully!", {
+        position: toast.POSITION.TOP_RIGHT,
+      });
+      dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
+      setVoucher(parseInt(applyVoucher.discount) + voucher);
+      setVoucherList([...voucherList, dataVoucherInput]);
+    }
+  };
+
   return (
     <Container>
       <ProgressCart />
@@ -157,14 +197,10 @@ export const Checkout = () => {
                 />
               </div>
             </div>
-            <div className="col-span-5 ">
-              <div className="w-full mb-8 p-4 bg-[#f5f5f5] font-medium shadow-lg rounded-lg">
+            <div className="col-span-5 flex flex-col items-center justify-between">
+              <div className="w-full mb-5 p-4 bg-[#f5f5f5] font-medium shadow-lg rounded-lg">
                 <div className="font-bold text-2xl py-4">
                   <h1>Cart Total</h1>
-                </div>
-                <div className="border-b-2 my-2  w-full flex">
-                  <span className="w-[60%]">Subtotal </span>
-                  <p className="w-[40%] text-sm">$ {subTotal}</p>
                 </div>
                 {products?.map((item) => {
                   return (
@@ -173,26 +209,57 @@ export const Checkout = () => {
                       className="border-b-2 my-2 w-full flex"
                     >
                       <span className="w-[60%]">
-                        {item?.quantityProduct}*{item?.name}{" "}
+                        {item?.quantityProduct} x {item?.name}
                       </span>
-                      <p className="w-[40%] text-sm">$ {item?.totalProduct}</p>
                     </div>
                   );
                 })}
+                <div className="border-b-2 my-2 w-full flex">
+                  <span className="w-[60%]">Discount </span>
+                  <p className="w-[40%] text-sm">{voucher} %</p>
+                </div>
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Shipping </span>
                   <p className="w-[40%] text-sm">$ 0</p>
                 </div>
                 <div className="border-b-2 my-2 w-full flex">
                   <span className="w-[60%]">Order Total: </span>
-                  <p className="w-[40%] text-sm">{total}</p>
+                  <p className="w-[40%] text-sm">$ {total}</p>
                 </div>
               </div>
-              <div className="w-full my-1 flex justify-center items-center">
-                <button className="w-full md:w-full py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white">
-                  Complete
-                </button>
+              <div className="w-full p-4 bg-[#f5f5f5] font-medium shadow-lg rounded-lg">
+                <div className="w-full flex items-center justify-around pb-6">
+                  <input
+                    className="py-2 px-3 w-4/5"
+                    type="text"
+                    placeholder="Input your voucher..."
+                    onChange={(e) => setDataVoucherInput(e.target.value)}
+                    value={dataVoucherInput}
+                  />
+                  <button
+                    onClick={handleVoucher}
+                    className="bg-primary hover:bg-secondary hover:text-white py-2 px-3"
+                  >
+                    Apply
+                  </button>
+                </div>
+                <div className="border border-[0.5px] border-[#898787] w-full"></div>
+                <div className="w-full mb-2">
+                  <h2 className="text-center font-bold text-xl py-4">
+                    Voucher Available
+                  </h2>
+                  <VoucherList
+                    isCode={(value) => {
+                      setVoucher(parseInt(value) + voucher);
+                    }}
+                  />
+                </div>
               </div>
+            </div>
+            <div className="col-span-12 w-full my-10 flex justify-center items-center">
+              <button className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white">
+                Complete
+              </button>
             </div>
           </div>
         </form>
