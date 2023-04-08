@@ -14,6 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingPageGlobal from "../loading/LoadingPageGlobal";
 import LoadingProductDetail from "../loading/LoadingProductDetail";
 import PreviewImage from "./PreviewImage";
+import Modal from "../modal/Modal";
 
 export function ProductDetail() {
   const [data, setData] = useState([]);
@@ -21,6 +22,7 @@ export function ProductDetail() {
   const [loadingProduct, setLoadingProduct] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const [size, setSize] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [content, setContent] = useState(1);
   const { data: session } = useSession();
   const router = useRouter();
@@ -233,7 +235,9 @@ export function ProductDetail() {
                       className="w-10 h-10 text-xl hover:bg-primary bg-[#ccc] text-white cursor-pointer rounded-full duration-300 shadow-icon-product"
                       onClick={handleDesc}
                     >
-                      <div className="flex-center">-</div>
+                      <div className="flex-center text-2xl text-secondary">
+                        -
+                      </div>
                     </button>
                     <input
                       onChange={(e) => setQuantity(e.target.value)}
@@ -243,25 +247,39 @@ export function ProductDetail() {
                       value={quantity}
                     />
                     <button
-                      className="w-10 h-10 text-xl  hover:bg-primary bg-[#ccc] text-white cursor-pointer rounded-full duration-300 shadow-icon-product"
+                      className="w-10 h-10 text-xl hover:bg-primary bg-[#ccc] text-white cursor-pointer rounded-full duration-300 shadow-icon-product"
                       onClick={handleAsc}
                     >
-                      <div className="flex-center h-full">+</div>
+                      <div className="flex-center h-full text-2xl text-secondary">
+                        +
+                      </div>
                     </button>
                   </div>
                   <div className="w-full mt-4 mb-8">
-                    <h3 className="pb-2">Select Size</h3>
-                    {data?.listCateSize?.map((item, index) => (
-                      <button
-                        onClick={() => setSize(item)}
-                        className={`w-40 shadow-sm mr-2 mb-2 border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
-                          size === item ? "border-black" : ""
-                        }`}
-                        key={index}
-                      >
-                        {item}
-                      </button>
-                    ))}
+                    <div className="flex items-center justify-between">
+                      <h3 className="pb-2">Select Size</h3>
+                      <h3 className="pb-2">
+                        <a
+                          onClick={() => setOpenModal(true)}
+                          className="font-bold underline cursor-pointer hover:text-primary"
+                        >
+                          Size chart
+                        </a>
+                      </h3>
+                    </div>
+                    <div className="flex items-center justify-between flex-wrap gap-3">
+                      {data?.listCateSize?.map((item, index) => (
+                        <button
+                          onClick={() => setSize(item)}
+                          className={`w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
+                            size === item ? "border-black" : ""
+                          }`}
+                          key={index}
+                        >
+                          {item}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                   <div className="w-full ">
                     <button
@@ -328,6 +346,11 @@ export function ProductDetail() {
             </div>
           </div>
         )}
+        <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+          <div>
+            <img src="/images/banner/size_chart.jpg" alt="" />
+          </div>
+        </Modal>
       </Container>
     </div>
   );

@@ -20,7 +20,7 @@ const Modal = ({ isVisible, onClose, children }) => {
         >
           X
         </button>
-        <div className="bg-white p-8 rounded-lg h-full overflow-y-scroll">
+        <div className="bg-white p-8 rounded-lg h-full overflow-y-auto">
           {children}
         </div>
       </div>
