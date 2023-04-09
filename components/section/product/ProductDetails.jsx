@@ -144,7 +144,7 @@ export function ProductDetail() {
                     {data?.shoeDetail?.arrayImage?.map((item, index) => (
                       <div key={index}>
                         <Image
-                          src={`https://shoe-store-be.onrender.com/upload/${item?.filename}`}
+                          src={`${process.env.NEXT_PUBLIC_API_URL}/upload/${item?.filename}`}
                           alt="image product"
                           layout="responsive"
                           width={250}

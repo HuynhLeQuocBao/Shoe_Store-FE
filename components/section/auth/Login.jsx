@@ -80,7 +80,7 @@ export function Login() {
                       <div className="flex-center py-4">
                         <Image
                           src={logo}
-                          alt="logo"
+                          alt="logo footwear"
                           width={200}
                           height={80}
                           className=""

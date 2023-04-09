@@ -2,14 +2,14 @@ import { convertCurrency } from "@/utils/currency";
 import Image from "next/image";
 
 const ProductTwo = ({ image, name, price }) => {
-  const src = `https://shoe-store-be.onrender.com/upload/${image}`;
-
+  const src = process.env.NEXT_PUBLIC_API_URL + "/upload/" + image;
   return (
     <div className=" flex flex-col items-center justify-center shadow-product-line ">
       <div>
         <Image
           loader={() => src}
           src={src}
+          alt="footwear image"
           width={500}
           height={500}
           objectFit="cover"

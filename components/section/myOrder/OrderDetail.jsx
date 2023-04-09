@@ -17,7 +17,7 @@ export function OrderDetail() {
   const [subTotal, setSubTotal] = useState(0);
   const [idOrder, setIdOrder] = useState();
   const [stateOrder, setStateOrder] = useState();
-  // const [confirm, se] = useState()
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
 
   useEffect(() => {
     try {
@@ -102,7 +102,7 @@ export function OrderDetail() {
               >
                 <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2">
                   <img
-                    src={`https://lshoe-store-be.onrender.com/upload/${item.image}`}
+                    src={`${baseURL + item.image}`}
                     className="w-20 h-20 object-cover"
                   />
                   <div className="ml-2">

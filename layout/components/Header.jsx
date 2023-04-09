@@ -105,7 +105,11 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
-  const typingTimeoutRef = useRef(null);
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const HOST =
+    typeof window !== "undefined" && window.location.origin
+      ? window.location.origin
+      : "";
   const {
     register,
     control,
@@ -229,12 +233,14 @@ export function Header() {
                           {productSearchList.map((product, index) => (
                             <a
                               key={index}
-                              href={`https://localhost:3001/product-detail/${product._id}`}
+                              href={`${HOST}/product-detail/${product._id}`}
                               className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
                             >
                               <div className="w-full flex gap-2">
                                 <Image
-                                  src={`https://shoe-store-be.onrender.com/upload/${product.arrayImage[0].filename}`}
+                                  src={`${
+                                    baseURL + product.arrayImage[0].filename
+                                  }`}
                                   className=""
                                   width={50}
                                   height={50}
@@ -302,13 +308,16 @@ export function Header() {
                       {productSearchList.map((product, index) => (
                         <a
                           key={index}
-                          href={`https://localhost:3001/product-detail/${product._id}`}
+                          href={`${HOST}/product-detail/${product._id}`}
                           className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
                         >
                           <div className="w-full flex gap-2">
                             <Image
-                              src={`https://shoe-store-be.onrender.com/upload/${product.arrayImage[0].filename}`}
+                              src={`${
+                                baseURL + product.arrayImage[0].filename
+                              }`}
                               className=""
+                              alt={product.description}
                               width={50}
                               height={50}
                             />

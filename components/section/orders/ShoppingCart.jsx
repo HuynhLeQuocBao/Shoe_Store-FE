@@ -22,6 +22,7 @@ export function ShoppingCart() {
   const cartList = useSelector((state) => state.cart.products);
   const total = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
 
   const handleDeleteCartItem = async (id) => {
     setLoading(true);
@@ -124,7 +125,7 @@ export function ShoppingCart() {
                   <Link href={`/product-detail/${item.productId}`}>
                     <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2 hover:cursor-pointer">
                       <img
-                        src={`https://shoe-store-be.onrender.com/upload/${item.image}`}
+                        src={`${baseURL + item.image}`}
                         className="w-20 h-20 object-cover"
                       />
                       <div className="ml-2">
@@ -210,7 +211,7 @@ export function ShoppingCart() {
                 >
                   <div className="w-full flex items-center col-span-4">
                     <img
-                      src={`https://shoe-store-be.onrender.com/upload/${item.image}`}
+                      src={`${baseURL + item.image}`}
                       className="w-30 h-30 object-cover p-2 "
                     />
                   </div>

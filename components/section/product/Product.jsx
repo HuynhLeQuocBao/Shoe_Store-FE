@@ -2,7 +2,7 @@ import { convertCurrency } from "@/utils/currency";
 import Image from "next/image";
 
 export function Product({ image, name, price }) {
-  const src = `https://shoe-store-be.onrender.com/upload/${image}`;
+  const src = process.env.NEXT_PUBLIC_API_URL + "/upload/" + image;
 
   return (
     <div className="mb-7 flex flex-col items-center justify-center md:mb-0 shadow-product-line">

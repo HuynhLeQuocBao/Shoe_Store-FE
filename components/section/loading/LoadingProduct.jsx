@@ -9,7 +9,15 @@ const LoadingProduct = ({ numberOfCards, className }) => {
   return (
     <>
       {data.map((item) => (
-        <span key={item} className={`${className} loader`}></span>
+        <div className="w-full" key={item}>
+          <div className="mb-7 flex flex-col items-center justify-center md:mb-0 shadow-product-line p-4">
+            <div className="mb-2 bg-loading-gradient h-60 min-w-full"></div>
+            <div className="text-center flex-col font-Rokkitt text-lg w-full h-[90px] flex-center">
+              <p className="mb-2 text-ellipsis bg-loading-gradient h-14 min-w-full"></p>
+              <p className=" bg-loading-gradient h-10 min-w-full"></p>
+            </div>
+          </div>
+        </div>
       ))}
     </>
   );
