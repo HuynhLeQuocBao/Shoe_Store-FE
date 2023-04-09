@@ -44,7 +44,10 @@ const LoadingProductDetail = () => {
         <div className="block lg:hidden bg-loading-gradient h-80 max-w-full"></div>
         <div className="hidden lg:flex flex-wrap gap-2">
           {array?.map((item) => (
-            <div key={item} className="bg-loading-gradient h-80 w-80"></div>
+            <div
+              key={item}
+              className="bg-loading-gradient h-80 min-w-[350px]"
+            ></div>
           ))}
         </div>
       </div>
