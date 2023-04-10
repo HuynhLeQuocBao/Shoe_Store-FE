@@ -194,7 +194,10 @@ export function Login() {
                             <button
                               className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
                               type="submit"
-                              onClick={() => signIn("facebook")}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                signIn("facebook");
+                              }}
                             >
                               <Image
                                 src="/images/logo/facebook.png"
@@ -209,7 +212,10 @@ export function Login() {
                             <button
                               className="text-white w-10 h-10 rounded-full cursor-pointer hover:opacity-70"
                               type="submit"
-                              onClick={() => signIn("google")}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                signIn("google");
+                              }}
                             >
                               <Image
                                 src="/images/logo/google.png"
