@@ -23,12 +23,9 @@ export function MenuProfile() {
           ) : (
             <div className="flex items-center text-base">
               <div className="w-10 h-10">
-                <Image
+                <img
                   src={`${session?.user?.picture || "/images/logo/admin.png"}`}
                   alt="avatar"
-                  layout="intrinsic"
-                  width={40}
-                  height={40}
                   className="w-full rounded-full"
                 />
               </div>
