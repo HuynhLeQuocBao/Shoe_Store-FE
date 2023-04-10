@@ -128,7 +128,7 @@ export function ShoppingCart() {
                       <Image
                         src={`${baseURL + item.image}`}
                         className="w-20 h-20 object-cover"
-                        layout="responsive"
+                        layout="intrinsic"
                         width={80}
                         height={80}
                       />

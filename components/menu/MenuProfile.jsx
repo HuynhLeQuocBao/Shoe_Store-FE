@@ -24,7 +24,7 @@ export function MenuProfile() {
                 <Image
                   src={`${session?.user?.picture || "/images/logo/admin.png"}`}
                   alt="avatar"
-                  layout="responsive"
+                  layout="intrinsic"
                   width={40}
                   height={40}
                   className="w-full rounded-full"
