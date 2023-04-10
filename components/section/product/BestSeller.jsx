@@ -10,10 +10,12 @@ import LoadingPage from "../loading/LoadingPage";
 import { useSession } from "next-auth/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
+import { Category } from "./Category";
 
 export function BestSeller() {
   const [data, setData] = useState([]);
   const [flag, setFlag] = useState(true);
+  const [dataFilter, setDataFilter] = useState([]);
   const { data: session } = useSession();
 
   useEffect(() => {
@@ -58,7 +60,7 @@ export function BestSeller() {
     <Container>
       {flag ? (
         <div className="mx-6 md:mx-0">
-          <div className="font-Rokkitt text-4xl font-bold text-center py-24">
+          <div className="font-Rokkitt text-4xl font-bold text-center py-10">
             <h2>Best Sellers</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 md:gap-8 pb-14">
@@ -98,16 +100,26 @@ export function BestSeller() {
               className="text-sm py-[18px] px-9 bg-primary text-white md:text-base rounded-[30px] hover:bg-secondary hover:text-white"
               onClick={showAll}
             >
-              Shop All Products
+              Show All Products
             </button>
           </div>
         </div>
       ) : (
         <div className="mx-6 md:mx-0">
-          <div className="font-Rokkitt text-xl text-[#0000004D] font-semibold text-center py-24">
+          <div className="font-Rokkitt text-xl text-[#0000004D] font-semibold text-center py-10">
             <h2>VIEW ALL PRODUCTS</h2>
           </div>
-          <Pagination data={data} itemsPerPage={8} />
+          <div className="grid grid-cols-1 md:grid-cols-4 md:gap-8 mx-6 md:mx-0">
+            <div className="col-span-1">
+              <Category onDataFilter={(value) => setDataFilter(value)} />
+            </div>
+            <div className="col-span-3">
+              <Pagination
+                data={dataFilter.length > 0 ? dataFilter : data}
+                itemsPerPage={9}
+              />
+            </div>
+          </div>
         </div>
       )}
     </Container>

@@ -40,13 +40,7 @@ export function Pagination({ ...props }) {
 
   return (
     <>
-      <div
-        className={`grid grid-cols-1 ${
-          router.pathname !== "/"
-            ? "md:grid-cols-2 xl:grid-cols-3"
-            : "md:grid-cols-3 xl:grid-cols-4"
-        } md:gap-8 pb-14`}
-      >
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-8 pb-14">
         {currentItems.map((item) => (
           <div key={item._id} className="cursor-pointer hover-parent relative">
             <Link href={`/product-detail/${item._id}`}>

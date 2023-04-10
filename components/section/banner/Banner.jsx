@@ -25,7 +25,7 @@ export function Banner() {
   return (
     <div className="font-Rokkitt max-w-full">
       <Slider {...settings}>
-        <div className="h-[500px] w-full relative">
+        <div className="h-[650px] w-full relative">
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner1.jpg"
@@ -56,7 +56,7 @@ export function Banner() {
             </motion.div>
           </div>
         </div>
-        <div className="h-[500px] w-full relative ">
+        <div className="h-[650px] w-full relative ">
           <img
             className="w-full h-full object-cover "
             src="/images/banner/banner2.jpg"
@@ -87,7 +87,7 @@ export function Banner() {
             </motion.div>
           </div>
         </div>
-        <div className="h-[500px] w-full relative">
+        <div className="h-[650px] w-full relative">
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner3.jpg"
