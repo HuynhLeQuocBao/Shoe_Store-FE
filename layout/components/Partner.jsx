@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import { Container } from "@/components/common/index";
+import Image from "next/image";
 
 export function Partner() {
   const settings = {
@@ -50,10 +51,13 @@ export function Partner() {
               key={index}
               className="w-[204px] h-[130px] relative flex items-center justify-center"
             >
-              <img
+              <Image
                 src={`/images/brand/${image}`}
                 alt={image}
                 className="w-full"
+                layout="intrinsic"
+                width={200}
+                height={120}
               />
             </div>
           ))}

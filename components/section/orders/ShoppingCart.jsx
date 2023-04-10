@@ -14,6 +14,7 @@ import {
 } from "store/features/cartSlice";
 import LoadingPage from "../loading/LoadingPage";
 import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import Image from "next/image";
 
 export function ShoppingCart() {
   const [totalItem, setTotalItem] = useState([]);
@@ -124,9 +125,12 @@ export function ShoppingCart() {
                 >
                   <Link href={`/product-detail/${item.productId}`}>
                     <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2 hover:cursor-pointer">
-                      <img
+                      <Image
                         src={`${baseURL + item.image}`}
                         className="w-20 h-20 object-cover"
+                        layout="responsive"
+                        width={80}
+                        height={80}
                       />
                       <div className="ml-2">
                         <span>{item.name}</span>
@@ -210,9 +214,12 @@ export function ShoppingCart() {
                   className="w-full grid grid-cols-12 mb-5 shadow-lg rounded-lg py-2"
                 >
                   <div className="w-full flex items-center col-span-4">
-                    <img
+                    <Image
                       src={`${baseURL + item.image}`}
-                      className="w-30 h-30 object-cover p-2 "
+                      className="w-32 h-32 object-cover p-2 "
+                      layout="responsive"
+                      width={128}
+                      height={128}
                     />
                   </div>
 

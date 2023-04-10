@@ -3,6 +3,7 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Menu, Transition } from "@headlessui/react";
+import Image from "next/image";
 
 export function MenuProfile() {
   const { data: session } = useSession();
@@ -13,20 +14,19 @@ export function MenuProfile() {
         <Menu.Button as={session ? "button" : "div"}>
           {!session ? (
             <Link href="/login">
-              <div className="w-10 h-10">
-                <img
-                  src="/images/logo/avatar-login.jpg"
-                  alt=""
-                  className="w-full rounded-full"
-                />
-              </div>
+              <button className="bg-teal-600 px-3 py-2 md:px-4 lg:px-6 flex-center hover:bg-primary duration-300 hover:scale-110 text-white font-bold rounded-lg">
+                Sign in
+              </button>
             </Link>
           ) : (
             <div className="flex items-center text-base">
               <div className="w-10 h-10">
-                <img
+                <Image
                   src={`${session?.user?.picture || "/images/logo/admin.png"}`}
-                  alt=""
+                  alt="avatar"
+                  layout="responsive"
+                  width={40}
+                  height={40}
                   className="w-full rounded-full"
                 />
               </div>

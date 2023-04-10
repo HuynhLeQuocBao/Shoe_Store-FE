@@ -298,7 +298,13 @@ export function ProductDetail() {
         )}
         <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
           <div>
-            <img src="/images/banner/size_chart.jpg" alt="" />
+            <Image
+              src="/images/banner/size_chart.jpg"
+              alt=""
+              width={500}
+              height={500}
+              layout="responsive"
+            />
           </div>
         </Modal>
       </Container>

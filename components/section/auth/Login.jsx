@@ -196,10 +196,12 @@ export function Login() {
                               type="submit"
                               onClick={() => signIn("facebook")}
                             >
-                              <img
+                              <Image
                                 src="/images/logo/facebook.png"
-                                alt=""
-                                className="w-full"
+                                alt="logo facebook"
+                                layout="responsive"
+                                width={40}
+                                height={40}
                               />
                             </button>
                           </div>
@@ -209,10 +211,12 @@ export function Login() {
                               type="submit"
                               onClick={() => signIn("google")}
                             >
-                              <img
+                              <Image
                                 src="/images/logo/google.png"
-                                alt=""
-                                className="w-full"
+                                alt="logo goole"
+                                layout="responsive"
+                                width={40}
+                                height={40}
                               />
                             </button>
                           </div>

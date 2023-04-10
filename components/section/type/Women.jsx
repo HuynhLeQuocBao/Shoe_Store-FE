@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 import { Container } from "@/components/common/index";
+import Image from "next/image";
 import Link from "next/link";
 export function Women() {
   const content = [
@@ -28,10 +29,13 @@ export function Women() {
               key={index}
               className="relative w-full md:py-[28px] flex flex-col items-center"
             >
-              <img
+              <Image
                 src={`/images/type/${item.image}`}
                 alt=""
                 className="w-64 h-64 xl:w-96 xl:h-96 object-cover"
+                layout="intrinsic"
+                width={380}
+                height={380}
               />
               <div className="absolute top-16 flex flex-col items-center justify-between">
                 <p className="xl:text-center text-xl xl:text-4xl font-normal text-white font-Rokkitt h-[70px]">
