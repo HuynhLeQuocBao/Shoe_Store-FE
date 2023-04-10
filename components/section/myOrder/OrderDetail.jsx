@@ -10,9 +10,11 @@ import { useRouter } from "next/router";
 import { ProcessOrder } from "./ProcessOrder";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import LoadingPage from "../loading/LoadingPage";
 
 export function OrderDetail() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const [dataOrder, setDataOrder] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [idOrder, setIdOrder] = useState();
@@ -20,6 +22,9 @@ export function OrderDetail() {
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
 
   useEffect(() => {
+    if (dataOrder.length > 0) {
+      setIsLoading(false);
+    }
     try {
       const fetchCart = async () => {
         const data = await orderApi.getOrderDetail(router.query.slug);
@@ -27,6 +32,7 @@ export function OrderDetail() {
         let total = 0;
         data.map((item) => (total += item.quantity * item.price));
         setSubTotal(total);
+        setIsLoading(false);
       };
       const fetchOrder = async () => {
         const getOrder = await orderApi.getAllOrder();
@@ -125,6 +131,10 @@ export function OrderDetail() {
               </div>
             );
           })
+        ) : isLoading ? (
+          <div className="flex-center h-24">
+            <LoadingPage />
+          </div>
         ) : (
           <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
             No data

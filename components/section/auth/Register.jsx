@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import logo from "../../../public/images/logo/logo.png";
 import Link from "next/link";
 import Image from "next/image";
-import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 import { useState } from "react";
 
 const isVNMobilePhone =
@@ -72,7 +72,7 @@ export function Register() {
 
   return (
     <div className="w-full h-full relative">
-      <LoadingPageGlobal loading={loading} />
+      <LoadingPageComponent loading={loading} />
       <Container className="gradient-form h-full shadow-login rounded-2xl sm:w-3/4">
         <div className="container h-full">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">

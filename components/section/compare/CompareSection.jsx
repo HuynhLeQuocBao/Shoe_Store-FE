@@ -11,45 +11,11 @@ import { toast } from "react-toastify";
 import LoadingPage from "../loading/LoadingPage";
 import CompareProduct from "./CompareProduct";
 
-export function CompareSection() {
-  const [productOne, setProductOne] = useState([]);
+export function CompareSection({ productList, productOne }) {
   const [productTwo, setProductTwo] = useState([]);
-  const [productList, setProductList] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [idProduct, setIdProduct] = useState("");
-  const router = useRouter();
-  const productId = router.query.slug;
-  useEffect(() => {
-    try {
-      const fetchPublic = async () => {
-        const dataProduct = await productApi.getProductById(productId[0]);
-        setProductOne(dataProduct);
-      };
-      fetchPublic();
-    } catch (error) {
-      toast.error(error.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  }, []);
-  useEffect(() => {
-    if (!openModal) return;
-    try {
-      const getAllProduct = async () => {
-        const result = await productApi.getAllProducts();
 
-        setProductList(
-          result.filter((product) => product._id !== productId[0])
-        );
-      };
-      getAllProduct();
-    } catch (error) {
-      toast.error(error.message, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  }, [openModal]);
   const handelGetProductDetailsTwo = async (id) => {
     setIsLoading(true);
     setOpenModal(false);
@@ -102,7 +68,7 @@ export function CompareSection() {
               Brand
             </div>
           </div>
-          {productOne.length == 0 ? (
+          {productOne?.length == 0 ? (
             <div className="col-span-4 flex-center z-30 h-full bg-white">
               <LoadingPage />
             </div>

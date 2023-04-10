@@ -13,8 +13,11 @@ import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { usePageLoading } from "hooks/usePageLoading";
+import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
 
 function MyApp(props) {
+  const { isPageLoading } = usePageLoading();
   const { Component, pageProps, session } = props;
   const Layout = Component.Layout ?? MainLayout;
 
@@ -40,25 +43,29 @@ function MyApp(props) {
         <meta name="robots" content="index,follow" />
       </Head>
 
-      <SWRConfig
-        value={{
-          fetcher: (url) => axiosClient.get(url),
-          shouldRetryOnError: false,
-        }}
-      >
-        <SessionProvider session={session}>
+      <SessionProvider session={session}>
+        <SWRConfig
+          value={{
+            fetcher: (url) => axiosClient.get(url),
+            shouldRetryOnError: false,
+          }}
+        >
           <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
             <Provider store={store}>
               <PersistGate loading={null} persistor={persistor}>
-                <Layout>
-                  <ToastContainer />
-                  <Component {...pageProps} />
-                </Layout>
+                {isPageLoading ? (
+                  <LoadingPageGlobal loading={isPageLoading} />
+                ) : (
+                  <Layout>
+                    <ToastContainer />
+                    <Component {...pageProps} />
+                  </Layout>
+                )}
               </PersistGate>
             </Provider>
           </AnimatePresence>
-        </SessionProvider>
-      </SWRConfig>
+        </SWRConfig>
+      </SessionProvider>
     </>
   );
 }

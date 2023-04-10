@@ -38,9 +38,18 @@ module.exports = {
             transform: "translate(-50%, -50%)",
           },
         },
+        logo: {
+          "0%": {
+            transform: "rotate(0deg)",
+          },
+          "100%": {
+            transform: "rotate(-12deg)",
+          },
+        },
       },
       animation: {
         banner: "banner 2s cubic-bezier(0, 0.49, 0.82, 0.98) 1 forwards",
+        logo: "logo 2s infinite",
       },
       backgroundImage: {
         login: "url('/images/banner/login.jpg')",

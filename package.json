@@ -23,7 +23,7 @@
     "lodash": "^4.17.21",
     "moment": "^2.29.4",
     "next": "12.2.5",
-    "next-auth": "^4.10.3",
+    "next-auth": "^4.22.0",
     "next-redux-wrapper": "^8.1.0",
     "numeral": "^2.0.6",
     "rc-upload": "^4.3.4",

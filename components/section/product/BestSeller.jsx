@@ -12,23 +12,11 @@ import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
 import { Category } from "./Category";
 
-export function BestSeller() {
-  const [data, setData] = useState([]);
+export function BestSeller({ data }) {
+  // const [data, setData] = useState([]);
   const [flag, setFlag] = useState(true);
   const [dataFilter, setDataFilter] = useState([]);
   const { data: session } = useSession();
-
-  useEffect(() => {
-    try {
-      const fechPublic = async () => {
-        const dataProduct = await productApi.getAllProducts();
-        setData(dataProduct);
-      };
-      fechPublic();
-    } catch (error) {
-      console.log("Error");
-    }
-  }, []);
 
   const showAll = () => {
     setFlag(!flag);
@@ -37,7 +25,7 @@ export function BestSeller() {
       behavior: "smooth",
     });
   };
-  if (data.length == 0) {
+  if (data?.length == 0) {
     return (
       <Container>
         {

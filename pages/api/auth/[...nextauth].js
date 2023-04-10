@@ -4,7 +4,7 @@ import FacebookProvider from "next-auth/providers/facebook";
 import CredentialsProvider from "next-auth/providers/credentials";
 import axios from "axios";
 
-export default NextAuth({
+export const authOptions = {
   providers: [
     CredentialsProvider({
       id: "credentials",
@@ -67,6 +67,7 @@ export default NextAuth({
     },
     async session({ session, token }) {
       if (token.isError) {
+        console.log("session error: ", token);
         return null;
       }
       session.accessToken = token.accessToken;
@@ -75,4 +76,5 @@ export default NextAuth({
       return session;
     },
   },
-});
+};
+export default NextAuth(authOptions);

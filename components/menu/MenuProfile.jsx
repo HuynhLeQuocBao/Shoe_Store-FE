@@ -10,13 +10,15 @@ export function MenuProfile() {
 
   return (
     <Menu as="div" className="relative">
-      <div className="flex items-center space-x-2 justify-center lg:justify-start cursor-pointer">
+      <div className="flex items-center space-x-2 justify-center cursor-pointer">
         <Menu.Button as={session ? "button" : "div"}>
           {!session ? (
             <Link href="/login">
-              <button className="bg-teal-600 px-3 py-2 md:px-4 lg:px-6 flex-center hover:bg-primary duration-300 hover:scale-110 text-white font-bold rounded-lg">
-                Sign in
-              </button>
+              <div className="flex-center">
+                <button className="text-sm md:text-base w-full bg-teal-500 px-3 py-2 md:px-4 lg:px-6 flex-center  duration-300 hover:bg-teal-600 md:hover:scale-110 text-white font-semibold md:hover:font-bold rounded-lg">
+                  Sign in
+                </button>
+              </div>
             </Link>
           ) : (
             <div className="flex items-center text-base">

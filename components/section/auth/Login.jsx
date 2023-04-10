@@ -10,7 +10,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Image from "next/image";
 import logo from "../../../public/images/logo/logo.png";
-import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 import { useState } from "react";
 
 const schema = yup.object().shape({
@@ -67,7 +67,7 @@ export function Login() {
 
   return (
     <div className="w-full h-full relative">
-      <LoadingPageGlobal loading={loading} />
+      <LoadingPageComponent loading={loading} />
       <Container className="gradient-form h-full shadow-login rounded-2xl sm:w-3/4">
         <div className="container h-full">
           <div className="g-6 flex h-full flex-wrap items-center justify-center text-neutral-800 ">

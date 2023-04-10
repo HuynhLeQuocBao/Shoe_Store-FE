@@ -7,21 +7,8 @@ import { Pagination } from ".";
 import LoadingProduct from "../loading/LoadingProduct";
 import LoadingPage from "../loading/LoadingPage";
 
-export function GenderProduct({ ...props }) {
-  const [data, setData] = useState([]);
+export function GenderProduct({ data }) {
   const [dataFilter, setDataFilter] = useState([]);
-
-  useEffect(() => {
-    try {
-      const fechPublic = async () => {
-        const dataProduct = await productApi.getAllProducts();
-        setData(dataProduct);
-      };
-      fechPublic();
-    } catch (error) {
-      console.log("Error");
-    }
-  }, []);
   if (data.length === 0) {
     return (
       <Container>

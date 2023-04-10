@@ -5,14 +5,17 @@ import { useEffect, useState } from "react";
 import { Category } from "./Category";
 import { Pagination } from ".";
 import { useRouter } from "next/router";
+import LoadingPage from "../loading/LoadingPage";
 
 export function SearchProduct() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
   const [data, setData] = useState([]);
   useEffect(() => {
     try {
       const fechPublic = async () => {
         const dataProduct = await productApi.searchProducts(router.query.slug);
+        setIsLoading(false);
         setData(dataProduct);
       };
       fechPublic();
@@ -30,6 +33,10 @@ export function SearchProduct() {
         <div className="col-span-3">
           {data?.length > 0 ? (
             <Pagination data={data} itemsPerPage={9} />
+          ) : isLoading ? (
+            <div className="flex-center h-24">
+              <LoadingPage />
+            </div>
           ) : (
             <div className="w-full text-center">Not found</div>
           )}

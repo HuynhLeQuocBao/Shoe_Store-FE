@@ -13,16 +13,15 @@ import {
   increaseCartQuantity,
 } from "store/features/cartSlice";
 import LoadingPage from "../loading/LoadingPage";
-import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 import Image from "next/image";
 
 export function ShoppingCart() {
-  const [totalItem, setTotalItem] = useState([]);
-  const [subTotal, setSubTotal] = useState(0);
   const [loading, setLoading] = useState(false);
   const cartList = useSelector((state) => state.cart.products);
   const total = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
+  const isLoading = useSelector((state) => state.cart.isLoading);
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
 
   const handleDeleteCartItem = async (id) => {
@@ -91,7 +90,7 @@ export function ShoppingCart() {
 
   return (
     <div className="w-full h-full relative">
-      <LoadingPageGlobal loading={loading} />
+      <LoadingPageComponent loading={loading} />
       <Container className={`${loading && "h-full"} relative`}>
         <ProgressCart />
         <div className="hidden md:block w-full mt-32 mb-10">
@@ -115,7 +114,6 @@ export function ShoppingCart() {
               <span>REMOVE</span>
             </div>
           </div>
-          {!cartList && <LoadingPage />}
           {cartList?.length > 0 ? (
             cartList.map((item, index) => {
               return (
@@ -199,6 +197,10 @@ export function ShoppingCart() {
                 </div>
               );
             })
+          ) : isLoading ? (
+            <div className="flex-center h-24">
+              <LoadingPage />
+            </div>
           ) : (
             <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
               No data
@@ -290,6 +292,10 @@ export function ShoppingCart() {
                 </div>
               );
             })
+          ) : isLoading ? (
+            <div className="flex-center h-24">
+              <LoadingPage />
+            </div>
           ) : (
             <div className="w-full text-center shadow-lg rounded-lg py-10">
               No data

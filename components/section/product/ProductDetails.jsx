@@ -11,7 +11,7 @@ import { useDispatch } from "react-redux";
 import { addToCartStore } from "../../../store/features/cartSlice";
 import Image from "next/image";
 import "react-toastify/dist/ReactToastify.css";
-import LoadingPageGlobal from "../loading/LoadingPageGlobal";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 import LoadingProductDetail from "../loading/LoadingProductDetail";
 import PreviewImage from "./PreviewImage";
 import Modal from "../modal/Modal";
@@ -119,7 +119,7 @@ export function ProductDetail() {
 
   return (
     <div className="w-full h-full relative">
-      <LoadingPageGlobal loading={loading} />
+      <LoadingPageComponent loading={loading} />
       <Container>
         {loadingProduct ? (
           <LoadingProductDetail />
@@ -217,7 +217,7 @@ export function ProductDetail() {
                         </a>
                       </h3>
                     </div>
-                    <div className="flex items-center justify-between flex-wrap gap-3">
+                    <div className="flex items-center justify-between flex-wrap gap-1 md:gap-3">
                       {data?.listCateSize?.map((item, index) => (
                         <button
                           onClick={() => setSize(item)}

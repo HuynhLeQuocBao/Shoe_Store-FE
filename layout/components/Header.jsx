@@ -147,16 +147,8 @@ export function Header() {
 
   const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
-    try {
-      const fechPublic = async () => {
-        const dataProduct = await productApi.searchProducts(value.search);
-      };
-      fechPublic();
-    } catch (error) {
-      console.log("Error");
-    }
-    if (value.search) {
-      router.push(`/search-product/${value.search}`);
+    if (keyword.length > 0) {
+      router.push(`/search-product/${keyword}`);
     } else {
       router.push("/");
     }
@@ -229,7 +221,7 @@ export function Header() {
                         </div>
                       </button>
                       {productSearchList.length > 0 && keyword !== "" ? (
-                        <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg">
+                        <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                           {productSearchList.map((product, index) => (
                             <a
                               key={index}
@@ -259,7 +251,7 @@ export function Header() {
                         </div>
                       ) : productSearchList.length === 0 &&
                         keyword.length > 0 ? (
-                        <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg">
+                        <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg z-20">
                           <div className="flex-center py-5">
                             No product found
                           </div>
@@ -304,7 +296,7 @@ export function Header() {
                     value={keyword}
                   />
                   {productSearchList.length > 0 && keyword !== "" ? (
-                    <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg">
+                    <div className="absolute bg-white min-h-[100px] w-full max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                       {productSearchList.map((product, index) => (
                         <a
                           key={index}
@@ -334,7 +326,7 @@ export function Header() {
                       ))}
                     </div>
                   ) : productSearchList.length === 0 && keyword.length > 0 ? (
-                    <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg">
+                    <div className="absolute bg-white min-h-[60px] w-full overflow-y-scroll top-12 left-0 shadow-lg z-20">
                       <div className="flex-center py-5">No product found</div>
                     </div>
                   ) : null}
