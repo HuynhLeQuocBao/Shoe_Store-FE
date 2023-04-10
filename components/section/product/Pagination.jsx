@@ -32,7 +32,7 @@ export function Pagination({ ...props }) {
       });
     } else {
       window.scroll({
-        top: 1400,
+        top: 600,
         behavior: "smooth",
       });
     }

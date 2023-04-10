@@ -103,7 +103,7 @@ export const Checkout = () => {
         position: toast.POSITION.TOP_RIGHT,
       });
       dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
-      setVoucher(parseInt(applyVoucher.discount) + voucher);
+      setDiscount(parseInt(applyVoucher.discount) + discount);
       setVoucherList([...voucherList, dataVoucherInput]);
       setVoucherListSubmit([...voucherListSubmit, dataVoucherInput]);
     }

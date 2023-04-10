@@ -1,13 +1,21 @@
 import { categoryApi } from "@/apiClient/category";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-export function Category({ onDataFilter }) {
+export function Category({ onDataFilter, dataSort }) {
+  const [data, setData] = useState([]);
+  const arraySort = [
+    "Newest",
+    "Oldest",
+    "Price: Lowest to Highest",
+    "Price: Highest to Lowest",
+    "A - Z",
+    "Z - A",
+  ];
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-  const [data, setData] = useState([]);
   useEffect(() => {
     try {
       const fechPublic = async () => {
@@ -36,7 +44,6 @@ export function Category({ onDataFilter }) {
       const fetchProductFilter = async () => {
         const dataFilter = await categoryApi.filterCategory({
           arrayCateId: arrayCateId,
-          option: data?.option,
         });
 
         if (dataFilter?.length > 0) {
@@ -50,9 +57,98 @@ export function Category({ onDataFilter }) {
       console.log("Error");
     }
   };
+
+  const handleSort = (item) => {
+    switch (item) {
+      case "Newest":
+        onDataFilter([]);
+        break;
+      case "Oldest":
+        onDataFilter([]);
+        break;
+      case "Price: Lowest to Highest":
+        onDataFilter([]);
+        setTimeout(() => {
+          onDataFilter(
+            dataSort.sort(function (a, b) {
+              return a.price - b.price;
+            })
+          );
+        });
+        break;
+      case "Price: Highest to Lowest":
+        onDataFilter([]);
+        setTimeout(() => {
+          onDataFilter(
+            dataSort.sort(function (a, b) {
+              return b.price - a.price;
+            })
+          );
+        });
+        break;
+      case "A - Z":
+        onDataFilter([]);
+        setTimeout(() => {
+          onDataFilter(
+            dataSort.sort(function (a, b) {
+              if (a.name < b.name) {
+                return -1;
+              }
+              if (a.name > b.name) {
+                return 1;
+              }
+              return 0;
+            })
+          );
+        });
+        break;
+      case "Z - A":
+        onDataFilter([]);
+        setTimeout(() => {
+          onDataFilter(
+            dataSort.sort(function (a, b) {
+              if (a.name > b.name) {
+                return -1;
+              }
+              if (a.name < b.name) {
+                return 1;
+              }
+              return 0;
+            })
+          );
+        });
+        break;
+      default:
+        break;
+    }
+  };
+
   return (
     <div className="grid grid-cols-1 gap-2 text-sm text-[#616161] font-Rokkitt mb-2">
       <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="w-full border border-[#dee2e6] px-4 py-4">
+          <h3 className="font-base font-semibold text-black pb-6">SORT BY</h3>
+          <div class="flex flex-col">
+            {arraySort.map((item, index) => (
+              <div
+                className="flex items-center"
+                key={index}
+                onClick={() => handleSort(item)}
+              >
+                <input
+                  id={item}
+                  className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
+                  type="radio"
+                  value={item}
+                  {...register("sort")}
+                />
+                <label class="text-gray-800 cursor-pointer" htmlFor={item}>
+                  {item}
+                </label>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className="w-full border border-[#dee2e6] px-4 py-4">
           <h3 className="font-base font-semibold text-black pb-6">BRAND</h3>
           <div class="flex flex-col">
@@ -65,7 +161,10 @@ export function Category({ onDataFilter }) {
                   value={item.cateId}
                   {...register("brand")}
                 />
-                <label class="text-gray-800 " htmlFor={item.cateId}>
+                <label
+                  class="text-gray-800 cursor-pointer"
+                  htmlFor={item.cateId}
+                >
                   {item.cateName}
                 </label>
               </div>
@@ -85,8 +184,7 @@ export function Category({ onDataFilter }) {
                   {...register("size")}
                 />
                 <label
-                  class={`w-10 h-10 m-2 bg-primary text-white"
-                  } cursor-pointer flex flex-center hover:bg-secondary hover:text-white`}
+                  class={`w-8 h-8 m-2 bg-primary cursor-pointer flex flex-center hover:bg-secondary hover:text-white`}
                   htmlFor={item.cateId}
                 >
                   {item.cateName}
@@ -107,42 +205,14 @@ export function Category({ onDataFilter }) {
                   value={item.cateId}
                   {...register("style")}
                 />
-                <label class="text-gray-800 " htmlFor={item.cateId}>
+                <label
+                  class="text-gray-800 cursor-pointer"
+                  htmlFor={item.cateId}
+                >
                   {item.cateName}
                 </label>
               </div>
             ))}
-          </div>
-        </div>
-        <div className="w-full border border-[#dee2e6] px-4 py-4">
-          <h3 className="font-base font-semibold text-black pb-6">Optional</h3>
-          <div class="flex flex-col">
-            <div className="flex items-center">
-              <input
-                id="or"
-                className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                type="radio"
-                value="OR"
-                {...register("option")}
-              />
-              <label class="text-gray-800 " htmlFor="or">
-                Or
-              </label>
-            </div>
-            <div class="flex flex-col">
-              <div className="flex items-center">
-                <input
-                  id="and"
-                  className="appearance-none h-4 w-4 border border-gray-300 rounded-sm bg-white checked:bg-primary focus:outline-none transition duration-200 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer"
-                  type="radio"
-                  value="AND"
-                  {...register("option")}
-                />
-                <label class="text-gray-800 " htmlFor="and">
-                  And
-                </label>
-              </div>
-            </div>
           </div>
         </div>
         <div className="flex justify-center items-center">
