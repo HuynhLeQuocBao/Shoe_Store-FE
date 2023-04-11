@@ -112,7 +112,7 @@ const ChooseProductTwo = ({
           </div>
         ))}
       </div>
-      {saveData.length >= 9 && (
+      {saveData.length >= itemsPerPage && (
         <ReactPaginate
           breakLabel="..."
           nextLabel={<MdNavigateNext />}

@@ -69,20 +69,22 @@ export function Pagination({ ...props }) {
           </div>
         ))}
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel={<MdNavigateNext />}
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={3}
-        pageCount={pageCount}
-        previousLabel={<MdNavigateBefore />}
-        renderOnZeroPageCount={null}
-        containerClassName="w-full flex justify-center items-center mb-8 gap-4 py-2"
-        pageLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white"
-        previousLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:text-primary text-xl"
-        nextLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:text-primary text-xl"
-        activeLinkClassName="bg-primary text-white"
-      />
+      {data.length >= itemsPerPage && (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={<MdNavigateNext />}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          pageCount={pageCount}
+          previousLabel={<MdNavigateBefore />}
+          renderOnZeroPageCount={null}
+          containerClassName="w-full flex justify-center items-center mb-8 gap-4 py-2"
+          pageLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white"
+          previousLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:text-primary text-xl"
+          nextLinkClassName="px-4 py-2 cursor-pointer rounded font-normal hover:text-primary text-xl"
+          activeLinkClassName="bg-primary text-white"
+        />
+      )}
     </>
   );
 }
