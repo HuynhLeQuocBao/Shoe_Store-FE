@@ -15,7 +15,7 @@ import { Category } from "./Category";
 export function BestSeller({ data }) {
   // const [data, setData] = useState([]);
   const [flag, setFlag] = useState(true);
-  const [dataFilter, setDataFilter] = useState([]);
+  const [dataFilter, setDataFilter] = useState(data);
   const { data: session } = useSession();
 
   const showAll = () => {
