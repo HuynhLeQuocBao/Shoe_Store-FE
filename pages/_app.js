@@ -41,6 +41,7 @@ function MyApp(props) {
         />
         <title>Footwear from Viet Nam</title>
         <meta name="robots" content="index,follow" />
+        <link rel="icon" type="image/x-icon" href="favicon.png" />
       </Head>
 
       <SessionProvider session={session}>

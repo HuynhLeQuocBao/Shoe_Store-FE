@@ -24,10 +24,10 @@ export function VoucherItem({ data, isCode }) {
   };
 
   return (
-    <div className="w-3/4 flex items-center justify-between bg-white py-2 px-5 rounded">
+    <div className="w-full flex items-center justify-between bg-white py-2 px-3 rounded">
       <div className="flex flex-col">
-        <p className="font-bold text-xl">Discount: {data.discount}%</p>
-        <p className="text-lg">{data.description}</p>
+        <p className="font-bold text-lg">Discount: {data.discount}%</p>
+        <p className="text-base">{data.description}</p>
         <p className="text-red-500 text-sm font-bold">
           <i>End date: {data.endDate.slice(0, 10)}</i>
         </p>

@@ -202,7 +202,7 @@ export function OrderDetail() {
               <p className="w-[60%] pl-10">$ {subTotal}</p>
             </div>
             <div className="w-full mb-2 flex">
-              <span className="w-[30%] flex justify-end">Delivery: </span>
+              <span className="w-[30%] flex justify-end">Shipping: </span>
               <p className="w-[60%] pl-10">$ 0</p>
             </div>
             <div className="border border-[0.5px] border-[#898787] w-full"></div>

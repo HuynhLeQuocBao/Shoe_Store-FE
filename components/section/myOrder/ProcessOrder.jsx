@@ -39,7 +39,7 @@ export function ProcessOrder({ status }) {
     { name: "Complete", icon: <HiOutlineCheckCircle />, status: complete },
   ];
   return (
-    <div className="w-full flex justify-center items-center px-20">
+    <div className="w-full flex justify-center items-center px-20 my-10">
       <div className="flex justify-center items-center w-full pl-14">
         {steps.map((step, index) =>
           step.status === "complete" ? (
