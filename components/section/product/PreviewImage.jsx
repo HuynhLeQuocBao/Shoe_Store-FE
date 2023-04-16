@@ -4,25 +4,27 @@ import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
 
-const PreviewImage = ({ data, arrayImage }) => {
+const PreviewImage = ({ arrayImage, index }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [sources, setSource] = useState();
   const [currentSlide, setCurrentSlide] = useState(0);
-  const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
 
   useEffect(() => {
+    const filterImage = arrayImage.filter(
+      (image) => image?.filename !== arrayImage[index]?.filename
+    );
     setSource([
-      BASE_URL + data?.filename,
-      ...arrayImage.map((img) => BASE_URL + img?.filename),
+      BASE_URL + arrayImage[index]?.filename,
+      ...filterImage.map((img) => BASE_URL + img?.filename),
     ]);
-  }, []);
-  const handleClose = () => setIsOpen(false);
+  }, [arrayImage]);
 
   return (
     <>
       <Image
         className="w-full h-full object-cover cursor-zoom-in hover:opacity-70"
-        src={BASE_URL + data?.filename}
+        src={BASE_URL + arrayImage[index]?.filename}
         alt="product details"
         width={350}
         height={350}
@@ -32,7 +34,7 @@ const PreviewImage = ({ data, arrayImage }) => {
         toggler={isOpen}
         sources={sources}
         openOnSlide={currentSlide}
-        // onClose={() => setIsOpen(false)}
+        // onClose={() => console.log(sources)}
       />
     </>
   );

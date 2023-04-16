@@ -223,7 +223,7 @@ export function Header() {
                       {productSearchList.length > 0 && keyword !== "" ? (
                         <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                           {productSearchList.map((product, index) => (
-                            <a
+                            <Link
                               key={index}
                               href={`${HOST}/product-detail/${product._id}`}
                               className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
@@ -246,7 +246,7 @@ export function Header() {
                                   </p>
                                 </div>
                               </div>
-                            </a>
+                            </Link>
                           ))}
                         </div>
                       ) : productSearchList.length === 0 &&
@@ -298,7 +298,7 @@ export function Header() {
                   {productSearchList.length > 0 && keyword !== "" ? (
                     <div className="absolute bg-white min-h-[100px] w-full max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                       {productSearchList.map((product, index) => (
-                        <a
+                        <Link
                           key={index}
                           href={`${HOST}/product-detail/${product._id}`}
                           className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
@@ -322,7 +322,7 @@ export function Header() {
                               </p>
                             </div>
                           </div>
-                        </a>
+                        </Link>
                       ))}
                     </div>
                   ) : productSearchList.length === 0 && keyword.length > 0 ? (

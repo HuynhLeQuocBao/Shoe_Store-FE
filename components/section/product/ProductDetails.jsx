@@ -19,13 +19,17 @@ import Rating from "./Rating";
 export function ProductDetail({ data }) {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [size, setSize] = useState(null);
+  const [colorIdList, setColorIdList] = useState([]);
+  const [imageList, setImageList] = useState([]);
+  const [sizeInfo, setSizeInfo] = useState([]);
+  const [size, setSize] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [content, setContent] = useState(1);
   const { data: session } = useSession();
   const router = useRouter();
   const productId = router.query.slug;
   const dispatch = useDispatch();
+  const BASE_URL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   const settings = {
     dots: true,
     arrows: false,
@@ -69,7 +73,6 @@ export function ProductDetail({ data }) {
             quantity: quantity,
             size: size,
           });
-
           if (result) {
             toast.success("Success Add to Cart !", {
               position: toast.POSITION.TOP_RIGHT,
@@ -98,7 +101,36 @@ export function ProductDetail({ data }) {
       }, 3000);
     }
   };
-
+  useEffect(() => {
+    const arr = [];
+    data.color.map((item) => arr.push(item.id));
+    setColorIdList(arr);
+    setSize(data?.color[0].sizes[0].size);
+    setImageList(data.color[0].images);
+    setSizeInfo({
+      currentSize: data.color[0].sizes[0],
+      currentSizeOfColor: data.color[0].sizes,
+    });
+  }, []);
+  const handleChangeImageList = (id) => {
+    data.color.map((item) => {
+      if (item.id === id) {
+        setImageList(item.images);
+        setSizeInfo({
+          currentSize: item.sizes[0],
+          currentSizeOfColor: item.sizes,
+        });
+      }
+    });
+  };
+  const handleSizeInfo = (item) => {
+    console.log("handleSizeInfo", item);
+    setSize(item?.size);
+    setSizeInfo({
+      ...sizeInfo,
+      currentSize: item,
+    });
+  };
   return (
     <div className="w-full h-full relative">
       <LoadingPageComponent loading={loading} />
@@ -106,25 +138,23 @@ export function ProductDetail({ data }) {
         <div>
           <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-12 mx-6 lg:mx-0 py-10">
             <div className="flex flex-col justify-between lg:hidden">
-              <h2 className="mb-2 text-3xl font-semibold">
-                {data?.shoeDetail?.name}
-              </h2>
+              <h2 className="mb-2 text-3xl font-semibold">{data?.name}</h2>
               <h3 className="mb-2 text-lg">
-                ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
+                ${parseFloat(sizeInfo?.currentSize?.price).toFixed(2)}
               </h3>
               <h3 className="mb-4 text-xs">RATING</h3>
               <p className=" text-secondary font-light text-justify">
-                {data?.shoeDetail?.description}
+                {data?.introduce}
               </p>
             </div>
             <div className="mb-8 col-span-2 ">
               <div className="block lg:hidden">
                 <Slider {...settings}>
-                  {data?.shoeDetail?.arrayImage?.map((item, index) => (
+                  {imageList?.map((item, index) => (
                     <div key={index}>
                       <Image
                         src={`${process.env.NEXT_PUBLIC_API_URL}/upload/${item?.filename}`}
-                        alt="image product"
+                        alt={item?.filename}
                         layout="responsive"
                         width={250}
                         height={250}
@@ -135,11 +165,11 @@ export function ProductDetail({ data }) {
                 </Slider>
               </div>
               <div className="hidden lg:flex flex-wrap gap-2">
-                {data?.shoeDetail?.arrayImage?.map((item, index) => (
+                {imageList?.map((item, index) => (
                   <PreviewImage
-                    key={index}
-                    data={item}
-                    arrayImage={data?.shoeDetail?.arrayImage}
+                    key={item.position}
+                    arrayImage={imageList}
+                    index={index}
                   />
                 ))}
               </div>
@@ -147,17 +177,30 @@ export function ProductDetail({ data }) {
             <div className="col-span-1">
               <div className="flex flex-col justify-between">
                 <h2 className="mb-2 text-3xl font-semibold hidden lg:block">
-                  {data?.shoeDetail?.name}
+                  {data?.name}
                 </h2>
                 <h3 className="mb-2 text-lg hidden lg:block">
-                  ${parseFloat(data?.shoeDetail?.price).toFixed(2)}
+                  ${parseFloat(sizeInfo?.currentSize?.price).toFixed(2)}
                 </h3>
                 <h3 className="mb-4 text-xs hidden lg:block">
                   <Rating />
                 </h3>
                 <p className=" text-secondary font-light text-justify hidden lg:block">
-                  {data?.shoeDetail?.description}
+                  {data?.introduce}
                 </p>
+                <div className="w-full flex flex-wrap gap-2 p-4">
+                  {data.color.map((color) => (
+                    <Image
+                      key={color.id}
+                      src={BASE_URL + color.images[0]?.filename}
+                      layout="intrinsic"
+                      width={80}
+                      height={80}
+                      className="hover:border-[1px] hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg"
+                      onClick={() => handleChangeImageList(color.id)}
+                    />
+                  ))}
+                </div>
                 <div className="my-3 flex items-center">
                   <h3 className="mr-3 h-10 flex items-center">Quantity: </h3>
                   <button
@@ -195,15 +238,15 @@ export function ProductDetail({ data }) {
                     </h3>
                   </div>
                   <div className="flex items-center justify-between flex-wrap gap-1 md:gap-3">
-                    {data?.listCateSize?.map((item, index) => (
+                    {sizeInfo?.currentSizeOfColor?.map((item, index) => (
                       <button
-                        onClick={() => setSize(item)}
+                        onClick={() => handleSizeInfo(item)}
                         className={`w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
-                          size === item ? "border-black" : ""
+                          size === item.size ? "border-black" : ""
                         }`}
                         key={index}
                       >
-                        {item}
+                        {item.size}
                       </button>
                     ))}
                   </div>
