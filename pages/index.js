@@ -1,20 +1,21 @@
-import { Title } from "@/components/section/title/index";
-import { Gender } from "@/components/section/type/index";
 import { BestSeller } from "@/components/section/product/index";
-// import { getServerSideProps } from "next";
 
 import React from "react";
 import { Banner } from "@/components/section/banner";
 import { productApi } from "@/apiClient/product";
-import { useState } from "react";
-import LoadingPage from "@/components/section/loading/LoadingPage";
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch } from "react-instantsearch-dom";
 
 export default function Index({ data }) {
+  const searchClient = algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+  );
   return (
-    <>
+    <InstantSearch searchClient={searchClient} indexName="new_product">
       <Banner />
       <BestSeller data={data} />
-    </>
+    </InstantSearch>
   );
 }
 export const getServerSideProps = async () => {

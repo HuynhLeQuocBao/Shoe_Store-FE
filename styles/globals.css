@@ -238,3 +238,27 @@ input[type="number"] {
 .icon-compare:hover .icon-compare-details {
   opacity: 1;
 }
+
+.ais-Hits-list {
+  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4;
+}
+
+.ais-Pagination-list {
+  @apply flex items-center justify-center gap-4;
+}
+
+.ais-ClearRefinements-button {
+  @apply bg-red-500 rounded-lg py-2 px-3 text-white;
+}
+.ais-ClearRefinements-button--disabled {
+  @apply bg-secondary;
+}
+
+.ais-RefinementList-label {
+  @apply flex items-center gap-2 relative;
+}
+
+.ais-RefinementList-count {
+  @apply bg-primary absolute text-white rounded-md px-2 flex items-center justify-center text-xs right-0;
+
+}

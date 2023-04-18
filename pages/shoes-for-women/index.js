@@ -3,31 +3,20 @@ import { Women } from "@/components/section/type";
 import { GenderProduct } from "@/components/section/product";
 import React from "react";
 import { BannerChild } from "@/components/section/banner";
-import { productApi } from "@/apiClient/product";
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch } from "react-instantsearch-dom";
 
-export default function About({ data }) {
+export default function ShoesForWoMen() {
+  const searchClient = algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+  );
   return (
-    <div>
+    <InstantSearch searchClient={searchClient} indexName="new_product">
       <Breadcum />
       <BannerChild text="WOMEN'S" />
       <Women />
-      <GenderProduct data={data} />
-    </div>
+      <GenderProduct />
+    </InstantSearch>
   );
 }
-export const getServerSideProps = async () => {
-  try {
-    const dataProduct = await productApi.getAllProducts();
-    return {
-      props: {
-        data: dataProduct,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        data: [],
-      },
-    };
-  }
-};
