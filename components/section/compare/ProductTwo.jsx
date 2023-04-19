@@ -2,7 +2,8 @@ import { convertCurrency } from "@/utils/currency";
 import Image from "next/image";
 
 const ProductTwo = ({ image, name, price }) => {
-  const src = process.env.NEXT_PUBLIC_API_URL + "/upload/" + image;
+  const src =
+    process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/" + image;
   return (
     <div className=" flex flex-col items-center justify-center shadow-product-line ">
       <div>

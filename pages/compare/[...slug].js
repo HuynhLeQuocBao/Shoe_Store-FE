@@ -15,9 +15,9 @@ export const getServerSideProps = async (context) => {
   const { params } = context;
   const productId = params.slug;
   try {
-    let dataProduct = await productApi.getAllProducts();
     const productOne = await productApi.getProductById(productId);
-    dataProduct = dataProduct.filter((product) => product._id !== productId);
+    let dataProduct = await productApi.getAllProducts();
+    dataProduct = dataProduct.filter((product) => product._id != productId);
     return {
       props: {
         productList: dataProduct,

@@ -12,7 +12,7 @@ import LoadingPage from "../loading/LoadingPage";
 import CompareProduct from "./CompareProduct";
 
 export function CompareSection({ productList, productOne }) {
-  const [productTwo, setProductTwo] = useState([]);
+  const [productTwo, setProductTwo] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +32,7 @@ export function CompareSection({ productList, productOne }) {
   };
 
   const handleDelete = () => {
-    setProductTwo([]);
+    setProductTwo();
     setIsLoading(false);
     setOpenModal(false);
   };
@@ -49,6 +49,9 @@ export function CompareSection({ productList, productOne }) {
             <div className="h-20 border-[1px] border-solid flex-center border-r-0 ">
               Name
             </div>
+            <div className="h-28 border-[1px] border-solid flex-center border-r-0">
+              Colors
+            </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Price
             </div>
@@ -59,7 +62,7 @@ export function CompareSection({ productList, productOne }) {
               Color
             </div> */}
             <div className="h-28 border-[1px] border-solid flex-center border-r-0">
-              Size
+              Sizes
             </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Description
@@ -77,12 +80,15 @@ export function CompareSection({ productList, productOne }) {
               <CompareProduct product={productOne} />
             </>
           )}
-          {!openModal && !isLoading && productTwo.length === 0 ? (
+          {!openModal && !isLoading && !productTwo ? (
             <div className="col-span-5 md:col-span-4 content-center grid">
               <div className="flex-center flex-col gap-2">
                 <div
                   className="bg-primary rounded-full cursor-pointer hover:scale-125  duration-300"
-                  onClick={() => setOpenModal(true)}
+                  onClick={() => {
+                    setOpenModal(true);
+                    setIsLoading(true);
+                  }}
                 >
                   <HiPlus className="w-14 h-14  text-white font-bold " />
                 </div>

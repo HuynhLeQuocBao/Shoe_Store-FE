@@ -27,7 +27,7 @@ export const Checkout = () => {
   const [dataVoucherInput, setDataVoucherInput] = useState("");
   const [voucherList, setVoucherList] = useState([]);
   const [voucherListSubmit, setVoucherListSubmit] = useState([]);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   const [discount, setDiscount] = useState(0);
 
   const {

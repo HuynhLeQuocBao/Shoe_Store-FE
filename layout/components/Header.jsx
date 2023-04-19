@@ -105,7 +105,7 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   const HOST =
     typeof window !== "undefined" && window.location.origin
       ? window.location.origin

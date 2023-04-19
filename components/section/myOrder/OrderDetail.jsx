@@ -19,7 +19,7 @@ export function OrderDetail() {
   const [subTotal, setSubTotal] = useState(0);
   const [idOrder, setIdOrder] = useState();
   const [stateOrder, setStateOrder] = useState();
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
 
   useEffect(() => {
     if (dataOrder.length > 0) {
@@ -151,7 +151,7 @@ export function OrderDetail() {
               >
                 <div className="w-full flex items-center col-span-4">
                   <img
-                    src={`https://shoe-store-be.onrender.com/upload/${item.image}`}
+                    src={`https://shoe-store-be.onrender.com/uploadWithRefactorDB/${item.image}`}
                     className="w-30 h-30 object-cover p-2 "
                   />
                 </div>

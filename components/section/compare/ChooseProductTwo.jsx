@@ -98,7 +98,7 @@ const ChooseProductTwo = ({
           >
             <div>
               <ProductTwo
-                image={item.arrayImage[0].filename}
+                image={item.image}
                 name={item.name}
                 price={item.price}
               />

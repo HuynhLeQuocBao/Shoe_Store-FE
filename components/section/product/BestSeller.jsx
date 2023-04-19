@@ -18,7 +18,7 @@ export function BestSeller({ data }) {
     <div key={hit?._id?.$oid} className="cursor-pointer hover-parent relative">
       <div className="hover-child-1">
         <Product
-          id={hit?._id?.$oid}
+          id={hit?._id}
           image={hit?.image}
           name={hit?.name}
           price={hit?.price}
@@ -76,17 +76,17 @@ export function BestSeller({ data }) {
             <h2>Best Sellers</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 md:gap-8 pb-14">
-            {data.slice(0, 8).map((item) => (
+            {data?.slice(0, 8)?.map((item) => (
               <div
                 key={item._id}
                 className="cursor-pointer hover-parent relative"
               >
                 <div className="hover-child-1">
                   <Product
-                    id={item._id}
-                    image={item}
-                    name={item.name}
-                    price={item.price}
+                    id={item?._id}
+                    image={item?.image}
+                    name={item?.name}
+                    price={item?.price}
                   />
                 </div>
                 <div className="hover-child-2 absolute top-1/3 left-0 right-0 flex items-center justify-evenly">

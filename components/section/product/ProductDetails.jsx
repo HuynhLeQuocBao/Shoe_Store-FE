@@ -19,9 +19,9 @@ import Rating from "./Rating";
 export function ProductDetail({ data }) {
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
-  const [colorIdList, setColorIdList] = useState([]);
+  const [colorId, setColorId] = useState("");
   const [imageList, setImageList] = useState([]);
-  const [sizeInfo, setSizeInfo] = useState([]);
+  const [sizeInfo, setSizeInfo] = useState();
   const [size, setSize] = useState();
   const [openModal, setOpenModal] = useState(false);
   const [content, setContent] = useState(1);
@@ -71,7 +71,8 @@ export function ProductDetail({ data }) {
           const result = await cartApi.addCart({
             productId: productId[0],
             quantity: quantity,
-            size: size,
+            sizeId: sizeInfo?.currentSize.sizeId,
+            colorId,
           });
           if (result) {
             toast.success("Success Add to Cart !", {
@@ -102,30 +103,28 @@ export function ProductDetail({ data }) {
     }
   };
   useEffect(() => {
-    const arr = [];
-    data.color.map((item) => arr.push(item.id));
-    setColorIdList(arr);
+    setColorId(data?.color[0]?.id);
     setSize(data?.color[0].sizes[0].size);
     setImageList(data.color[0].images);
     setSizeInfo({
       currentSize: data.color[0].sizes[0],
-      currentSizeOfColor: data.color[0].sizes,
+      currentSizeListOfColor: data.color[0].sizes,
     });
   }, []);
   const handleChangeImageList = (id) => {
+    setColorId(id);
     data.color.map((item) => {
       if (item.id === id) {
         setImageList(item.images);
         setSizeInfo({
           currentSize: item.sizes[0],
-          currentSizeOfColor: item.sizes,
+          currentSizeListOfColor: item.sizes,
         });
       }
     });
   };
   const handleSizeInfo = (item) => {
-    console.log("handleSizeInfo", item);
-    setSize(item?.size);
+    setSize(item?.sizeName);
     setSizeInfo({
       ...sizeInfo,
       currentSize: item,
@@ -153,7 +152,7 @@ export function ProductDetail({ data }) {
                   {imageList?.map((item, index) => (
                     <div key={index}>
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/upload/${item?.filename}`}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploadWithRefactorDB/${item?.filename}`}
                         alt={item?.filename}
                         layout="responsive"
                         width={250}
@@ -238,15 +237,15 @@ export function ProductDetail({ data }) {
                     </h3>
                   </div>
                   <div className="flex items-center justify-between flex-wrap gap-1 md:gap-3">
-                    {sizeInfo?.currentSizeOfColor?.map((item, index) => (
+                    {sizeInfo?.currentSizeListOfColor?.map((item, index) => (
                       <button
                         onClick={() => handleSizeInfo(item)}
                         className={`w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
-                          size === item.size ? "border-black" : ""
+                          size === item.sizeName ? "border-black" : ""
                         }`}
                         key={index}
                       >
-                        {item.size}
+                        {item.sizeName}
                       </button>
                     ))}
                   </div>

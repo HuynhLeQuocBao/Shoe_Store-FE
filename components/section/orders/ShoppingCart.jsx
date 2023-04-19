@@ -22,7 +22,7 @@ export function ShoppingCart() {
   const total = useSelector((state) => state.cart.total);
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.cart.isLoading);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/upload/";
+  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
 
   const handleDeleteCartItem = async (id) => {
     setLoading(true);
@@ -45,19 +45,25 @@ export function ShoppingCart() {
       setLoading(false);
     }
   };
-
-  const handleIncrease = async (cartId, productId, size, quantity) => {
+  const handleIncrease = async (
+    cartId,
+    productId,
+    sizeId,
+    quantity,
+    colorId
+  ) => {
     try {
       const result = await cartApi.updateCart(cartId, {
-        productId: productId,
+        colorId,
+        productId,
         quantity: quantity + 1,
-        size,
+        sizeId,
       });
       if (result) {
         dispatch(
           increaseCartQuantity({
-            productId: productId,
-            size,
+            productId,
+            sizeId,
           })
         );
       }
@@ -66,19 +72,26 @@ export function ShoppingCart() {
       console.log(error);
     }
   };
-  const handleDecrease = async (cartId, productId, size, quantity) => {
+  const handleDecrease = async (
+    cartId,
+    productId,
+    sizeId,
+    quantity,
+    colorId
+  ) => {
     if (quantity === 1) return;
     try {
       const result = await cartApi.updateCart(cartId, {
-        productId: productId,
+        colorId,
+        productId,
         quantity: quantity - 1,
-        size,
+        sizeId,
       });
       if (result) {
         dispatch(
           decreaseCartQuantity({
-            productId: productId,
-            size,
+            productId,
+            sizeId,
           })
         );
       }
@@ -149,8 +162,9 @@ export function ShoppingCart() {
                           handleDecrease(
                             item.cartId,
                             item.productId,
-                            item.size,
-                            item.quantityProduct
+                            item.sizeId,
+                            item.quantityProduct,
+                            item.colorId
                           )
                         }
                       >
@@ -170,8 +184,9 @@ export function ShoppingCart() {
                           handleIncrease(
                             item.cartId,
                             item.productId,
-                            item.size,
-                            item.quantityProduct
+                            item.sizeId,
+                            item.quantityProduct,
+                            item.colorId
                           )
                         }
                       >
@@ -243,8 +258,9 @@ export function ShoppingCart() {
                             handleDecrease(
                               item.cartId,
                               item.productId,
-                              item.size,
-                              item.quantityProduct
+                              item.sizeId,
+                              item.quantityProduct,
+                              item.colorId
                             )
                           }
                         >
@@ -264,8 +280,9 @@ export function ShoppingCart() {
                             handleIncrease(
                               item.cartId,
                               item.productId,
-                              item.size,
-                              item.quantityProduct
+                              item.sizeId,
+                              item.quantityProduct,
+                              item.colorId
                             )
                           }
                         >
