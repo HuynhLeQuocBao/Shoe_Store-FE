@@ -32,10 +32,10 @@ export function Partner() {
     "brand-1.jpg",
     "brand-2.jpg",
     "brand-3.jpg",
+    "brand-7.png",
     "brand-4.jpg",
     "brand-5.jpg",
     "brand-6.png",
-    "brand-7.png",
   ];
 
   return (

@@ -1,5 +1,6 @@
 import Slider from "react-slick";
 import { motion } from "framer-motion";
+import Link from "next/link";
 export function Banner() {
   const variants = {
     hidden: {
@@ -20,7 +21,7 @@ export function Banner() {
     slidesToScroll: 1,
     pauseOnHover: false,
     autoplay: true,
-    autoplaySpeed: 3000,
+    autoplaySpeed: 5000,
   };
   return (
     <div className="font-Rokkitt max-w-full">
@@ -39,20 +40,19 @@ export function Banner() {
               viewport={{ once: false, amount: 0.5 }}
             >
               <div className="text-3xl md:text-6xl font-bold my-2 md:my-4 ">
-                MEN
+                GIVE A VOUCHER
               </div>
               <div className="text-xl md:text-3xl font-bold my-2 md:my-4 ">
-                SHOES
+                FOR
               </div>
               <div className="text-4xl md:text-[50px] my-2 md:my-4 font-thin">
-                COLLECTION
+                NEW MEMBER
               </div>
-              <div className="text-[#ffffffcc] my-2 md:my-4">
-                NEW TRENDING SHOES
-              </div>
-              <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
-                SHOP COLLECTION
-              </button>
+              <Link href="/register">
+                <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
+                  Sign Up Now
+                </button>
+              </Link>
             </motion.div>
           </div>
         </div>
