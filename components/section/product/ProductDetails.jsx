@@ -39,6 +39,16 @@ export function ProductDetail({ data }) {
     pauseOnHover: false,
   };
 
+  useEffect(() => {
+    setColorId(data?.color[0]?.id);
+    setSize(data?.color[0].sizes[0].sizeName);
+    setImageList(data.color[0].images);
+    setSizeInfo({
+      currentSize: data.color[0].sizes[0],
+      currentSizeListOfColor: data.color[0].sizes,
+    });
+  }, []);
+
   const handleAsc = () => {
     if (quantity < 1) {
       setQuantity(1);
@@ -56,7 +66,7 @@ export function ProductDetail({ data }) {
   };
 
   const addToCart = async () => {
-    if (session) {
+    if (session?.user) {
       if (quantity <= 0) {
         toast.warn("Quantity must be larger zero !", {
           position: toast.POSITION.TOP_RIGHT,
@@ -102,15 +112,7 @@ export function ProductDetail({ data }) {
       }, 3000);
     }
   };
-  useEffect(() => {
-    setColorId(data?.color[0]?.id);
-    setSize(data?.color[0].sizes[0].size);
-    setImageList(data.color[0].images);
-    setSizeInfo({
-      currentSize: data.color[0].sizes[0],
-      currentSizeListOfColor: data.color[0].sizes,
-    });
-  }, []);
+
   const handleChangeImageList = (id) => {
     setColorId(id);
     data.color.map((item) => {
@@ -131,7 +133,7 @@ export function ProductDetail({ data }) {
     });
   };
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full">
       <LoadingPageComponent loading={loading} />
       <Container>
         <div>
@@ -236,11 +238,11 @@ export function ProductDetail({ data }) {
                       </a>
                     </h3>
                   </div>
-                  <div className="flex items-center justify-between flex-wrap gap-1 md:gap-3">
+                  <div className="flex items-center justify-evenly md:justify-between flex-wrap gap-1 md:gap-3">
                     {sizeInfo?.currentSizeListOfColor?.map((item, index) => (
                       <button
                         onClick={() => handleSizeInfo(item)}
-                        className={`w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
+                        className={`w-36 md:w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
                           size === item.sizeName ? "border-black" : ""
                         }`}
                         key={index}

@@ -94,7 +94,7 @@ export function Register() {
                         <p className="mb-4 text-center font-bold text-2xl ">
                           Register
                         </p>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="fullname"
@@ -132,7 +132,7 @@ export function Register() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="accountName"
@@ -171,7 +171,7 @@ export function Register() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="email"
@@ -208,7 +208,7 @@ export function Register() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="address"
@@ -245,7 +245,7 @@ export function Register() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="numberPhone"
@@ -284,7 +284,7 @@ export function Register() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="password"

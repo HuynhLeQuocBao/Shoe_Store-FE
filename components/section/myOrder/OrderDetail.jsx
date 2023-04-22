@@ -30,7 +30,7 @@ export function OrderDetail() {
         const data = await orderApi.getOrderDetail(router.query.slug);
         setDataOrder(data);
         let total = 0;
-        data.map((item) => (total += item.quantity * item.price));
+        data?.map((item) => (total += item.quantity * item.price));
         setSubTotal(total);
         setIsLoading(false);
       };

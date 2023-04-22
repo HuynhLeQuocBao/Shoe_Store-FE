@@ -90,7 +90,7 @@ export function Login() {
                         <p className="mb-4 text-center font-bold text-2xl ">
                           Log in
                         </p>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="accountName"
@@ -129,7 +129,7 @@ export function Login() {
                             <p className="h-4"></p>
                           )}
                         </div>
-                        <div class="relative mb-6">
+                        <div className="relative mb-6">
                           <Controller
                             control={control}
                             name="password"

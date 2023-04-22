@@ -14,13 +14,13 @@ export function SearchProduct() {
   const [dataFilter, setDataFilter] = useState([]);
   useEffect(() => {
     try {
-      const fechPublic = async () => {
+      const fetchPublic = async () => {
         const dataProduct = await productApi.searchProducts(router.query.slug);
         setIsLoading(false);
         setData(dataProduct);
         setDataFilter(dataProduct);
       };
-      fechPublic();
+      fetchPublic();
     } catch (error) {
       console.log("Error");
     }

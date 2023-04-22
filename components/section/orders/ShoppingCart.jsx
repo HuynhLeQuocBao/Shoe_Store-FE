@@ -23,7 +23,6 @@ export function ShoppingCart() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.cart.isLoading);
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
-
   const handleDeleteCartItem = async (id) => {
     setLoading(true);
     try {

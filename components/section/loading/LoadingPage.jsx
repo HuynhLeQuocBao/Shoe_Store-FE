@@ -1,7 +1,7 @@
 import React from "react";
 
 const LoadingPage = () => {
-  return <span class="loader-page"></span>;
+  return <span className="loader-page"></span>;
 };
 
 export default LoadingPage;
