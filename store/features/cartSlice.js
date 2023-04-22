@@ -21,7 +21,7 @@ export const cartSlice = createSlice({
     products: [],
     total: 0,
     quantity: 0,
-    isLoading: false,
+    isLoading: true,
   },
   reducers: {
     resetCart: (state, action) => {
@@ -37,20 +37,22 @@ export const cartSlice = createSlice({
     },
     getDataFromCartApi: (state, action) => {
       const { cartItem, total } = action.payload;
-      state.products.push({
-        cartId: cartItem._id,
-        productId: cartItem.productId,
-        colorId: cartItem.colorId,
-        image: cartItem.image,
-        name: cartItem.productName,
-        price: parseFloat(cartItem.productPrice),
-        quantityProduct: cartItem.quantity,
-        size: cartItem.sizeName,
-        sizeId: cartItem.sizeId,
-        totalProduct: cartItem.total,
-      });
+      if (cartItem) {
+        state.products.push({
+          cartId: cartItem?._id,
+          productId: cartItem?.productId,
+          colorId: cartItem?.colorId,
+          image: cartItem?.image,
+          name: cartItem?.productName,
+          price: parseFloat(cartItem?.productPrice),
+          quantityProduct: cartItem?.quantity,
+          size: cartItem?.sizeName,
+          sizeId: cartItem?.sizeId,
+          totalProduct: cartItem?.total,
+        });
+      }
       state.total = total;
-      state.quantity = state.products.length;
+      state.quantity = state.products?.length;
       state.isLoading = false;
     },
     addToCartStore: (state, action) => {

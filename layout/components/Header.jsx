@@ -129,7 +129,15 @@ export function Header() {
         const result = await cartApi.getAllCart();
         const productsData = await productApi.getAllProducts();
         setProductList(productsData);
-        if (quantity === 0 && session?.user) {
+        if (result?.message === "Cart empty") {
+          dispatch(resetCart());
+          dispatch(
+            getDataFromCartApi({
+              cartItem: null,
+              total: 0,
+            })
+          );
+        } else if (quantity === 0 && session?.user) {
           dispatch(resetCart());
           result.results.map((cartItem) => {
             dispatch(
@@ -230,9 +238,7 @@ export function Header() {
                             >
                               <div className="w-full flex gap-2">
                                 <Image
-                                  src={`${
-                                    baseURL + product.arrayImage[0].filename
-                                  }`}
+                                  src={`${baseURL + product?.image}`}
                                   className=""
                                   width={50}
                                   height={50}
@@ -305,9 +311,7 @@ export function Header() {
                         >
                           <div className="w-full flex gap-2">
                             <Image
-                              src={`${
-                                baseURL + product.arrayImage[0].filename
-                              }`}
+                              src={`${baseURL + product?.image}`}
                               className=""
                               alt={product.description}
                               width={50}

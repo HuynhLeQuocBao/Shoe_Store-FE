@@ -127,8 +127,16 @@ export function ShoppingCart() {
               <span>REMOVE</span>
             </div>
           </div>
-          {cartList?.length > 0 ? (
-            cartList.map((item, index) => {
+          {isLoading ? (
+            <div className="flex-center h-24">
+              <LoadingPage />
+            </div>
+          ) : cartList?.length === 0 ? (
+            <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
+              No products
+            </div>
+          ) : (
+            cartList?.map((item, index) => {
               return (
                 <div
                   key={index}
@@ -212,18 +220,18 @@ export function ShoppingCart() {
                 </div>
               );
             })
-          ) : isLoading ? (
-            <div className="flex-center h-24">
-              <LoadingPage />
-            </div>
-          ) : (
-            <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
-              No data
-            </div>
           )}
         </div>
         <div className="w-full px-4 my-16 md:hidden">
-          {cartList?.length > 0 ? (
+          {isLoading ? (
+            <div className="flex-center h-24">
+              <LoadingPage />
+            </div>
+          ) : cartList?.length === 0 ? (
+            <div className="w-full text-center shadow-lg rounded-lg py-10">
+              No products
+            </div>
+          ) : (
             cartList.map((item, index) => {
               return (
                 <div
@@ -309,14 +317,6 @@ export function ShoppingCart() {
                 </div>
               );
             })
-          ) : isLoading ? (
-            <div className="flex-center h-24">
-              <LoadingPage />
-            </div>
-          ) : (
-            <div className="w-full text-center shadow-lg rounded-lg py-10">
-              No data
-            </div>
           )}
         </div>
         <div className="w-full grid grid-cols-12">
