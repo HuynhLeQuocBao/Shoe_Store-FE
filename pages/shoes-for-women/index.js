@@ -12,7 +12,7 @@ export default function ShoesForWoMen() {
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
   return (
-    <InstantSearch searchClient={searchClient} indexName="new_product">
+    <InstantSearch searchClient={searchClient} indexName="product">
       <Breadcum />
       <BannerChild text="WOMEN'S" />
       <Women />

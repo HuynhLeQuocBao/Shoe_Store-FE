@@ -12,7 +12,7 @@ export default function Index({ data }) {
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
   return (
-    <InstantSearch searchClient={searchClient} indexName="new_product">
+    <InstantSearch searchClient={searchClient} indexName="product">
       <Banner />
       <BestSeller data={data} />
     </InstantSearch>
