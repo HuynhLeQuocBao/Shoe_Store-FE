@@ -49,11 +49,11 @@ export function MenuProfile() {
                 {session?.user?.fullname}
               </h1>
             </div>
-            <Menu.Item>
+            {/* <Menu.Item>
               <button className="w-full p-2 hover:bg-primary hover:text-white">
                 <Link href="/my-orders">My information</Link>
               </button>
-            </Menu.Item>
+            </Menu.Item> */}
             <Menu.Item>
               <button className="w-full p-2 hover:bg-primary hover:text-white">
                 <Link href="/my-orders">My order</Link>

@@ -12,11 +12,11 @@ const PreviewImage = ({ arrayImage, index }) => {
 
   useEffect(() => {
     const filterImage = arrayImage.filter(
-      (image) => image?.filename !== arrayImage[index]?.filename
+      (image) => image !== arrayImage[index]
     );
     setSource([
-      BASE_URL + arrayImage[index]?.filename,
-      ...filterImage.map((img) => BASE_URL + img?.filename),
+      BASE_URL + arrayImage[index],
+      ...filterImage.map((img) => BASE_URL + img),
     ]);
   }, [arrayImage]);
 
@@ -24,7 +24,7 @@ const PreviewImage = ({ arrayImage, index }) => {
     <>
       <Image
         className="w-full h-full object-cover cursor-zoom-in hover:opacity-70"
-        src={BASE_URL + arrayImage[index]?.filename}
+        src={BASE_URL + arrayImage[index]}
         alt="product details"
         width={350}
         height={350}

@@ -31,7 +31,7 @@ const AddToCart = ({ id, onClose }) => {
         const result = await productApi.getProductById(id);
         setProductDetails(result);
         setCurrent({
-          image: result?.color[0]?.images[0]?.filename,
+          image: result?.color[0]?.images[0],
           colorId: result?.color[0]?.id,
           sizeList: result?.color[0]?.sizes,
           sizesInfo: result?.color[0]?.sizes[0],
@@ -66,7 +66,7 @@ const AddToCart = ({ id, onClose }) => {
   const handleChangeImageList = (id) => {
     const colorInfo = productDetails.color.filter((item) => item.id === id);
     setCurrent({
-      image: colorInfo[0]?.images[0]?.filename,
+      image: colorInfo[0]?.images[0],
       colorId: colorInfo[0].id,
       sizeList: colorInfo[0]?.sizes,
       sizesInfo: colorInfo[0]?.sizes[0],
@@ -153,7 +153,7 @@ const AddToCart = ({ id, onClose }) => {
                     {productDetails.color.map((color) => (
                       <Image
                         key={color.id}
-                        src={baseUrl + color.images[0]?.filename}
+                        src={baseUrl + color.avatar}
                         layout="intrinsic"
                         width={80}
                         height={80}

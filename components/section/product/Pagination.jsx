@@ -46,7 +46,7 @@ export function Pagination({ ...props }) {
             <Link href={`/product-detail/${item._id}`}>
               <div className="hover-child-1">
                 <Product
-                  image={item.arrayImage[0].filename}
+                  image={item.avatar}
                   name={item.name}
                   price={item.price}
                 />

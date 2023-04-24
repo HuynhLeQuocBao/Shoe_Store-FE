@@ -26,13 +26,13 @@ export function Banner() {
   return (
     <div className="font-Rokkitt max-w-full">
       <Slider {...settings}>
-        <div className="h-[650px] w-full relative">
+        <div className="banner">
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner1.jpg"
             alt="banner1"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -56,13 +56,13 @@ export function Banner() {
             </motion.div>
           </div>
         </div>
-        <div className="h-[650px] w-full relative ">
+        <div className="banner">
           <img
-            className="w-full h-full object-cover "
+            className=" w-full h-full object-cover relative "
             src="/images/banner/banner2.jpg"
             alt="banner2"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -87,13 +87,13 @@ export function Banner() {
             </motion.div>
           </div>
         </div>
-        <div className="h-[650px] w-full relative">
+        <div className="banner">
           <img
             className="w-full h-full object-cover"
             src="/images/banner/banner3.jpg"
             alt="banner3"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 ">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <motion.div
               variants={variants}
               initial="hidden"

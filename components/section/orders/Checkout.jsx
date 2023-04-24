@@ -112,7 +112,7 @@ export const Checkout = () => {
   return (
     <Container>
       <ProgressCart />
-      <div className="w-full mt-10 mb-10 relative">
+      <div className="w-full mt-10 mb-10">
         {loading && (
           <div className="w-full h-full flex justify-center items-center absolute bg-opacity-20 bg-slate-400 top-0 left-0">
             <LoadingPage />

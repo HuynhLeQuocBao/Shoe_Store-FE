@@ -10,13 +10,13 @@ export function Women() {
       href: "/shoes-for-men",
     },
     {
-      image: "women.jpg",
-      title: "DRESS",
+      image: "sneaker.jpg",
+      title: "SNEAKER",
       href: "/shoes-for-men",
     },
     {
-      image: "women.jpg",
-      title: "SPORTS",
+      image: "sandals.jpg",
+      title: "SANDALS",
       href: "/shoes-for-men",
     },
   ];
@@ -27,7 +27,7 @@ export function Women() {
           {content.map((item, index) => (
             <div
               key={index}
-              className="relative w-full md:py-[28px] flex flex-col items-center"
+              className="relative w-full flex flex-col items-center banner h-auto md:my-[28px]"
             >
               <Image
                 src={`/images/type/${item.image}`}
@@ -37,7 +37,7 @@ export function Women() {
                 width={380}
                 height={380}
               />
-              <div className="absolute top-16 flex flex-col items-center justify-between">
+              <div className="absolute top-[50%] -translate-y-[50%] flex flex-col items-center justify-between z-10">
                 <p className="xl:text-center text-xl xl:text-4xl font-normal text-white font-Rokkitt h-[70px]">
                   {item.title}
                 </p>

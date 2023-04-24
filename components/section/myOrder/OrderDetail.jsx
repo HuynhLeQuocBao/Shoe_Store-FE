@@ -27,11 +27,9 @@ export function OrderDetail() {
     }
     try {
       const fetchCart = async () => {
-        const data = await orderApi.getOrderDetail(router.query.slug);
-        setDataOrder(data);
-        let total = 0;
-        data?.map((item) => (total += item.quantity * item.price));
-        setSubTotal(total);
+        const data = await orderApi.getOrderDetail(router.query.slug[0]);
+        setDataOrder(data?.results);
+        setSubTotal(data?.total);
         setIsLoading(false);
       };
       const fetchOrder = async () => {

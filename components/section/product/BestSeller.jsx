@@ -30,7 +30,7 @@ export function BestSeller({ data }) {
       <div className="hover-child-1">
         <Product
           id={hit?._id}
-          image={hit?.image}
+          image={hit?.avatar}
           name={hit?.name}
           price={hit?.price}
         />
@@ -96,7 +96,7 @@ export function BestSeller({ data }) {
                 <div className="hover-child-1">
                   <Product
                     id={item?._id}
-                    image={item?.image}
+                    image={item?.avatar}
                     name={item?.name}
                     price={item?.price}
                   />
@@ -140,7 +140,10 @@ export function BestSeller({ data }) {
             <div className="col-span-3 relative">
               <Configure hitsPerPage={6} />
               <Hits hitComponent={Hit} />
-              <div className="absolute bottom-0 right-0 left-0">
+              <div className="hidden">
+                <Pagination />
+              </div>
+              <div className="w-full overflow-hidden">
                 <Pagination showFirst={false} />
               </div>
             </div>

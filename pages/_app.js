@@ -15,6 +15,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { usePageLoading } from "hooks/usePageLoading";
 import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
+import algoliasearch from "algoliasearch/lite";
+import { InstantSearch } from "react-instantsearch-dom";
 
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
@@ -26,7 +28,10 @@ function MyApp(props) {
       window.scrollTo({ top: 0 });
     }
   };
-
+  const searchClient = algoliasearch(
+    process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
+    process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
+  );
   return (
     <>
       <Head>
@@ -57,10 +62,15 @@ function MyApp(props) {
                 {isPageLoading ? (
                   <LoadingPageGlobal loading={isPageLoading} />
                 ) : (
-                  <Layout>
-                    <ToastContainer />
-                    <Component {...pageProps} />
-                  </Layout>
+                  <InstantSearch
+                    searchClient={searchClient}
+                    indexName="product"
+                  >
+                    <Layout>
+                      <ToastContainer />
+                      <Component {...pageProps} />
+                    </Layout>
+                  </InstantSearch>
                 )}
               </PersistGate>
             </Provider>

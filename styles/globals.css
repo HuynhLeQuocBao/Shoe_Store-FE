@@ -261,3 +261,39 @@ input[type="number"] {
 .ais-RefinementList-count {
   @apply bg-primary absolute text-white rounded-md px-2 flex items-center justify-center text-xs right-0;
 }
+
+.ais-Pagination {
+  @apply mt-2;
+}
+.ais-Pagination-item--previousPage {
+  @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
+}
+.ais-Pagination-item--page {
+  @apply py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white;
+}
+.ais-Pagination-item--nextPage {
+  @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
+}
+.ais-Pagination-item--selected {
+  @apply bg-primary text-white;
+}
+.ais-Pagination-item--firstPage {
+  @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
+}
+.ais-Pagination-link--selected,
+.ais-Pagination-link {
+  @apply px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white;
+}
+.banner {
+  @apply h-[650px] w-full relative;
+}
+.banner::after {
+  content: "";
+  background: rgba(31, 31, 31, 0.2);
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: block;
+}

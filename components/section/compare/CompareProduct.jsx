@@ -77,7 +77,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
               key={color.id}
               className="h-14 w-14 flex-center bg-primary hover:cursor-pointer"
               onClick={() => handleCurrentProductInfo({ colorId: color.id })}
-              src={baseURL + color?.images[0]?.filename}
+              src={baseURL + color?.avatar}
               width={60}
               height={60}
             />
@@ -100,7 +100,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
             </div>
           ))}
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+        <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2">
           {product?.description}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">

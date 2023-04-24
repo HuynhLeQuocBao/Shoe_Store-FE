@@ -28,14 +28,18 @@ export function SearchProduct() {
 
   return (
     <Container>
+      <h1 className="text-center font-bold text-4xl mt-4">
+        search for: {router.query.slug}{" "}
+      </h1>
+      <div className="h-[1px] bg-slate-400 "></div>
       <div className="grid grid-cols-1 md:grid-cols-4 md:gap-8 mx-6 md:mx-0 pt-24">
-        <div className="col-span-1">
+        {/* <div className="col-span-1">
           <Category
             dataSort={data}
             onDataFilter={(value) => setDataFilter(value)}
           />
-        </div>
-        <div className="col-span-3">
+        </div> */}
+        <div className="col-span-4">
           {data?.length > 0 ? (
             <Pagination data={dataFilter} itemsPerPage={9} />
           ) : isLoading ? (

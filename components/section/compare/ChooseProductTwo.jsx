@@ -98,7 +98,7 @@ const ChooseProductTwo = ({
           >
             <div>
               <ProductTwo
-                image={item.image}
+                image={item.avatar}
                 name={item.name}
                 price={item.price}
               />

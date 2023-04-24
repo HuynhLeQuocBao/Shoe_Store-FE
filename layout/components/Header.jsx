@@ -234,12 +234,10 @@ export function Header() {
                             <Link
                               key={index}
                               href={`${HOST}/product-detail/${product._id}`}
-                              className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
                             >
-                              <div className="w-full flex gap-2">
+                              <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300">
                                 <Image
-                                  src={`${baseURL + product?.image}`}
-                                  className=""
+                                  src={`${baseURL + product?.avatar}`}
                                   width={50}
                                   height={50}
                                 />
@@ -307,12 +305,10 @@ export function Header() {
                         <Link
                           key={index}
                           href={`${HOST}/product-detail/${product._id}`}
-                          className="text-xl hover:cursor-pointer hover:bg-slate-200 border-b-2 border-solid p-1 duration-300 "
                         >
-                          <div className="w-full flex gap-2">
+                          <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300 ">
                             <Image
-                              src={`${baseURL + product?.image}`}
-                              className=""
+                              src={`${baseURL + product?.avatar}`}
                               alt={product.description}
                               width={50}
                               height={50}

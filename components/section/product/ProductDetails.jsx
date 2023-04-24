@@ -154,8 +154,8 @@ export function ProductDetail({ data }) {
                   {imageList?.map((item, index) => (
                     <div key={index}>
                       <Image
-                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploadWithRefactorDB/${item?.filename}`}
-                        alt={item?.filename}
+                        src={`${process.env.NEXT_PUBLIC_API_URL}/uploadWithRefactorDB/${item}`}
+                        alt={item}
                         layout="responsive"
                         width={250}
                         height={250}
@@ -193,7 +193,7 @@ export function ProductDetail({ data }) {
                   {data.color.map((color) => (
                     <Image
                       key={color.id}
-                      src={BASE_URL + color.images[0]?.filename}
+                      src={BASE_URL + color?.avatar}
                       layout="intrinsic"
                       width={80}
                       height={80}
