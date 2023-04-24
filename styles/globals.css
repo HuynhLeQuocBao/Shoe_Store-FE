@@ -260,5 +260,4 @@ input[type="number"] {
 
 .ais-RefinementList-count {
   @apply bg-primary absolute text-white rounded-md px-2 flex items-center justify-center text-xs right-0;
-
 }
