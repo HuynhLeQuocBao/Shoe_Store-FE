@@ -4,7 +4,10 @@ const nextConfig = {
   swcMinify: true,
   images: {
     // domains: ["shoestore-backend-0uam.onrender.com"],
-    domains: ["backend-shoestore-refactor.onrender.com"],
+    domains: [
+      "backend-shoestore-refactor.onrender.com",
+      "shoe-store-be-bcd.onrender.com",
+    ],
   },
 };
 
