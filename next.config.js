@@ -7,6 +7,7 @@ const nextConfig = {
     domains: [
       "backend-shoestore-refactor.onrender.com",
       "shoe-store-be-bcd.onrender.com",
+      "localhost",
     ],
   },
 };

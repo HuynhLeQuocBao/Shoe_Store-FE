@@ -38,7 +38,13 @@ export function Category() {
   return (
     <div className="grid grid-cols-1 gap-2 text-sm text-[#616161] font-Rokkitt mb-2">
       <div className="w-full border border-[#dee2e6] px-4 py-4">
-        <ClearRefinements />
+        <ClearRefinements
+          transformItems={(items) =>
+            router.pathname !== "/"
+              ? items.filter(({ attribute }) => attribute !== "gender")
+              : items.filter(({ attribute }) => attribute !== "")
+          }
+        />
       </div>
       <div className="w-full border border-[#dee2e6] px-4 py-4">
         <h1 className="text-xl font-semibold text-black pb-6">Price</h1>
