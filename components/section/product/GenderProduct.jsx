@@ -101,7 +101,7 @@ export function GenderProduct({ gender }) {
           <Category />
         </div>
         <div className="col-span-3 relative">
-          <Configure hitsPerPage={6} />
+          <Configure hitsPerPage={9} />
           <CustomHits />
           <div className="absolute bottom-0 right-0 left-0">
             <Pagination showFirst={false} />

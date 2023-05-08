@@ -86,6 +86,19 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
           {productInfo?.price}
         </div>
+        <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2 overflow-y-scroll">
+          {product?.description}
+        </div>
+        <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
+          {product?.listAnotherCate?.map((brand, index) => (
+            <div
+              key={brand}
+              className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
+            >
+              {brand}
+            </div>
+          ))}
+        </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
           {productInfo?.amount}
         </div>
@@ -97,19 +110,6 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
               onClick={() => handleCurrentProductInfo({ size: size.sizeName })}
             >
               {size.sizeName}
-            </div>
-          ))}
-        </div>
-        <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2">
-          {product?.description}
-        </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {product?.listAnotherCate?.map((brand, index) => (
-            <div
-              key={brand}
-              className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
-            >
-              {brand}
             </div>
           ))}
         </div>

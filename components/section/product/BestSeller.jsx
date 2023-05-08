@@ -138,7 +138,7 @@ export function BestSeller({ data }) {
               <Category />
             </div>
             <div className="col-span-3 relative">
-              <Configure hitsPerPage={6} />
+              <Configure hitsPerPage={9} />
               <Hits hitComponent={Hit} />
               <div className="hidden">
                 <Pagination />

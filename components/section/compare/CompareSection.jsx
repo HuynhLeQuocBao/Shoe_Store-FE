@@ -55,6 +55,12 @@ export function CompareSection({ productList, productOne }) {
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Price
             </div>
+            <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2">
+              Description
+            </div>
+            <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+              Brand
+            </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Available
             </div>
@@ -63,12 +69,6 @@ export function CompareSection({ productList, productOne }) {
             </div> */}
             <div className="h-28 border-[1px] border-solid flex-center border-r-0">
               Sizes
-            </div>
-            <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2">
-              Description
-            </div>
-            <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-              Brand
             </div>
           </div>
           {productOne?.length == 0 ? (
@@ -110,7 +110,13 @@ export function CompareSection({ productList, productOne }) {
           )}
         </div>
       </div>
-      <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        isVisible={openModal}
+        onClose={() => {
+          setOpenModal(false);
+          setIsLoading(false);
+        }}
+      >
         {productList.length === 0 ? (
           <div className="w-full flex gap-10 pb-10 flex-wrap">
             <LoadingProduct numberOfCards={8} />

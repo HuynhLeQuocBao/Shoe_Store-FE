@@ -5,7 +5,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/globals.css";
 import { MainLayout, isTest } from "@/layout/index";
-import axiosClient from "../apiClient/axiosClient";
+import axiosClient, { setToken } from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
 import { store, persistor } from "../store/store";
@@ -21,6 +21,9 @@ import { productApi } from "@/apiClient/product";
 import { cartApi } from "@/apiClient/cartAPI";
 import { useEffect } from "react";
 
+let productsCache;
+let cartsCache;
+
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
   const { Component, pageProps, session, navigationProps } = props;
@@ -35,7 +38,8 @@ function MyApp(props) {
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
   useEffect(() => {
-    navigationPropsCache = navigationProps;
+    productsCache = navigationProps?.products;
+    cartsCache = navigationProps?.carts;
   }, []);
   return (
     <>
@@ -71,9 +75,15 @@ function MyApp(props) {
                     searchClient={searchClient}
                     indexName="product"
                   >
-                    <Layout carts={[]} products={navigationProps}>
+                    <Layout
+                      carts={navigationProps?.carts}
+                      products={navigationProps?.products}
+                    >
                       <ToastContainer />
-                      <Component {...pageProps} products={navigationProps} />
+                      <Component
+                        {...pageProps}
+                        products={navigationProps?.products}
+                      />
                     </Layout>
                   </InstantSearch>
                 )}
@@ -85,17 +95,35 @@ function MyApp(props) {
     </>
   );
 }
-let navigationPropsCache;
 
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
 
-  if (navigationPropsCache) {
-    return { ...appProps, session, navigationProps: navigationPropsCache };
+  if (productsCache && cartsCache) {
+    return {
+      ...appProps,
+      session,
+      navigationProps: {
+        products: productsCache,
+        carts: cartsCache,
+      },
+    };
   }
-  const navigationProps = await productApi.getAllProducts();
-  navigationPropsCache = navigationProps;
+
+  const products = await productApi.getAllProducts();
+  let carts = [];
+  if (session) {
+    setToken(session?.accessToken);
+    carts = await cartApi.getAllCart();
+  }
+
+  const navigationProps = {
+    products,
+    carts,
+  };
+  productsCache = navigationProps.products;
+  cartsCache = navigationProps.carts;
   return { ...appProps, session, navigationProps };
 };
 

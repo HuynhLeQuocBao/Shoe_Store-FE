@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -8,12 +9,15 @@ import {
   NumericMenu,
   RefinementList,
   connectRange,
+  connectRefinementList,
 } from "react-instantsearch-dom";
 
 export function Category() {
   const router = useRouter();
 
   const ConnectedRange = connectRange(CustomRange);
+  const CustomColorRefinementList = connectRefinementList(ColorRefinementList);
+  const CustomSizeRefinementList = connectRefinementList(SizeRefinementList);
 
   return (
     <div className="grid grid-cols-1 gap-2 text-sm text-[#616161] font-Rokkitt mb-2">
@@ -28,15 +32,6 @@ export function Category() {
       </div>
       <div className="w-full border border-[#dee2e6] px-4 py-4">
         <h1 className="text-xl font-semibold text-black pb-6">Price</h1>
-        {/* <NumericMenu
-          attribute="price"
-          items={[
-            { label: "<= $10", end: 10 },
-            { label: "$10 - $100", start: 10, end: 100 },
-            { label: "$100 - $500", start: 100, end: 500 },
-            { label: ">= $500", start: 500 },
-          ]}
-        /> */}
         <ConnectedRange attribute="price" />
       </div>
       {router.pathname === "/" && (
@@ -67,11 +62,11 @@ export function Category() {
       </div>
       <div className="w-full border border-[#dee2e6] px-4 py-4">
         <h1 className="text-xl font-semibold text-black pb-6">Size</h1>
-        <RefinementList attribute="size" />
+        <CustomSizeRefinementList attribute="size" />
       </div>
       <div className="w-full border border-[#dee2e6] px-4 py-4">
         <h1 className="text-xl font-semibold text-black pb-6">Color</h1>
-        <RefinementList attribute="color" />
+        <CustomColorRefinementList attribute="color" />
       </div>
     </div>
   );
@@ -103,5 +98,43 @@ const CustomRange = ({ min, max, currentRefinement, refine }) => {
         />
       </div>
     )
+  );
+};
+const ColorRefinementList = ({ items, refine }) => {
+  return (
+    <div className="flex w-full gap-6 flex-wrap p-3">
+      {items?.map((item) => (
+        <div
+          key={item.label}
+          className="flex gap-2 hover:cursor-pointer"
+          onClick={() => refine(item.value)}
+        >
+          <div
+            style={{ backgroundColor: `${item?.label}` }}
+            className={`w-5 h-5 rounded-full border-[1px] border-black`}
+          ></div>
+          <div className={`${item.isRefined ? "text-blue-500 font-bold" : ""}`}>
+            {item.label}({item.count})
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+const SizeRefinementList = ({ items, refine }) => {
+  return (
+    <div className="flex w-full gap-3 flex-wrap p-3">
+      {items?.map((item) => (
+        <div
+          key={item.label}
+          className={`w-9 h-9 hover:cursor-pointer flex justify-center items-center p-2 border-[1px] border-black rounded-full ${
+            item.isRefined ? "bg-blue-500 text-white" : "bg-transparent"
+          } `}
+          onClick={() => refine(item.value)}
+        >
+          {item.label}
+        </div>
+      ))}
+    </div>
   );
 };

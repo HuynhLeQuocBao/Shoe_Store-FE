@@ -2,12 +2,18 @@ import { productApi } from "@/apiClient/product";
 import { CompareSection } from "@/components/section/compare";
 import { Breadcum } from "@/components/section/title";
 import React from "react";
+import { useState } from "react";
+import { useEffect } from "react";
 
-export default function Compare({ productList, productOne }) {
+export default function Compare({ productOne, products }) {
+  const [productArray, setProductArray] = useState(products);
+  useEffect(() => {
+    setProductArray(products.filter((e) => e._id !== productOne?._id));
+  }, [products]);
   return (
     <div>
       <Breadcum />
-      <CompareSection productList={productList} productOne={productOne} />
+      <CompareSection productList={productArray} productOne={productOne} />
     </div>
   );
 }
@@ -16,11 +22,8 @@ export const getServerSideProps = async (context) => {
   const productId = params.slug;
   try {
     const productOne = await productApi.getProductById(productId);
-    let dataProduct = await productApi.getAllProducts();
-    dataProduct = dataProduct.filter((product) => product._id != productId);
     return {
       props: {
-        productList: dataProduct,
         productOne,
       },
     };
@@ -28,7 +31,6 @@ export const getServerSideProps = async (context) => {
     console.log(error);
     return {
       props: {
-        productList: [],
         productOne: [],
       },
     };
