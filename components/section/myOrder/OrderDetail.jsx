@@ -162,7 +162,7 @@ export function OrderDetail() {
                     <span>Price: ${item.price}</span>
                   </div>
                   <div className="w-full font-bold ">
-                    <span>Size: {item.size}</span>
+                    <span>Size: {item.sizeName}</span>
                   </div>
                   <div className="w-full">
                     {/* <FormQuantity quantity={item.quantity} cartId={item._id} productId={item.productId} size={item.size} /> */}
