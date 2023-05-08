@@ -22,6 +22,7 @@ export const cartSlice = createSlice({
     total: 0,
     quantity: 0,
     isLoading: true,
+    isCheckout: false,
   },
   reducers: {
     resetCart: (state, action) => {
@@ -30,6 +31,10 @@ export const cartSlice = createSlice({
       state.total = 0;
       state.quantity = 0;
       state.isLoading = true;
+      state.isCheckout = false;
+    },
+    checkout: (state, action) => {
+      state.isCheckout = true;
     },
     updateTotalCart: (state, action) => {
       const { total } = action.payload;

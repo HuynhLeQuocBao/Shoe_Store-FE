@@ -124,30 +124,26 @@ export function Header({ products, carts }) {
     if (quantity > 0 && !session) {
       dispatch(resetCart());
     }
-    const fetchGetCart = async () => {
-      try {
-        if (carts?.message === "Cart empty") {
-          dispatch(resetCart());
-          dispatch(
-            getDataFromCartApi({
-              cartItem: null,
-              total: 0,
-            })
-          );
-        } else if (quantity === 0 && session?.user) {
-          dispatch(resetCart());
-          carts.results.map((cartItem) => {
-            dispatch(
-              getDataFromCartApi({
-                cartItem,
-                total: carts.totalCart,
-              })
-            );
-          });
-        }
-      } catch (error) {}
-    };
-    fetchGetCart();
+
+    if (carts?.message === "Cart empty") {
+      dispatch(resetCart());
+      dispatch(
+        getDataFromCartApi({
+          cartItem: null,
+          total: 0,
+        })
+      );
+    } else if (quantity === 0 && session?.user) {
+      dispatch(resetCart());
+      carts?.results?.map((cartItem) => {
+        dispatch(
+          getDataFromCartApi({
+            cartItem,
+            total: carts.totalCart,
+          })
+        );
+      });
+    }
   }, [session]);
 
   const ShowModal = () => setOpen(true);

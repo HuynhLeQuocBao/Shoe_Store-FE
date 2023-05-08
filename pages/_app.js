@@ -9,7 +9,7 @@ import axiosClient, { setToken } from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
 import { store, persistor } from "../store/store";
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -99,8 +99,7 @@ function MyApp(props) {
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
-
-  if (productsCache && cartsCache) {
+  if (productsCache && cartsCache && cartsCache.length > 0) {
     return {
       ...appProps,
       session,
@@ -110,21 +109,23 @@ MyApp.getInitialProps = async (context) => {
       },
     };
   }
+  if (!productsCache && !cartsCache) {
+    const products = await productApi.getAllProducts();
+    let carts = [];
+    if (session) {
+      setToken(session?.accessToken);
+      carts = await cartApi.getAllCart();
+    }
 
-  const products = await productApi.getAllProducts();
-  let carts = [];
-  if (session) {
-    setToken(session?.accessToken);
-    carts = await cartApi.getAllCart();
+    const navigationProps = {
+      products,
+      carts,
+    };
+    productsCache = navigationProps.products;
+    cartsCache = navigationProps.carts;
+    return { ...appProps, session, navigationProps };
   }
-
-  const navigationProps = {
-    products,
-    carts,
-  };
-  productsCache = navigationProps.products;
-  cartsCache = navigationProps.carts;
-  return { ...appProps, session, navigationProps };
+  return { ...appProps, session };
 };
 
 export default MyApp;
