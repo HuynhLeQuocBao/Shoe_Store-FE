@@ -124,7 +124,7 @@ export function Header({ products, carts }) {
     if (quantity > 0 && !session) {
       dispatch(resetCart());
     }
-
+    console.log(carts);
     if (carts?.message === "Cart empty") {
       dispatch(resetCart());
       dispatch(

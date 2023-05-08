@@ -22,7 +22,6 @@ import { cartApi } from "@/apiClient/cartAPI";
 import { useEffect } from "react";
 
 let productsCache;
-let cartsCache;
 
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
@@ -39,7 +38,6 @@ function MyApp(props) {
   );
   useEffect(() => {
     productsCache = navigationProps?.products;
-    cartsCache = navigationProps?.carts;
   }, []);
   return (
     <>
@@ -99,33 +97,31 @@ function MyApp(props) {
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
-  if (productsCache && cartsCache && cartsCache.length > 0) {
+  let carts = [];
+  if (session) {
+    setToken(session?.accessToken);
+    carts = await cartApi.getAllCart();
+  }
+  if (productsCache) {
     return {
       ...appProps,
       session,
       navigationProps: {
         products: productsCache,
-        carts: cartsCache,
+        carts,
       },
     };
   }
-  if (!productsCache && !cartsCache) {
-    const products = await productApi.getAllProducts();
-    let carts = [];
-    if (session) {
-      setToken(session?.accessToken);
-      carts = await cartApi.getAllCart();
-    }
 
+  if (!productsCache) {
+    const products = await productApi.getAllProducts();
     const navigationProps = {
       products,
       carts,
     };
     productsCache = navigationProps.products;
-    cartsCache = navigationProps.carts;
     return { ...appProps, session, navigationProps };
   }
-  return { ...appProps, session };
 };
 
 export default MyApp;
