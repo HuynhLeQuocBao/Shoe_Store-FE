@@ -22,10 +22,10 @@ import { cartApi } from "@/apiClient/cartAPI";
 import { useEffect } from "react";
 
 let productsCache;
-
+let cartsCache;
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
-  const { Component, pageProps, session, navigationProps } = props;
+  const { Component, pageProps, session, navigationProps, router } = props;
   const Layout = Component.Layout ?? MainLayout;
   const handleExitComplete = () => {
     if (typeof window !== "undefined") {
@@ -36,9 +36,7 @@ function MyApp(props) {
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
-  useEffect(() => {
-    productsCache = navigationProps?.products;
-  }, []);
+  useEffect(() => {}, [router.pathname]);
   return (
     <>
       <Head>
@@ -95,12 +93,66 @@ function MyApp(props) {
 }
 
 MyApp.getInitialProps = async (context) => {
+  const isServer = typeof window === "undefined";
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
-  let carts = [];
-  if (session) {
-    setToken(session?.accessToken);
-    carts = await cartApi.getAllCart();
+  setToken(session.accessToken);
+  let carts;
+  const req = context.ctx.req;
+  const value = req
+    ? req.headers.cookie &&
+      req.headers.cookie
+        .split(";")
+        .some((cookie) => cookie.trim().startsWith("persist:root="))
+      ? req.headers.cookie
+          .split(";")
+          .filter((cookie) => cookie.trim().startsWith("persist:root="))[0]
+          .split("=")[1]
+      : null
+    : localStorage.getItem("persist:root");
+  const localStorageCart = JSON.parse(value);
+  if (localStorageCart) {
+    const cartRedux = JSON.parse(localStorageCart.cart);
+    if (
+      cartRedux.products.length > 0 &&
+      cartRedux.quantity > 0 &&
+      !cartsCache
+    ) {
+      //when the page loads for the first time
+      cartsCache = await cartApi.getAllCart();
+    } else if (
+      cartRedux.products.length > 0 &&
+      cartRedux.quantity > 0 &&
+      cartsCache.message
+    ) {
+      //when there is data in redux and cache is message
+      cartsCache = await cartApi.getAllCart();
+    } else if (
+      cartRedux.products.length === 0 &&
+      cartRedux.quantity === 0 &&
+      !cartsCache?.message
+    ) {
+      //when there is no data in redux and cache message is not available
+      cartsCache = await cartApi.getAllCart();
+    }
+  }
+  if (session && !cartsCache) {
+    cartsCache = await cartApi.getAllCart();
+  }
+  if (
+    context.router.state?.route === "/order-complete" ||
+    context.router.state?.route === "/checkout"
+  ) {
+    cartsCache = await cartApi.getAllCart();
+  }
+  if (!productsCache) {
+    const products = await productApi.getAllProducts();
+    const navigationProps = {
+      products,
+      carts: cartsCache,
+    };
+    productsCache = navigationProps.products;
+    return { ...appProps, session, navigationProps };
   }
   if (productsCache) {
     return {
@@ -108,20 +160,15 @@ MyApp.getInitialProps = async (context) => {
       session,
       navigationProps: {
         products: productsCache,
-        carts,
+        carts: cartsCache,
       },
     };
   }
-
-  if (!productsCache) {
-    const products = await productApi.getAllProducts();
-    const navigationProps = {
-      products,
-      carts,
-    };
-    productsCache = navigationProps.products;
-    return { ...appProps, session, navigationProps };
-  }
+  const navigationProps = {
+    products: productsCache,
+    carts: cartsCache,
+  };
+  return { ...appProps, session, navigationProps };
 };
 
 export default MyApp;
