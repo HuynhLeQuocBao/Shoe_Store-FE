@@ -1,10 +1,10 @@
 import { Header, Footer, BackToTop, Partner } from "./components";
 import ScrollToTop from "react-scroll-to-top";
 import FacebookMessenger from "utils/FacebookMessenger";
-export function MainLayout({ children }) {
+export function MainLayout({ children, products, carts }) {
   return (
     <div>
-      <Header />
+      <Header products={products} carts={carts} />
 
       <main>{children}</main>
       <ScrollToTop

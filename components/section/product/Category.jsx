@@ -1,37 +1,17 @@
 import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useState } from "react";
 import InputRange from "react-input-range";
 import "react-input-range/lib/css/index.css";
 import {
   ClearRefinements,
+  NumericMenu,
   RefinementList,
   connectRange,
 } from "react-instantsearch-dom";
 
 export function Category() {
   const router = useRouter();
-  const CustomRange = ({ min, max, currentRefinement, refine }) => {
-    const [value, setValue] = useState({
-      min: currentRefinement.min || min,
-      max: currentRefinement.max || max,
-    });
-
-    const handleChange = (newValue) => {
-      setValue(newValue);
-    };
-
-    return (
-      <div className="pb-5 px-3">
-        <InputRange
-          minValue={min}
-          maxValue={max}
-          value={value}
-          onChange={handleChange}
-          onChangeComplete={(value) => refine(value)}
-        />
-      </div>
-    );
-  };
 
   const ConnectedRange = connectRange(CustomRange);
 
@@ -48,7 +28,16 @@ export function Category() {
       </div>
       <div className="w-full border border-[#dee2e6] px-4 py-4">
         <h1 className="text-xl font-semibold text-black pb-6">Price</h1>
-        <ConnectedRange attribute="price" min={50} max={110} />
+        {/* <NumericMenu
+          attribute="price"
+          items={[
+            { label: "<= $10", end: 10 },
+            { label: "$10 - $100", start: 10, end: 100 },
+            { label: "$100 - $500", start: 100, end: 500 },
+            { label: ">= $500", start: 500 },
+          ]}
+        /> */}
+        <ConnectedRange attribute="price" />
       </div>
       {router.pathname === "/" && (
         <div className="w-full border border-[#dee2e6] px-4 py-4">
@@ -87,3 +76,32 @@ export function Category() {
     </div>
   );
 }
+const CustomRange = ({ min, max, currentRefinement, refine }) => {
+  const [value, setValue] = useState();
+  const handleChange = (newValue) => {
+    setValue(newValue);
+  };
+  useEffect(() => {
+    setValue({
+      min: min,
+      max: max,
+    });
+  }, [min, max]);
+  if (!min || !max) {
+    return <h1>Loading...</h1>;
+  }
+  return (
+    min &&
+    max && (
+      <div className="pb-5 px-3">
+        <InputRange
+          minValue={min}
+          maxValue={max}
+          value={value}
+          onChange={handleChange}
+          onChangeComplete={(value) => refine(value)}
+        />
+      </div>
+    )
+  );
+};

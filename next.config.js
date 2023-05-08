@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     // domains: ["shoestore-backend-0uam.onrender.com"],
     domains: [
-      "backend-shoestore-refactor.onrender.com",
+      "shoestore-backend-bn1o.onrender.com",
       "shoe-store-be-bcd.onrender.com",
       "localhost",
     ],

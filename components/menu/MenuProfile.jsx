@@ -55,9 +55,11 @@ export function MenuProfile() {
               </button>
             </Menu.Item> */}
             <Menu.Item>
-              <button className="w-full p-2 hover:bg-primary hover:text-white">
-                <Link href="/my-orders">My order</Link>
-              </button>
+              <Link href="/my-orders">
+                <button className="w-full p-2 hover:bg-primary hover:text-white">
+                  My order{" "}
+                </button>
+              </Link>
             </Menu.Item>
             <Menu.Item>
               <button

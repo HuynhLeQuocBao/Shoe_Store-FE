@@ -95,7 +95,7 @@ function TabletNavigation() {
   );
 }
 
-export function Header() {
+export function Header({ products, carts }) {
   const router = useRouter();
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
@@ -126,10 +126,7 @@ export function Header() {
     }
     const fetchGetCart = async () => {
       try {
-        const result = await cartApi.getAllCart();
-        const productsData = await productApi.getAllProducts();
-        setProductList(productsData);
-        if (result?.message === "Cart empty") {
+        if (carts?.message === "Cart empty") {
           dispatch(resetCart());
           dispatch(
             getDataFromCartApi({
@@ -139,11 +136,11 @@ export function Header() {
           );
         } else if (quantity === 0 && session?.user) {
           dispatch(resetCart());
-          result.results.map((cartItem) => {
+          carts.results.map((cartItem) => {
             dispatch(
               getDataFromCartApi({
                 cartItem,
-                total: result.totalCart,
+                total: carts.totalCart,
               })
             );
           });
@@ -164,7 +161,7 @@ export function Header() {
 
   const handleSearch = (event) => {
     setKeyword(event.target.value);
-    const results = productList.filter((product) =>
+    const results = products.filter((product) =>
       product.name.toLowerCase().includes(event.target.value.toLowerCase())
     );
     setProductSearchList(results);

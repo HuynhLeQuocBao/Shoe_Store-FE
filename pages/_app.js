@@ -4,7 +4,7 @@ import { AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/globals.css";
-import { MainLayout } from "@/layout/index";
+import { MainLayout, isTest } from "@/layout/index";
 import axiosClient from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
@@ -17,12 +17,14 @@ import { usePageLoading } from "hooks/usePageLoading";
 import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
+import { productApi } from "@/apiClient/product";
+import { cartApi } from "@/apiClient/cartAPI";
+import { useEffect } from "react";
 
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
-  const { Component, pageProps, session } = props;
+  const { Component, pageProps, session, navigationProps } = props;
   const Layout = Component.Layout ?? MainLayout;
-
   const handleExitComplete = () => {
     if (typeof window !== "undefined") {
       window.scrollTo({ top: 0 });
@@ -32,6 +34,9 @@ function MyApp(props) {
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
+  useEffect(() => {
+    navigationPropsCache = navigationProps;
+  }, []);
   return (
     <>
       <Head>
@@ -66,9 +71,9 @@ function MyApp(props) {
                     searchClient={searchClient}
                     indexName="product"
                   >
-                    <Layout>
+                    <Layout carts={[]} products={navigationProps}>
                       <ToastContainer />
-                      <Component {...pageProps} />
+                      <Component {...pageProps} products={navigationProps} />
                     </Layout>
                   </InstantSearch>
                 )}
@@ -80,12 +85,18 @@ function MyApp(props) {
     </>
   );
 }
+let navigationPropsCache;
 
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
 
-  return { ...appProps, session };
+  if (navigationPropsCache) {
+    return { ...appProps, session, navigationProps: navigationPropsCache };
+  }
+  const navigationProps = await productApi.getAllProducts();
+  navigationPropsCache = navigationProps;
+  return { ...appProps, session, navigationProps };
 };
 
 export default MyApp;
