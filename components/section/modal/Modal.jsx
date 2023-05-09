@@ -1,7 +1,7 @@
 import React from "react";
 import { BestSeller } from "../product";
 
-const Modal = ({ isVisible, onClose, children }) => {
+const Modal = ({ isVisible, onClose, children, className }) => {
   if (!isVisible) return null;
 
   const handleClose = (e) => {
@@ -13,7 +13,7 @@ const Modal = ({ isVisible, onClose, children }) => {
       id="wrapper"
       onClick={handleClose}
     >
-      <div className="w-3/4 h-3/4 md:h-[90%] flex flex-col">
+      <div className={`w-3/4 h-3/4 md:h-[90%] flex flex-col ${className}`}>
         <button
           className="text-white font-bold place-self-end text-2xl hover:text-red-500  "
           onClick={() => onClose()}

@@ -93,11 +93,9 @@ function MyApp(props) {
 }
 
 MyApp.getInitialProps = async (context) => {
-  const isServer = typeof window === "undefined";
   const appProps = await App.getInitialProps(context);
   const session = await getSession(context);
-  setToken(session.accessToken);
-  let carts;
+  setToken(session?.accessToken);
   const req = context.ctx.req;
   const value = req
     ? req.headers.cookie &&
@@ -111,38 +109,30 @@ MyApp.getInitialProps = async (context) => {
       : null
     : localStorage.getItem("persist:root");
   const localStorageCart = JSON.parse(value);
-  if (localStorageCart) {
-    const cartRedux = JSON.parse(localStorageCart.cart);
-    if (
-      cartRedux.products.length > 0 &&
-      cartRedux.quantity > 0 &&
-      !cartsCache
-    ) {
+  if (localStorageCart && session) {
+    const cartRedux = JSON.parse(localStorageCart?.cart);
+    const isCartAvailable =
+      cartRedux?.products?.length > 0 && cartRedux?.quantity > 0;
+    const isCartsCacheMessageAvailable = cartsCache?.message;
+    if (isCartAvailable && !cartsCache) {
       //when the page loads for the first time
       cartsCache = await cartApi.getAllCart();
-    } else if (
-      cartRedux.products.length > 0 &&
-      cartRedux.quantity > 0 &&
-      cartsCache.message
-    ) {
+    } else if (isCartAvailable && isCartsCacheMessageAvailable) {
       //when there is data in redux and cache is message
       cartsCache = await cartApi.getAllCart();
     } else if (
       cartRedux.products.length === 0 &&
       cartRedux.quantity === 0 &&
-      !cartsCache?.message
+      !isCartsCacheMessageAvailable
     ) {
       //when there is no data in redux and cache message is not available
       cartsCache = await cartApi.getAllCart();
     }
   }
-  if (session && !cartsCache) {
-    cartsCache = await cartApi.getAllCart();
-  }
-  if (
+  const isOrderCompleteOrCheckout =
     context.router.state?.route === "/order-complete" ||
-    context.router.state?.route === "/checkout"
-  ) {
+    context.router.state?.route === "/checkout";
+  if ((session && !cartsCache) || isOrderCompleteOrCheckout) {
     cartsCache = await cartApi.getAllCart();
   }
   if (!productsCache) {

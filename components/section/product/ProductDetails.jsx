@@ -107,8 +107,12 @@ export function ProductDetail({ data }) {
       toast.warn("Please login to add cart !", {
         position: toast.POSITION.TOP_RIGHT,
       });
+
       setTimeout(() => {
-        router.push("/login");
+        router.push({
+          pathname: "/login",
+          query: { id: productId },
+        });
       }, 3000);
     }
   };

@@ -21,7 +21,7 @@ export function ListOrders({ orderList }) {
   };
   return (
     <div className="w-full mb-16">
-      <div className="hidden md:block w-full mt-10 mb-10">
+      <div className=" md:block w-full mt-10 mb-10">
         <div className="w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-md items-center justify-center uppercase grid grid-cols-12 mb-6 shadow-lg">
           <div className="text-center col-span-1">
             <span>STT</span>
@@ -71,7 +71,7 @@ export function ListOrders({ orderList }) {
                 <div className="col-span-2  text-center flex justify-center items-center">
                   <span>{item.createdAt}</span>
                 </div>
-                <div className="flex justify-end items-center col-span-2 pr-14">
+                <div className="flex justify-end items-center col-span-2 md:pr-14">
                   <HiOutlineChevronRight />
                 </div>
               </div>

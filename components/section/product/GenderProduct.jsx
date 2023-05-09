@@ -103,7 +103,10 @@ export function GenderProduct({ gender }) {
         <div className="col-span-3 relative">
           <Configure hitsPerPage={9} />
           <CustomHits />
-          <div className="absolute bottom-0 right-0 left-0">
+          <div className="hidden">
+            <Pagination />
+          </div>
+          <div className="w-full overflow-hidden">
             <Pagination showFirst={false} />
           </div>
         </div>

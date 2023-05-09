@@ -15,6 +15,7 @@ import { PaymentList } from "./Payment";
 import { voucherApi } from "@/apiClient/voucher";
 import Modal from "../modal/Modal";
 import Image from "next/image";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 
 export const Checkout = () => {
   const { data: session } = useSession();
@@ -113,11 +114,7 @@ export const Checkout = () => {
     <Container>
       <ProgressCart />
       <div className="w-full mt-10 mb-10">
-        {loading && (
-          <div className="w-full h-full flex justify-center items-center absolute bg-opacity-20 bg-slate-400 top-0 left-0">
-            <LoadingPage />
-          </div>
-        )}
+        <LoadingPageComponent loading={loading} />
         <form onSubmit={handleSubmit(onSubmit)}>
           <div className="grid grid-cols-12 gap-4 w-full">
             <div className="h-fit col-span-12 lg:col-span-7 w-full bg-[#f5f5f5] p-4">

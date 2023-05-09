@@ -39,13 +39,13 @@ export function ProcessOrder({ status }) {
     { name: "Complete", icon: <HiOutlineCheckCircle />, status: complete },
   ];
   return (
-    <div className="w-full flex justify-center items-center px-20 my-10">
-      <div className="flex justify-center items-center w-full pl-14">
+    <div className="w-[85%] md:w-full flex justify-center items-center px-20 my-10">
+      <div className="flex justify-center items-center w-full pl-3 md:pl-14">
         {steps.map((step, index) =>
           step.status === "complete" ? (
-            <div className="w-full  mb-8 relative " key={index}>
+            <div className="w-[85%] md:w-full mb-8 relative " key={index}>
               <div
-                className={`relative h-20  
+                className={`relative h-16 md:h-20  
                                     ${
                                       index === steps.length - 1
                                         ? ""
@@ -54,21 +54,21 @@ export function ProcessOrder({ status }) {
                     `}
               >
                 <div
-                  className={`relative  w-20 h-20 border-[1px] rounded-[50%] text-[38px] z-10 flex justify-center items-center
+                  className={`relative  w-16 h-16 md:w-20 md:h-20 border-[1px] rounded-[50%] text-[38px] z-10 flex justify-center items-center
                                        bg-green-400 text-white
                                 `}
                 >
                   {step.icon}
                 </div>
               </div>
-              <h4 className="mt-4 mb-0 -ml-4 font-semibold text-sm w-28 text-center">
+              <h4 className="mt-4 mb-0 -ml-4 font-semibold text-sm w-24 md:w-28 text-center">
                 {step.name}
               </h4>
             </div>
           ) : (
-            <div className="w-full  mb-8 relative " key={index}>
+            <div className="w-[85%] md:w-full mb-8 relative " key={index}>
               <div
-                className={`relative h-20  
+                className={`relative  h-16 md:h-20 
                                     ${
                                       index === steps.length - 1
                                         ? ""
@@ -77,14 +77,14 @@ export function ProcessOrder({ status }) {
                     `}
               >
                 <div
-                  className={`relative  w-20 h-20 border-[1px] rounded-[50%] text-[38px] z-10 flex justify-center items-center
+                  className={`relative  w-16 h-16 md:w-20 md:h-20 border-[1px] rounded-[50%] text-[38px] z-10 flex justify-center items-center
                                        bg-slate-100 text-black
                                 `}
                 >
                   {step.icon}
                 </div>
               </div>
-              <h4 className="mt-4 mb-0 -ml-4 font-semibold text-sm w-28 text-center">
+              <h4 className="mt-4 mb-0 -ml-4 font-semibold text-sm w-24 md:w-28 text-center">
                 {step.name}
               </h4>
             </div>

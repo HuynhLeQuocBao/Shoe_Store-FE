@@ -20,11 +20,11 @@ export const getServerSideProps = async (context) => {
       context.res,
       authOptions
     );
-    setToken(session.accessToken);
+    setToken(session?.accessToken);
     const data = await orderApi.getAllOrder();
     return {
       props: {
-        orderList: data,
+        orderList: data.reverse(),
       },
     };
   } catch (error) {

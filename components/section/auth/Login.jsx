@@ -29,9 +29,13 @@ export function Login() {
   const [loading, setLoading] = useState(false);
   const router = useRouter();
   if (session) {
-    setTimeout(() => {
-      router.push("/");
-    }, 500);
+    if (router.query.id) {
+      router.push("/product-detail/" + router.query.id);
+    } else {
+      setTimeout(() => {
+        router.push("/");
+      }, 500);
+    }
   }
 
   const {
@@ -66,7 +70,7 @@ export function Login() {
   };
 
   return (
-    <div className="w-full h-full relative">
+    <div className="w-full h-full">
       <LoadingPageComponent loading={loading} />
       <Container className="gradient-form h-full shadow-login rounded-2xl sm:w-3/4">
         <div className="container h-full">

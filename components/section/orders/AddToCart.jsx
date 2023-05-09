@@ -8,6 +8,7 @@ import { useSession } from "next-auth/react";
 import { useDispatch } from "react-redux";
 import { addToCartStore } from "store/features/cartSlice";
 import LoadingPageComponent from "../loading/LoadingPageComponent";
+import { useRouter } from "next/router";
 
 const AddToCart = ({ id, onClose }) => {
   const [productDetails, setProductDetails] = useState();
@@ -21,6 +22,7 @@ const AddToCart = ({ id, onClose }) => {
     sizesInfo: {},
     sizeList: [],
   });
+  const router = useRouter();
   const { data: session } = useSession();
   const dispatch = useDispatch();
   const baseUrl = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
@@ -118,7 +120,10 @@ const AddToCart = ({ id, onClose }) => {
         position: toast.POSITION.TOP_RIGHT,
       });
       setTimeout(() => {
-        router.push("/login");
+        router.push({
+          pathname: "/login",
+          query: { id: id },
+        });
       }, 3000);
     }
   };

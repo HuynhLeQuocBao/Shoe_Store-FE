@@ -11,10 +11,14 @@ import { ProcessOrder } from "./ProcessOrder";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingPage from "../loading/LoadingPage";
+import Modal from "../modal/Modal";
+import Confirm from "./Confirm";
+import Image from "next/image";
 
 export function OrderDetail() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [dataOrder, setDataOrder] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
   const [idOrder, setIdOrder] = useState();
@@ -61,24 +65,11 @@ export function OrderDetail() {
       });
     }
   };
-  const fetchDeleteOrder = async () => {
-    try {
-      await orderApi.deleteOrder(router.query.slug);
-      toast.success("Cancel successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-      setTimeout(() => {
-        router.push("/my-orders");
-      }, 1500);
-    } catch (error) {
-      toast.error(error, {
-        position: toast.POSITION.TOP_RIGHT,
-      });
-    }
-  };
   return (
     <Container>
-      <ProcessOrder status={stateOrder} />
+      <div className="flex-center">
+        <ProcessOrder status={stateOrder} />
+      </div>
       <div className="hidden md:block w-full mb-10">
         <div className="w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl items-center justify-center uppercase grid grid-cols-12 mb-6 shadow-lg">
           <div className="text-center col-span-5">
@@ -105,9 +96,11 @@ export function OrderDetail() {
                 className="w-full text-sm grid grid-cols-12  border border-b-2 shadow-lg rounded-lg hover:bg-zinc-100 duration-500 py-1 mb-2"
               >
                 <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2">
-                  <img
+                  <Image
                     src={`${baseURL + item.image}`}
                     className="w-20 h-20 object-cover"
+                    width={80}
+                    height={80}
                   />
                   <div className="ml-2">
                     <span>{item.productName}</span>
@@ -117,10 +110,9 @@ export function OrderDetail() {
                   <span>${item.price}</span>
                 </div>
                 <div className="text-center col-span-1 flex justify-center items-center">
-                  <span>{item.size}</span>
+                  <span>{item.sizeName}</span>
                 </div>
                 <div className="text-center col-span-2 flex justify-center items-center">
-                  {/* <FormQuantity quantity={item.quantity} cartId={item._id} productId={item.productId} size={item.size} /> */}
                   <span> {item.quantity}</span>
                 </div>
                 <div className="col-span-1  text-center flex justify-center items-center">
@@ -139,7 +131,7 @@ export function OrderDetail() {
           </div>
         )}
       </div>
-      <div className="w-full px-4 my-32 md:hidden">
+      <div className="w-full px-4 my-4 md:hidden">
         {dataOrder.length > 0 ? (
           dataOrder.map((item, index) => {
             return (
@@ -148,9 +140,11 @@ export function OrderDetail() {
                 className="w-full grid grid-cols-12 mb-5 shadow-lg rounded-lg py-2"
               >
                 <div className="w-full flex items-center col-span-4">
-                  <img
-                    src={`https://shoe-store-be.onrender.com/uploadWithRefactorDB/${item.image}`}
-                    className="w-30 h-30 object-cover p-2 "
+                  <Image
+                    src={`${baseURL + item.image}`}
+                    className="w- h-30 object-cover p-2 "
+                    width={112}
+                    height={112}
                   />
                 </div>
 
@@ -193,7 +187,7 @@ export function OrderDetail() {
       </div>
       <div className="w-full grid grid-cols-12 ">
         <div className="md:col-span-8"></div>
-        <div className="col-span-12 md:col-span-4 w-full shadow-lg">
+        <div className="col-span-12 md:col-span-4 w-full shadow-lg px-4">
           <div className="w-full bg-slate-200 p-4  rounded-lg ">
             <div className="w-full mb-2 flex">
               <span className="w-[30%] flex justify-end">Subtotal: </span>
@@ -211,23 +205,30 @@ export function OrderDetail() {
           </div>
         </div>
       </div>
-      <div className="w-full my-10 flex justify-center items-center">
+      <div className="w-full my-10 flex justify-between md:justify-center items-center">
         {stateOrder === 0 ? (
           <button
-            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-slate-400 cursor-pointer hover:bg-red-400 font-bold duration-500 hover:text-white"
-            onClick={fetchDeleteOrder}
+            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-slate-400 shadow-icon-product cursor-pointer hover:bg-red-400 font-bold duration-500 hover:text-white"
+            onClick={() => setIsOpenModal(true)}
           >
             Cancel
           </button>
         ) : stateOrder === 2 ? (
           <button
-            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white"
+            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 shadow-icon-product cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white"
             onClick={fetchConfirmOrder}
           >
             Confirm
           </button>
         ) : null}
       </div>
+      <Modal
+        onClose={() => setIsOpenModal(false)}
+        isVisible={isOpenModal}
+        className="w-[90%] h-[200px] md:w-[500px] md:h-[170px] "
+      >
+        <Confirm id={router.query.slug} onClose={() => setIsOpenModal(false)} />
+      </Modal>
     </Container>
   );
 }

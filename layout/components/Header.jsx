@@ -100,7 +100,6 @@ export function Header({ products, carts }) {
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [keyword, setKeyword] = useState("");
-  const [productList, setProductList] = useState([]);
   const [productSearchList, setProductSearchList] = useState([]);
   const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
@@ -174,12 +173,12 @@ export function Header({ products, carts }) {
       <div className="flex flex-col justify-evenly md:h-[80px]">
         <div className="flex mx-0 flex-row justify-between">
           <div className="flex flex-row items-center justify-between md:mb-0">
-            <a
+            <Link
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px]"
             >
               <Image src={logo} width={130} height={70} />
-            </a>
+            </Link>
           </div>
 
           <div className="hidden font-Rokkitt lg:flex md:flex-row md:justify-between">
@@ -262,9 +261,11 @@ export function Header({ products, carts }) {
               <Link href={session ? "/shopping-cart" : "/login"}>
                 <div className="flex cursor-pointer relative items-center justify-center">
                   <BsBagCheck className="w-10 h-10" />
-                  <p className="absolute bottom-1 text-white bg-red-500 w-7 h-7 rounded-full text-center top-[-5px] right-[-15px]">
-                    {quantity > 0 && session?.user ? quantity : 0}
-                  </p>
+                  {quantity > 0 && session?.user && (
+                    <p className="absolute bottom-1 text-white bg-red-500 w-7 h-7 rounded-full text-center top-[-5px] right-[-15px]">
+                      {quantity > 0 && session?.user ? quantity : 0}
+                    </p>
+                  )}
                 </div>
               </Link>
             </div>
