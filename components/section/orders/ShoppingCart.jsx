@@ -51,6 +51,7 @@ export function ShoppingCart() {
     quantity,
     colorId
   ) => {
+    setLoading(true);
     try {
       const result = await cartApi.updateCart(cartId, {
         colorId,
@@ -59,6 +60,7 @@ export function ShoppingCart() {
         sizeId,
       });
       if (result) {
+        setLoading(false);
         dispatch(
           increaseCartQuantity({
             productId,
@@ -68,6 +70,7 @@ export function ShoppingCart() {
       }
       props.onTotal(true);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -79,6 +82,7 @@ export function ShoppingCart() {
     colorId
   ) => {
     if (quantity === 1) return;
+    setLoading(true);
     try {
       const result = await cartApi.updateCart(cartId, {
         colorId,
@@ -87,6 +91,7 @@ export function ShoppingCart() {
         sizeId,
       });
       if (result) {
+        setLoading(false);
         dispatch(
           decreaseCartQuantity({
             productId,
@@ -96,6 +101,7 @@ export function ShoppingCart() {
       }
       props.onTotal(true);
     } catch (error) {
+      setLoading(false);
       console.log(error);
     }
   };
@@ -164,7 +170,7 @@ export function ShoppingCart() {
                   <div className="text-center col-span-2 flex justify-center items-center">
                     <div>
                       <button
-                        className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                        className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer disabled:hover:cursor-auto disabled:hover:bg-transparent disabled:hover:text-black disabled:opacity-60 rounded-full duration-500 font-bold"
                         onClick={() =>
                           handleDecrease(
                             item.cartId,
@@ -174,6 +180,7 @@ export function ShoppingCart() {
                             item.colorId
                           )
                         }
+                        disabled={item.quantityProduct === 1}
                       >
                         <div className="flex justify-center items-center">
                           <HiMinusSm />
@@ -241,9 +248,8 @@ export function ShoppingCart() {
                     <Image
                       src={`${baseURL + item.image}`}
                       className="w-32 h-32 object-cover p-2 "
-                      layout="responsive"
                       width={128}
-                      height={128}
+                      height={170}
                     />
                   </div>
 
@@ -260,7 +266,7 @@ export function ShoppingCart() {
                     <div className="w-full">
                       <div>
                         <button
-                          className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer rounded-full duration-500 font-bold"
+                          className="border border-2 border-[#c5c3c3] shadow-lg w-8 h-8 hover:bg-primary hover:text-white cursor-pointer disabled:hover:cursor-auto disabled:hover:bg-transparent disabled:hover:text-black disabled:opacity-60 rounded-full duration-500 font-bold"
                           onClick={() =>
                             handleDecrease(
                               item.cartId,
@@ -270,6 +276,7 @@ export function ShoppingCart() {
                               item.colorId
                             )
                           }
+                          disabled={item.quantityProduct === 1}
                         >
                           <div className="flex justify-center items-center">
                             <HiMinusSm />
@@ -340,7 +347,10 @@ export function ShoppingCart() {
         </div>
         <div className="w-full my-10 flex justify-center items-center">
           <Link href="/checkout">
-            <button className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white">
+            <button
+              className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-green-400 cursor-pointer hover:bg-green-600 font-bold duration-500 hover:text-white disabled:hover:cursor-auto disabled:opacity-75 disabled:hover:bg-green-400 disabled:hover:text-black"
+              disabled={cartList?.length > 0 ? false : true}
+            >
               Checkout
             </button>
           </Link>

@@ -3,17 +3,14 @@ import { Container } from "@/components/common";
 import { useForm, Controller } from "react-hook-form";
 import { orderApi } from "@/apiClient/order";
 import { useState, useEffect } from "react";
-import Link from "next/link";
-// import { ProgressCart } from './ProgressCart';
-import { HiOutlineX } from "react-icons/hi";
 import { useRouter } from "next/router";
 import { ProcessOrder } from "./ProcessOrder";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import LoadingPage from "../loading/LoadingPage";
 import Modal from "../modal/Modal";
 import Confirm from "./Confirm";
-import Image from "next/image";
+import OrderItem from "./OrderItem";
 
 export function OrderDetail() {
   const router = useRouter();
@@ -21,9 +18,7 @@ export function OrderDetail() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [dataOrder, setDataOrder] = useState([]);
   const [subTotal, setSubTotal] = useState(0);
-  const [idOrder, setIdOrder] = useState();
   const [stateOrder, setStateOrder] = useState();
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
 
   useEffect(() => {
     if (dataOrder.length > 0) {
@@ -87,40 +82,16 @@ export function OrderDetail() {
           <div className="col-span-1  text-center">
             <span>TOTAL</span>
           </div>
+          {stateOrder === 3 && (
+            <div className="col-span-2  text-center">
+              <span>REVIEWS</span>
+            </div>
+          )}
         </div>
         {dataOrder.length > 0 ? (
-          dataOrder.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="w-full text-sm grid grid-cols-12  border border-b-2 shadow-lg rounded-lg hover:bg-zinc-100 duration-500 py-1 mb-2"
-              >
-                <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2">
-                  <Image
-                    src={`${baseURL + item.image}`}
-                    className="w-20 h-20 object-cover"
-                    width={80}
-                    height={80}
-                  />
-                  <div className="ml-2">
-                    <span>{item.productName}</span>
-                  </div>
-                </div>
-                <div className="text-center col-span-1 flex justify-center items-center">
-                  <span>${item.price}</span>
-                </div>
-                <div className="text-center col-span-1 flex justify-center items-center">
-                  <span>{item.sizeName}</span>
-                </div>
-                <div className="text-center col-span-2 flex justify-center items-center">
-                  <span> {item.quantity}</span>
-                </div>
-                <div className="col-span-1  text-center flex justify-center items-center">
-                  <span>${item.quantity * item.price}</span>
-                </div>
-              </div>
-            );
-          })
+          dataOrder.map((item, index) => (
+            <OrderItem stateOrder={stateOrder} data={item} key={index} />
+          ))
         ) : isLoading ? (
           <div className="flex-center h-24">
             <LoadingPage />
@@ -133,54 +104,11 @@ export function OrderDetail() {
       </div>
       <div className="w-full px-4 my-4 md:hidden">
         {dataOrder.length > 0 ? (
-          dataOrder.map((item, index) => {
-            return (
-              <div
-                key={index}
-                className="w-full grid grid-cols-12 mb-5 shadow-lg rounded-lg py-2"
-              >
-                <div className="w-full flex items-center col-span-4">
-                  <Image
-                    src={`${baseURL + item.image}`}
-                    className="w- h-30 object-cover p-2 "
-                    width={112}
-                    height={112}
-                  />
-                </div>
-
-                <div className="col-span-6 px-2">
-                  <div className="w-full font-bold ">
-                    <span>Name: {item.productName}</span>
-                  </div>
-                  <div className="w-full font-bold text-red-500">
-                    <span>Price: ${item.price}</span>
-                  </div>
-                  <div className="w-full font-bold ">
-                    <span>Size: {item.sizeName}</span>
-                  </div>
-                  <div className="w-full">
-                    {/* <FormQuantity quantity={item.quantity} cartId={item._id} productId={item.productId} size={item.size} /> */}
-                    <span> {item.quantity}</span>
-                  </div>
-                  <div className="w-full font-bold">
-                    <span>Total: ${item.quantity * item.price}</span>
-                  </div>
-                </div>
-                <div className="col-span-2 flex justify-center items-center">
-                  <button
-                    className="w-10 h-10 cursor-pointer"
-                    onClick={() => handleDeleteItemCart(item._id)}
-                  >
-                    <div className="w-8 h-8 border border-2 border-[#c5c3c3] shadow-lg font-bold hover:bg-red-500 hover:text-white flex justify-center items-center duration-500 rounded-full">
-                      <HiOutlineX />
-                    </div>
-                  </button>
-                </div>
-              </div>
-            );
-          })
+          dataOrder.map((item, index) => (
+            <OrderItem stateOrder={stateOrder} data={item} key={index} />
+          ))
         ) : (
-          <div className="w-full text-center shadow-lg rounded-lg py-10">
+          <div className="md:hidden w-full text-center shadow-lg rounded-lg py-10">
             No data
           </div>
         )}
@@ -205,10 +133,10 @@ export function OrderDetail() {
           </div>
         </div>
       </div>
-      <div className="w-full my-10 flex justify-between md:justify-center items-center">
+      <div className="w-full my-10 flex justify-center md:justify-center items-center">
         {stateOrder === 0 ? (
           <button
-            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-slate-400 shadow-icon-product cursor-pointer hover:bg-red-400 font-bold duration-500 hover:text-white"
+            className="w-1/2 md:w-1/6 py-2 rounded-2xl bg-red-500 shadow-icon-product cursor-pointer hover:bg-red-700 font-bold duration-500 hover:text-white"
             onClick={() => setIsOpenModal(true)}
           >
             Cancel

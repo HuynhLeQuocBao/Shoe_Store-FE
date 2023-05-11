@@ -150,7 +150,11 @@ export function BestSeller({ data }) {
           </div>
         </div>
       )}
-      <Modal onClose={() => setIsOpenModal(false)} isVisible={isOpenModal}>
+      <Modal
+        onClose={() => setIsOpenModal(false)}
+        isVisible={isOpenModal}
+        className="w-[90%] md:w-3/4 md:h-[90%]"
+      >
         <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
       </Modal>
     </Container>

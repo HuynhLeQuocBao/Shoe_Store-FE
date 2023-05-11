@@ -14,7 +14,8 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingPageComponent from "../loading/LoadingPageComponent";
 import PreviewImage from "./PreviewImage";
 import Modal from "../modal/Modal";
-import Rating from "./Rating";
+import Stars from "../reviews/Stars";
+import Comments from "../reviews/Comments";
 
 export function ProductDetail({ data }) {
   const [loading, setLoading] = useState(false);
@@ -147,7 +148,13 @@ export function ProductDetail({ data }) {
               <h3 className="mb-2 text-lg">
                 ${parseFloat(sizeInfo?.currentSize?.price).toFixed(2)}
               </h3>
-              <h3 className="mb-4 text-xs">RATING</h3>
+              <h3 className="mb-4 text-xs">
+                <Stars
+                  stars={data?.rateScore}
+                  reviews={data?.listUserComment?.length}
+                  className="w-4 h-4"
+                />
+              </h3>
               <p className=" text-secondary font-light text-justify">
                 {data?.introduce}
               </p>
@@ -188,7 +195,10 @@ export function ProductDetail({ data }) {
                   ${parseFloat(sizeInfo?.currentSize?.price).toFixed(2)}
                 </h3>
                 <h3 className="mb-4 text-xs hidden lg:block">
-                  <Rating />
+                  <Stars
+                    stars={data?.rateScore}
+                    reviews={data?.listUserComment?.length}
+                  />
                 </h3>
                 <p className=" text-secondary font-light text-justify hidden lg:block">
                   {data?.introduce}
@@ -294,7 +304,7 @@ export function ProductDetail({ data }) {
                   content == 3 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
                 } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
               >
-                Review
+                Reviews
               </button>
             </div>
             {content == 1 && (
@@ -312,15 +322,20 @@ export function ProductDetail({ data }) {
               </div>
             )}
             {content == 3 && (
-              <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-                <h3 className="text-sm text-secondary pb-6">
-                  Chưa có API Review
-                </h3>
+              <div className="w-full border border-[#dee2e6] mt-4 p-3 overflow-hidden">
+                <Comments
+                  isEditComment={data?.isEditComment}
+                  listUserComment={data?.listUserComment}
+                />
               </div>
             )}
           </div>
         </div>
-        <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+        <Modal
+          isVisible={openModal}
+          onClose={() => setOpenModal(false)}
+          className="h-[80%] md:h-full"
+        >
           <div>
             <Image
               src="/images/banner/size_chart.jpg"

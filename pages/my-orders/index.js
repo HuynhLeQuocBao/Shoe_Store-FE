@@ -24,7 +24,7 @@ export const getServerSideProps = async (context) => {
     const data = await orderApi.getAllOrder();
     return {
       props: {
-        orderList: data.reverse(),
+        orderList: data,
       },
     };
   } catch (error) {
