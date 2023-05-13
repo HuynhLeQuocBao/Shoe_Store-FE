@@ -11,6 +11,7 @@ import LoadingPage from "../loading/LoadingPage";
 import Modal from "../modal/Modal";
 import Confirm from "./Confirm";
 import OrderItem from "./OrderItem";
+import OrderDetailItem from "./OrderDetailItem";
 
 export function OrderDetail() {
   const router = useRouter();
@@ -82,15 +83,10 @@ export function OrderDetail() {
           <div className="col-span-1  text-center">
             <span>TOTAL</span>
           </div>
-          {stateOrder === 3 && (
-            <div className="col-span-2  text-center">
-              <span>REVIEWS</span>
-            </div>
-          )}
         </div>
         {dataOrder.length > 0 ? (
           dataOrder.map((item, index) => (
-            <OrderItem stateOrder={stateOrder} data={item} key={index} />
+            <OrderDetailItem stateOrder={stateOrder} data={item} key={index} />
           ))
         ) : isLoading ? (
           <div className="flex-center h-24">
@@ -105,7 +101,7 @@ export function OrderDetail() {
       <div className="w-full px-4 my-4 md:hidden">
         {dataOrder.length > 0 ? (
           dataOrder.map((item, index) => (
-            <OrderItem stateOrder={stateOrder} data={item} key={index} />
+            <OrderDetailItem stateOrder={stateOrder} data={item} key={index} />
           ))
         ) : (
           <div className="md:hidden w-full text-center shadow-lg rounded-lg py-10">

@@ -26,8 +26,12 @@ const Comments = ({ listUserComment, isEditComment }) => {
                 </div>
                 <div className="col-span-10 md:col-span-11 flex flex-col gap-1">
                   <span className="text-base font-bold ">{item?.name}</span>
-                  <p className="text-xs text-gray-400">12/12/2001 10:20</p>
-                  <Stars stars={item.score} className="w-4 h-4" />
+                  <p className="text-xs text-gray-400">{item?.date}</p>
+                  <Stars
+                    stars={item.score}
+                    className="w-4 h-4"
+                    disabled={true}
+                  />
                   <p className="pt-5">{item.comment}</p>
                 </div>
               </div>

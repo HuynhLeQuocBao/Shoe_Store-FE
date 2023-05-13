@@ -153,6 +153,7 @@ export function ProductDetail({ data }) {
                   stars={data?.rateScore}
                   reviews={data?.listUserComment?.length}
                   className="w-4 h-4"
+                  disabled={true}
                 />
               </h3>
               <p className=" text-secondary font-light text-justify">
@@ -198,6 +199,7 @@ export function ProductDetail({ data }) {
                   <Stars
                     stars={data?.rateScore}
                     reviews={data?.listUserComment?.length}
+                    disabled={true}
                   />
                 </h3>
                 <p className=" text-secondary font-light text-justify hidden lg:block">

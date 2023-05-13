@@ -1,130 +1,158 @@
 import React from "react";
 import { useState } from "react";
-import { HiOutlineX } from "react-icons/hi";
+import { HiOutlineChevronRight } from "react-icons/hi";
 import Modal from "../modal/Modal";
-import FormRatingAndComment from "../reviews/FormRatingAndComment";
-import Image from "next/image";
+import FormRatingAndComment from "../reviews/FormAddReviews";
+import { useEffect } from "react";
+import Link from "next/link";
+import ReviewList from "../reviews/ReviewList";
+import moment from "moment/moment";
 
-const OrderItem = ({ data, stateOrder }) => {
+const OrderItem = ({ data, stateOrder, index }) => {
   const [isRated, setIsRated] = useState();
   const [isOpenModalReviews, setIsOpenModalReviews] = useState(false);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
+  const [orderId, setOrderId] = useState();
+  const [checkAddReview, setCheckAddReviews] = useState();
+  const changeState = (state) => {
+    if (state === 0) {
+      return "pending";
+    } else if (state === 1) {
+      return "confirmed";
+    } else if (state === 2) {
+      return "In transit";
+    } else if (state === 3) {
+      return "complete";
+    }
+  };
+  useEffect(() => {
+    if (checkAddReview) setIsRated(true);
+  }, [checkAddReview]);
   return (
     <>
-      <div className="hidden w-full text-sm md:grid grid-cols-12  border border-b-2 shadow-lg rounded-lg hover:bg-zinc-100 duration-500 py-1 mb-2">
-        <div className=" font-medium col-span-5 flex justify-start items-center py-2 pl-2">
-          <Image
-            src={`${baseURL + data.image}`}
-            className="w-20 h-20 object-cover"
-            width={80}
-            height={80}
-          />
-          <div className="ml-2">
-            <span>{data.productName}</span>
+      <div className="w-full text-sm hidden md:grid grid-cols-12  border border-b-2 shadow-lg rounded-3xl duration-500 py-3 mb-2">
+        <div className="text-center col-span-1 flex justify-center items-center">
+          <span>{index + 1}</span>
+        </div>
+        <div className="text-center text-sm col-span-3 flex justify-center items-center">
+          <div
+            className={`            
+                ${
+                  data.status === 0
+                    ? "bg-orange-400"
+                    : data.status === 1
+                    ? "bg-green-400"
+                    : data.status === 2
+                    ? "bg-slate-400"
+                    : "bg-blue-400"
+                }
+                w-fit py-1 px-2 md:px-4 rounded-2xl uppercase text-white font-bold
+            `}
+          >
+            {changeState(data.status)}
           </div>
-        </div>
-        <div className="text-center col-span-1 flex justify-center items-center">
-          <span>${data.price}</span>
-        </div>
-        <div className="text-center col-span-1 flex justify-center items-center">
-          <span>{data.sizeName}</span>
         </div>
         <div className="text-center col-span-2 flex justify-center items-center">
-          <span> {data.quantity}</span>
+          <span>$ {data.total}</span>
         </div>
-        <div className="col-span-1  text-center flex justify-center items-center">
-          <span>${data.quantity * data.price}</span>
+        <div className="col-span-3 md:col-span-2 text-center flex justify-center items-center">
+          <span>
+            {moment(data?.updatedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+          </span>
         </div>
-        {stateOrder === 3 && (
-          <div className="col-span-2  text-center flex justify-center items-center">
-            <button
-              className={` md:w-[90px] py-2 rounded-2xl  shadow-icon-product cursor-pointer  font-bold duration-500 hover:text-white 
-              ${
-                isRated
-                  ? "bg-amber-400 hover:bg-amber-600"
-                  : data.rated
-                  ? "bg-amber-400 hover:bg-amber-600"
-                  : "bg-blue-400 hover:bg-blue-600"
-              }`}
-              onClick={() => {
-                setIsOpenModalReviews(true);
-                if (!isRated) {
-                  setIsRated(data.rated);
-                }
-              }}
-            >
-              {isRated ? "Edit" : data.rated ? "Edit" : "Reviews"}
-            </button>
-          </div>
-        )}
-      </div>
-      <div className="flex md:hidden flex-col  mb-5 shadow-lg rounded-lg py-2">
-        <div className=" w-full grid grid-cols-12">
-          <div className="w-full flex items-center col-span-4">
-            <Image
-              src={`${baseURL + data.image}`}
-              className="w- h-30 object-cover p-2 "
-              width={112}
-              height={112}
-            />
-          </div>
+        <div className="col-span-2  flex justify-center items-center">
+          <button
+            className="blue-button"
+            onClick={() => {
+              setIsOpenModalReviews(true);
+              if (!isRated && !checkAddReview) {
+                setIsRated(data?.isRated);
+              }
 
-          <div className="col-span-6 px-2">
-            <div className="w-full font-bold ">
-              <span>Name: {data.productName}</span>
-            </div>
-            <div className="w-full font-bold text-red-500">
-              <span>Price: ${data.price}</span>
-            </div>
-            <div className="w-full font-bold ">
-              <span>Size: {data.sizeName}</span>
-            </div>
-            <div className="w-full">
-              {/* <FormQuantity quantity={data.quantity} cartId={data._id} productId={data.productId} size={data.size} /> */}
-              <span> {data.quantity}</span>
-            </div>
-            <div className="w-full font-bold">
-              <span>Total: ${data.quantity * data.price}</span>
-            </div>
-          </div>
-          <div className="col-span-2 flex justify-center items-start">
-            <button
-              className="w-10 h-10 cursor-pointer"
-              onClick={() => handleDeleteItemCart(data._id)}
-            >
-              <div className="w-8 h-8 border border-2 border-[#c5c3c3] shadow-lg font-bold hover:bg-red-500 hover:text-white flex justify-center items-center duration-500 rounded-full">
-                <HiOutlineX />
-              </div>
-            </button>
-          </div>
+              setOrderId(data._id);
+            }}
+            disabled={data.status !== 3}
+          >
+            {isRated ? "Edit" : data.isRated ? "Edit" : "Reviews"}
+          </button>
         </div>
-        {stateOrder === 3 && (
-          <div className="text-center flex justify-end items-center">
+        <div className="col-span-1 md:col-span-2 flex justify-center md:justify-end items-center  md:pr-14">
+          <Link href={`/order-detail/${data._id}`}>
+            <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+          </Link>
+        </div>
+      </div>
+      <div className="w-full h-full flex md:hidden flex-col gap-10 shadow-lg mb-6 py-2 rounded-lg m-2">
+        <div className=" grid  grid-cols-12  ">
+          <div
+            className={` 
+                col-span-4           
+                ${
+                  data.status === 0
+                    ? "bg-orange-400"
+                    : data.status === 1
+                    ? "bg-green-400"
+                    : data.status === 2
+                    ? "bg-slate-400"
+                    : "bg-blue-400"
+                }
+                w-32 h-32 p-2  uppercase text-white font-bold flex items-center justify-center
+            `}
+          >
+            {changeState(data.status)}
+          </div>
+          <div className="col-span-6 flex flex-col gap-2 px-2">
+            <div className="">
+              <b>Total: </b>
+              {data.total}
+            </div>
+            <span className="">
+              <b>Date: </b>
+              {moment(data?.updatedAt).format("dddd, MMMM Do YYYY, h:mm:ss a")}
+            </span>
             <button
-              className="px-2 sm:px-5 py-2 sm:py-1 mr-2 -mt-10 rounded-2xl bg-blue-500 shadow-icon-product cursor-pointer hover:bg-blue-700 font-bold duration-500 hover:text-white"
+              className="blue-button px-5"
               onClick={() => {
                 setIsOpenModalReviews(true);
-                if (!isRated) {
-                  setIsRated(data.rated);
+                if (!isRated && !checkAddReview) {
+                  setIsRated(data?.isRated);
                 }
+
+                setOrderId(data._id);
               }}
+              disabled={data.status !== 3}
             >
-              {isRated ? "Edit" : data.rated ? "Edit" : "Reviews"}
+              {isRated
+                ? "Edit Reviews"
+                : data.isRated
+                ? "Edit Reviews"
+                : "Reviews"}
             </button>
           </div>
-        )}
+          <div className="col-span-2 flex items-center justify-center">
+            <Link href={`/order-detail/${data._id}`}>
+              <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+            </Link>
+          </div>
+        </div>
       </div>
       <Modal
         onClose={() => setIsOpenModalReviews(false)}
         isVisible={isOpenModalReviews}
-        className="w-[90%] h-[70%] md:w-[500px] md:h-[67%] "
+        className=""
       >
-        <FormRatingAndComment
-          id={data?.shoeId}
-          onClose={() => setIsOpenModalReviews(false)}
-          setEdit={() => setIsRated(true)}
-          isEdit={isRated ? true : data.rated}
-        />
+        {isRated ? (
+          <ReviewList
+            id={orderId}
+            onClose={() => setIsOpenModalReviews(false)}
+          />
+        ) : (
+          <FormRatingAndComment
+            id={orderId}
+            onClose={() => setIsOpenModalReviews(false)}
+            isEdit={isRated}
+            setEdit={() => setCheckAddReviews(true)}
+          />
+        )}
       </Modal>
     </>
   );
