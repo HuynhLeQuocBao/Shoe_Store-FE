@@ -60,39 +60,8 @@ export function GenderProduct({ gender }) {
       })}
     </div>
   );
+
   const CustomHits = connectHits(Hits);
-  // const Hit = ({ hit }) => {
-  //   if (hit.gender === gender)
-  //     return (
-  //       <div key={hit?._id} className="cursor-pointer hover-parent relative">
-  //         <div className="hover-child-1">
-  //           <Product
-  //             id={hit?._id}
-  //             image={hit?.avatar}
-  //             name={hit?.name}
-  //             price={hit?.price}
-  //           />
-  //         </div>
-  //         <div className="hover-child-2 absolute top-1/3 left-0 right-0 flex items-center justify-evenly">
-  //           <div
-  //             className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-cart"
-  //             onClick={() => handleAddToCart(hit?._id)}
-  //           >
-  //             {/* <Link href={session ? `/prodcut-detail/${hit?._id?.$oid}` : "/login"}> */}
-  //             <FaShoppingCart className="z-20" />
-  //             {/* </Link> */}
-  //             <span className="icon-cart-details">Add to cart</span>
-  //           </div>
-  //           <div className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-compare">
-  //             <Link href={`/compare/${hit?._id}`}>
-  //               <DiGitCompare className="z-20" />
-  //             </Link>
-  //             <span className="icon-compare-details">Compare</span>
-  //           </div>
-  //         </div>
-  //       </div>
-  //     );
-  // };
 
   return (
     <Container>

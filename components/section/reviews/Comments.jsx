@@ -15,7 +15,7 @@ const Comments = ({ listUserComment, isEditComment }) => {
                 <div className="col-span-2 flex-center items-start">
                   <Image
                     src={
-                      baseUrl + item?.picture === ""
+                      item?.picture !== ""
                         ? item?.picture
                         : "/images/logo/admin.png"
                     }
