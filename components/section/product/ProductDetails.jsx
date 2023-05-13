@@ -1,7 +1,6 @@
-import { productApi } from "@/apiClient/product";
 import { Container } from "@/components/common/index";
 import { useEffect, useState } from "react";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaShoppingCart, FaAngleDown, FaAngleUp } from "react-icons/fa";
 import { useRouter } from "next/router";
 import Slider from "react-slick";
 import { useSession } from "next-auth/react";
@@ -25,7 +24,8 @@ export function ProductDetail({ data }) {
   const [sizeInfo, setSizeInfo] = useState();
   const [size, setSize] = useState();
   const [openModal, setOpenModal] = useState(false);
-  const [content, setContent] = useState(1);
+  const [openDescription, setOpenDescription] = useState(true);
+  const [openReview, setOpenReview] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
   const productId = router.query.slug;
@@ -279,58 +279,45 @@ export function ProductDetail({ data }) {
                     <p className="mx-2 text-base">Add to Cart</p>
                   </button>
                 </div>
+                <div className="my-5">
+                  <div className="">
+                    <div
+                      className="flex justify-between items-center cursor-pointer"
+                      onClick={() => setOpenDescription(!openDescription)}
+                    >
+                      <h4 className="mb-2 text-2xl font-semibold">
+                        Description
+                      </h4>
+                      {openDescription ? <FaAngleUp /> : <FaAngleDown />}
+                    </div>
+                    {openDescription && (
+                      <div className="overflow-y-auto max-h-96 mb-5">
+                        <p>{data?.description}</p>
+                      </div>
+                    )}
+                  </div>
+                  <div className="">
+                    <div
+                      className="flex justify-between items-center cursor-pointer"
+                      onClick={() => setOpenReview(!openReview)}
+                    >
+                      <h4 className="mb-2 text-2xl font-semibold">
+                        Review and Rating
+                      </h4>
+                      {openReview ? <FaAngleUp /> : <FaAngleDown />}
+                    </div>
+                    {openReview && (
+                      <div className="overflow-y-auto max-h-96">
+                        <Comments
+                          isEditComment={data?.isEditComment}
+                          listUserComment={data?.listUserComment}
+                        />
+                      </div>
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-          <div className="text-justify mx-6 md:mx-0">
-            <div className="grid grid-cols-3 gap-1 w-fit text-sm md:text-base text-black">
-              <button
-                onClick={() => setContent(1)}
-                className={`${
-                  content == 1 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-                } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-              >
-                Description
-              </button>
-              <button
-                onClick={() => setContent(2)}
-                className={`${
-                  content == 2 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-                } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-              >
-                Manufacturer
-              </button>
-              <button
-                onClick={() => setContent(3)}
-                className={`${
-                  content == 3 ? "bg-secondary text-white" : "bg-[#F2F2F2]"
-                } hover:bg-secondary focus:bg-secondary hover:text-white focus:text-white rounded-sm px-3 py-2`}
-              >
-                Reviews
-              </button>
-            </div>
-            {content == 1 && (
-              <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-                <h3 className="text-sm text-secondary pb-6">
-                  {data?.description}
-                </h3>
-              </div>
-            )}
-            {content == 2 && (
-              <div className="w-full border border-[#dee2e6] mt-4 px-8 py-8">
-                <h3 className="text-sm text-secondary pb-6">
-                  Chưa có API Manufacturer
-                </h3>
-              </div>
-            )}
-            {content == 3 && (
-              <div className="w-full border border-[#dee2e6] mt-4 p-3 overflow-hidden">
-                <Comments
-                  isEditComment={data?.isEditComment}
-                  listUserComment={data?.listUserComment}
-                />
-              </div>
-            )}
           </div>
         </div>
         <Modal

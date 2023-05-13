@@ -6,13 +6,13 @@ const Comments = ({ listUserComment, isEditComment }) => {
   return (
     <div>
       {listUserComment?.length > 0 ? (
-        <div className="flex-center flex-col gap-10">
+        <div className="flex-center flex-col gap-10 border border-[#dee2e6] p-3 my-2">
           {listUserComment?.map((item, index) => (
             <>
               {index !== 0 && <hr className="w-full " />}
 
               <div className="w-full grid grid-cols-12 gap-3" key={index}>
-                <div className="col-span-2 md:col-span-1 flex-center items-start">
+                <div className="col-span-2 flex-center items-start">
                   <Image
                     src={
                       baseUrl + item?.picture === ""
@@ -20,11 +20,11 @@ const Comments = ({ listUserComment, isEditComment }) => {
                         : "/images/logo/admin.png"
                     }
                     className="rounded-full"
-                    width={45}
-                    height={45}
+                    width={100}
+                    height={100}
                   />
                 </div>
-                <div className="col-span-10 md:col-span-11 flex flex-col gap-1">
+                <div className="col-span-10 flex flex-col gap-1">
                   <span className="text-base font-bold ">{item?.name}</span>
                   <p className="text-xs text-gray-400">{item?.date}</p>
                   <Stars

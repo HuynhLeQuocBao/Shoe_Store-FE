@@ -1,6 +1,5 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Container } from "@/components/common";
-import { useForm, Controller } from "react-hook-form";
 import { orderApi } from "@/apiClient/order";
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
@@ -10,7 +9,6 @@ import "react-toastify/dist/ReactToastify.css";
 import LoadingPage from "../loading/LoadingPage";
 import Modal from "../modal/Modal";
 import Confirm from "./Confirm";
-import OrderItem from "./OrderItem";
 import OrderDetailItem from "./OrderDetailItem";
 
 export function OrderDetail() {
@@ -111,8 +109,8 @@ export function OrderDetail() {
       </div>
       <div className="w-full grid grid-cols-12 ">
         <div className="md:col-span-8"></div>
-        <div className="col-span-12 md:col-span-4 w-full shadow-lg px-4">
-          <div className="w-full bg-slate-200 p-4  rounded-lg ">
+        <div className="col-span-12 md:col-span-4 w-full shadow-lg">
+          <div className="w-full bg-slate-200 p-4 rounded-lg">
             <div className="w-full mb-2 flex">
               <span className="w-[30%] flex justify-end">Subtotal: </span>
               <p className="w-[60%] pl-10">$ {subTotal}</p>
