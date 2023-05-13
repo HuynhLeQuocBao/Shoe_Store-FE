@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import LoadingPage from "../loading/LoadingPage";
 import LoadingPageComponent from "../loading/LoadingPageComponent";
 import { orderApi } from "@/apiClient/order";
-import ItemReviews from "./itemReviews";
+import ItemReviews from "./ItemReviews";
 
 function FormRatingAndComment({ id, onClose, setEdit, isEdit }) {
   const [submitting, setSubmitting] = useState(false);
