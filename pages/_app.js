@@ -20,6 +20,7 @@ import { InstantSearch } from "react-instantsearch-dom";
 import { productApi } from "@/apiClient/product";
 import { cartApi } from "@/apiClient/cartAPI";
 import { useEffect } from "react";
+import { Analytics } from "@vercel/analytics/react";
 
 let productsCache;
 let cartsCache;
@@ -80,6 +81,7 @@ function MyApp(props) {
                         {...pageProps}
                         products={navigationProps?.products}
                       />
+                      <Analytics />
                     </Layout>
                   </InstantSearch>
                 )}
