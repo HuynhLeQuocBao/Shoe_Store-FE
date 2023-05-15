@@ -69,6 +69,7 @@ const ReviewList = ({ id, onClose }) => {
               <FormEditReviews
                 shoeId={productId}
                 onBack={() => setEdit(false)}
+                dataUpdate={() => null}
               />
             )}
           </div>
