@@ -73,9 +73,8 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
         </div>
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-3">
           {product?.color?.map((color) => (
-            <div className="w-10 h-10 md:w-20 md:h-20 relative">
+            <div key={color.id} className="w-10 h-10 md:w-20 md:h-20 relative">
               <Image
-                key={color.id}
                 className="flex-center hover:cursor-pointer w-10 h-10"
                 onClick={() => handleCurrentProductInfo({ colorId: color.id })}
                 src={baseURL + color?.avatar}
