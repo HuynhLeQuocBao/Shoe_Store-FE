@@ -17,17 +17,21 @@ export function PaymentItem({ name, image }) {
   );
 }
 
-export function PaymentList() {
+export function PaymentList({ paymentMethod }) {
   const methods = [
-    { name: "COD", image: "cod.png" },
+    { name: "Ship COD", image: "cod.png" },
     { name: "Paypal", image: "paypal.png" },
-    { name: "Momo", image: "momo.png" },
   ];
 
   return (
     <ul className="grid w-full gap-1 grid-cols-1">
       {methods.map((item) => (
-        <li key={item.name}>
+        <li
+          key={item.name}
+          onClick={() =>
+            item.name === "Paypal" ? paymentMethod("paypal") : null
+          }
+        >
           <input
             type="radio"
             id={item.name}

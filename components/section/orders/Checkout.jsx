@@ -30,6 +30,7 @@ export const Checkout = () => {
   const [voucherListSubmit, setVoucherListSubmit] = useState([]);
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   const [discount, setDiscount] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState();
 
   const {
     register,
@@ -50,13 +51,20 @@ export const Checkout = () => {
     setLoading(true);
     try {
       const fetchCheckoutCart = async () => {
-        const result = await cartApi.checkoutCart({
+        const dataCheckout = {
           fullname: data.fullname,
           address: data.address,
           numberPhone: data.numberPhone,
           email: data.email,
           listPromoCode: voucherListSubmit,
-        });
+        };
+        let result;
+        if (!paymentMethod) {
+          result = await cartApi.checkoutCart(dataCheckout);
+        } else {
+          result = await cartApi.checkoutPaypal(dataCheckout);
+          window.location.href = result.url;
+        }
 
         if (result) {
           dispatch(resetCart());
@@ -210,7 +218,9 @@ export const Checkout = () => {
                 <div className="font-bold text-2xl py-4 text-center">
                   <h1>Payment Methods</h1>
                 </div>
-                <PaymentList />
+                <PaymentList
+                  paymentMethod={(method) => setPaymentMethod(method)}
+                />
               </div>
               <div className="w-full p-4 bg-[#f5f5f5] font-medium mb-5">
                 <div className="w-full flex items-center justify-around pb-6">
