@@ -198,10 +198,18 @@ input[type="number"] {
 .hover-parent:hover .hover-child-2 {
   opacity: 1;
 }
+@media screen and (max-width: 768px) {
+  .hover-child-2 {
+    opacity: 1;
+    z-index: 1;
+  }
 
+  .hover-parent:hover .hover-child-1 {
+    opacity: 1;
+  }
+}
 .icon-cart-details {
   content: "Add to cart";
-  background-color: #ccc;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);
@@ -221,7 +229,6 @@ input[type="number"] {
 
 .icon-compare-details {
   content: "Compare";
-  background-color: #ccc;
   position: absolute;
   left: 50%;
   transform: translate(-50%, 0);

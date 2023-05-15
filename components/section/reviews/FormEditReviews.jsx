@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import LoadingPage from "../loading/LoadingPage";
 import LoadingPageComponent from "../loading/LoadingPageComponent";
 
-function FormEditReviews({ shoeId, onBack }) {
+function FormEditReviews({ shoeId, onBack, dataUpdate, indexReview }) {
   const [rateInfo, setRateInfo] = useState([]);
   const [isLoading, setIsloading] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -26,10 +26,16 @@ function FormEditReviews({ shoeId, onBack }) {
     setIsloading(true);
     let result;
     result = await reviewsApi.editComment(shoeId, {
-      rating: data.rating,
+      rating: rateInfo?.rating,
       comment: data?.comment,
     });
     if (result?.status) {
+      dataUpdate({
+        index: indexReview,
+        shoeId: shoeId,
+        rating: rateInfo?.rating,
+        comment: data?.comment,
+      });
       toast.success(result.message, {
         position: toast.POSITION.TOP_RIGHT,
       });

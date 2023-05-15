@@ -35,20 +35,24 @@ export function BestSeller({ data }) {
           price={hit?.price}
         />
       </div>
-      <div className="hover-child-2 absolute top-1/3 left-0 right-0 flex items-center justify-evenly">
+      <div className="hover-child-2 absolute md:top-1/3 md:left-0 flex items-end justify-evenly flex-col md:flex-row gap-2 w-fit md:w-full top-2 right-2">
         <div
-          className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-cart"
+          className=" text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-cart"
           onClick={() => handleAddToCart(hit?._id)}
         >
-          <FaShoppingCart className="z-20" />
-          <span className="icon-cart-details">Add to cart</span>
+          <FaShoppingCart className=" z-20" />
+          <p className="md:hidden">Add to cart</p>
+          <span className="hidden md:block icon-cart-details">Add to cart</span>
         </div>
-        <div className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-compare">
-          <Link href={`/compare/${hit?._id}`}>
-            <DiGitCompare className="z-20" />
-          </Link>
-          <span className="icon-compare-details">Compare</span>
-        </div>
+        <Link href={`/compare/${hit?._id}`}>
+          <div className="z-20 text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-compare">
+            <DiGitCompare className="" />
+            <p className="md:hidden">Compare</p>
+            <span className="hidden md:block icon-compare-details">
+              Compare
+            </span>
+          </div>
+        </Link>
       </div>
     </div>
   );
@@ -91,9 +95,9 @@ export function BestSeller({ data }) {
             {data?.slice(0, 8)?.map((item) => (
               <div
                 key={item._id}
-                className="cursor-pointer hover-parent relative"
+                className="cursor-pointer hover-parent relative "
               >
-                <div className="hover-child-1">
+                <div className="hover-child-1 ">
                   <Product
                     id={item?._id}
                     image={item?.avatar}
@@ -101,20 +105,26 @@ export function BestSeller({ data }) {
                     price={item?.price}
                   />
                 </div>
-                <div className="hover-child-2 absolute top-1/3 left-0 right-0 flex items-center justify-evenly">
+                <div className="hover-child-2 absolute md:top-1/3 md:left-0 flex items-end justify-evenly flex-col md:flex-row gap-2 w-fit md:w-full top-2 right-2">
                   <div
-                    className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-cart"
+                    className=" text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-cart"
                     onClick={() => handleAddToCart(item?._id)}
                   >
-                    <FaShoppingCart className="z-20" />
-                    <span className="icon-cart-details">Add to cart</span>
+                    <FaShoppingCart className=" z-20" />
+                    <p className="md:hidden">Add to cart</p>
+                    <span className="hidden md:block icon-cart-details">
+                      Add to cart
+                    </span>
                   </div>
-                  <div className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-compare">
-                    <Link href={`/compare/${item._id}`}>
-                      <DiGitCompare className="z-20" />
-                    </Link>
-                    <span className="icon-compare-details">Compare</span>
-                  </div>
+                  <Link href={`/compare/${item._id}`}>
+                    <div className="z-20 text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-compare">
+                      <DiGitCompare className="" />
+                      <p className="md:hidden">Compare</p>
+                      <span className="hidden md:block icon-compare-details">
+                        Compare
+                      </span>
+                    </div>
+                  </Link>
                 </div>
               </div>
             ))}

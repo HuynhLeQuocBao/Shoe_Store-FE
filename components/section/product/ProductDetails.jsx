@@ -19,6 +19,7 @@ import { connectHits } from "react-instantsearch-dom";
 import { Product } from ".";
 
 export function ProductDetail({ data }) {
+  console.log(data);
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [colorId, setColorId] = useState("");
@@ -334,15 +335,16 @@ export function ProductDetail({ data }) {
                       onClick={() => setOpenReview(!openReview)}
                     >
                       <h4 className="mb-2 text-2xl font-semibold">
-                        Review and Rating
+                        Review and Rating ({data?.listUserComment.length})
                       </h4>
                       {openReview ? <FaAngleUp /> : <FaAngleDown />}
                     </div>
                     {openReview && (
                       <div className="overflow-y-auto max-h-96">
                         <Comments
-                          isEditComment={data?.isEditComment}
+                          commentAndRate={data?.commentAndRate}
                           listUserComment={data?.listUserComment}
+                          shoeId={data?._id}
                         />
                       </div>
                     )}

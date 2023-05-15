@@ -29,6 +29,9 @@ const PreviewImage = ({ arrayImage, index }) => {
         width={350}
         height={350}
         onClick={() => setIsOpen(!isOpen)}
+        priority={true}
+        blurDataURL={BASE_URL + arrayImage[index]}
+        placeholder="blur"
       />
       <FsLightbox
         toggler={isOpen}
