@@ -63,7 +63,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
             </div>
           )}
         </div>
-        <div className="flex-col flex-center gap-5 max-h-[288px] border-[1px] border-solid border-r-0">
+        <div className="flex-col flex-center max-h-[288px] border-[1px] border-solid border-r-0">
           <div className="w-40 h-40 md:w-72 md:h-72 p-4 hover:cursor-zoom-in  ">
             <PreviewImage arrayImage={productInfo.images} index={0} />
           </div>
@@ -73,24 +73,25 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
         </div>
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-3">
           {product?.color?.map((color) => (
-            <Image
-              key={color.id}
-              className="h-14 w-14 flex-center bg-primary hover:cursor-pointer"
-              onClick={() => handleCurrentProductInfo({ colorId: color.id })}
-              src={baseURL + color?.avatar}
-              width={60}
-              height={60}
-            />
+            <div className="w-10 h-10 md:w-20 md:h-20 relative">
+              <Image
+                key={color.id}
+                className="flex-center hover:cursor-pointer w-10 h-10"
+                onClick={() => handleCurrentProductInfo({ colorId: color.id })}
+                src={baseURL + color?.avatar}
+                layout="fill"
+              />
+            </div>
           ))}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          {productInfo?.price}
+          $ {productInfo?.price}
         </div>
-        <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2 overflow-y-scroll">
-          {product?.description}
+        <div className="h-48 border-[1px] border-solid flex justify-center items-start xl:items-center border-r-0 p-2 overflow-y-auto">
+          {product?.introduce}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {product?.listAnotherCate?.map((brand, index) => (
+          {product?.listAnotherCate?.map((brand) => (
             <div
               key={brand}
               className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
@@ -100,13 +101,13 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           ))}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-          {productInfo?.amount}
+          {productInfo?.amount > 0 ? "In stock" : "Not available"}
         </div>
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
           {productInfo.sizes.map((size) => (
             <div
               key={size.sizeName}
-              className="h-8 w-8 flex-center bg-primary hover:cursor-pointer "
+              className="h-8 w-8 flex-center bg-primary text-white"
               onClick={() => handleCurrentProductInfo({ size: size.sizeName })}
             >
               {size.sizeName}

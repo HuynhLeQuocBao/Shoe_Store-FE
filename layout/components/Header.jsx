@@ -177,7 +177,7 @@ export function Header({ products, carts }) {
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px]"
             >
-              <Image src={logo} width={130} height={70} />
+              <Image alt="Footwear" src={logo} width={130} height={70} />
             </Link>
           </div>
 

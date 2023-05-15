@@ -17,6 +17,7 @@ export function Product({ image, name, price, id }) {
             height={500}
             objectFit="cover"
             priority={true}
+            alt={name}
           />
         </div>
         <div className="text-center flex-col font-Rokkitt text-lg w-full h-[90px] flex-center">

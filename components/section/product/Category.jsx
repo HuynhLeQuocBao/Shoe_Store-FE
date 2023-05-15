@@ -114,7 +114,7 @@ const ColorRefinementList = ({ items, refine }) => {
             className={`w-5 h-5 rounded-full border-[1px] border-black`}
           ></div>
           <div className={`${item.isRefined ? "text-blue-500 font-bold" : ""}`}>
-            {item.label}({item.count})
+            {item.label.toLowerCase()} ({item.count})
           </div>
         </div>
       ))}
@@ -127,7 +127,7 @@ const SizeRefinementList = ({ items, refine }) => {
       {items?.map((item) => (
         <div
           key={item.label}
-          className={`w-9 h-9 hover:cursor-pointer flex justify-center items-center p-2 border-[1px] border-black rounded-full ${
+          className={`w-9 h-9 hover:cursor-pointer flex justify-center items-center p-2 border-[1px] border-black rounded-full hover:bg-blue-500 hover:text-white ${
             item.isRefined ? "bg-blue-500 text-white" : "bg-transparent"
           } `}
           onClick={() => refine(item.value)}

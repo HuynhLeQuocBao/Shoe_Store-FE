@@ -28,7 +28,7 @@ const Confirm = ({ onClose, id }) => {
     }
   };
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full p-5">
       <LoadingPageComponent loading={loading} />
       <div className="flex flex-col ">
         <h1 className=" font-bold text-xl mb-5">

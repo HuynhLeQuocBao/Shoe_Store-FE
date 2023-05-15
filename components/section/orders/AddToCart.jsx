@@ -129,7 +129,7 @@ const AddToCart = ({ id, onClose }) => {
   };
 
   return (
-    <div className="h-full w-full">
+    <div className="h-full w-full p-5">
       {isLoading ? (
         <div className="flex-center h-full">
           <LoadingPage />

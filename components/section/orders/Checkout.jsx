@@ -277,7 +277,7 @@ export const Checkout = () => {
         </form>
       </div>
       <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
-        <div className="w-full">
+        <div className="w-full p-5">
           <div className="w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl items-center justify-center uppercase grid grid-cols-12 mb-6">
             <div className="text-center col-span-4">
               <span>PRODUCT DETAILS</span>

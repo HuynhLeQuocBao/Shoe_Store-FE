@@ -55,18 +55,15 @@ export function CompareSection({ productList, productOne }) {
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
               Price
             </div>
-            <div className="h-36 border-[1px] border-solid flex-center border-r-0 p-2">
-              Description
+            <div className="h-48 border-[1px] border-solid flex-center border-r-0 p-2">
+              Introduce
             </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-              Brand
+              Collection
             </div>
             <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-              Available
+              Availability
             </div>
-            {/* <div className="h-20 border-[1px] border-solid flex-center border-r-0">
-              Color
-            </div> */}
             <div className="h-28 border-[1px] border-solid flex-center border-r-0">
               Sizes
             </div>

@@ -109,11 +109,9 @@ export function Footer() {
             </div>
             <div className="flex items-center space-x-4 mb-2">
               {socials.map((item) => (
-                <>
-                  <a className="text-white" key={item} href={item.link}>
-                    {item.logo}
-                  </a>
-                </>
+                <a className="text-white" key={item} href={item.link}>
+                  {item.logo}
+                </a>
               ))}
             </div>
           </div>

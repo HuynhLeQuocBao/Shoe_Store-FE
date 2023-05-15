@@ -4,12 +4,10 @@ import { Product } from "./Product";
 import Link from "next/link";
 import LoadingProduct from "../loading/LoadingProduct";
 import LoadingPage from "../loading/LoadingPage";
-import { useSession } from "next-auth/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
-import { Hits, Pagination, Configure } from "react-instantsearch-dom";
+import { Pagination, Configure, connectHits } from "react-instantsearch-dom";
 import { Category } from ".";
-import { useRouter } from "next/router";
 import Modal from "../modal/Modal";
 import AddToCart from "../orders/AddToCart";
 
@@ -17,45 +15,59 @@ export function BestSeller({ data }) {
   const [flag, setFlag] = useState(true);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [productId, setProductId] = useState();
-  const router = useRouter();
-  const { data: session } = useSession();
 
   const handleAddToCart = (id) => {
     setProductId(id);
     setIsOpenModal(true);
   };
 
-  const Hit = ({ hit }) => (
-    <div key={hit?._id} className="cursor-pointer hover-parent relative">
-      <div className="hover-child-1">
-        <Product
-          id={hit?._id}
-          image={hit?.avatar}
-          name={hit?.name}
-          price={hit?.price}
-        />
-      </div>
-      <div className="hover-child-2 absolute md:top-1/3 md:left-0 flex items-end justify-evenly flex-col md:flex-row gap-2 w-fit md:w-full top-2 right-2">
-        <div
-          className=" text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-cart"
-          onClick={() => handleAddToCart(hit?._id)}
-        >
-          <FaShoppingCart className=" z-20" />
-          <p className="md:hidden">Add to cart</p>
-          <span className="hidden md:block icon-cart-details">Add to cart</span>
+  const Hits = ({ hits }) => {
+    if (hits?.length === 0)
+      return (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          <LoadingProduct numberOfCards={6} />
         </div>
-        <Link href={`/compare/${hit?._id}`}>
-          <div className="z-20 text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-compare">
-            <DiGitCompare className="" />
-            <p className="md:hidden">Compare</p>
-            <span className="hidden md:block icon-compare-details">
-              Compare
-            </span>
+      );
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+        {hits.map((hit) => (
+          <div key={hit?._id} className="cursor-pointer hover-parent relative">
+            <div className="hover-child-1">
+              <Product
+                id={hit?._id}
+                image={hit?.avatar}
+                name={hit?.name}
+                price={hit?.price}
+              />
+            </div>
+            <div className="hover-child-2 absolute md:top-1/3 md:left-0 flex items-end justify-evenly flex-col md:flex-row gap-2 w-fit md:w-full top-2 right-2">
+              <div
+                className=" text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-cart"
+                onClick={() => handleAddToCart(hit?._id)}
+              >
+                <FaShoppingCart className=" z-20" />
+                <p className="md:hidden">Add to cart</p>
+                <span className="hidden md:block icon-cart-details">
+                  Add to cart
+                </span>
+              </div>
+              <Link href={`/compare/${hit?._id}`}>
+                <div className="z-20 text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-compare">
+                  <DiGitCompare className="" />
+                  <p className="md:hidden">Compare</p>
+                  <span className="hidden md:block icon-compare-details">
+                    Compare
+                  </span>
+                </div>
+              </Link>
+            </div>
           </div>
-        </Link>
+        ))}
       </div>
-    </div>
-  );
+    );
+  };
+
+  const CustomHits = connectHits(Hits);
 
   const showAll = () => {
     setFlag(!flag);
@@ -149,10 +161,7 @@ export function BestSeller({ data }) {
             </div>
             <div className="col-span-3 relative">
               <Configure hitsPerPage={9} />
-              <Hits hitComponent={Hit} />
-              <div className="hidden">
-                <Pagination />
-              </div>
+              <CustomHits />
               <div className="w-full overflow-hidden">
                 <Pagination showFirst={false} />
               </div>

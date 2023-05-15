@@ -31,7 +31,7 @@ const ReviewList = ({ id, onClose }) => {
           <LoadingPage />
         </div>
       ) : (
-        <div className=" h-full">
+        <div className="p-5 h-full">
           <div className="sticky h-[10%] w-full bg-white  top-0 shadow-md z-10">
             <h1 className="flex items-center justify-center font-bold font-bold text-[22px] mb-4">
               {edit ? "Edit Reviews" : "Reviews"}

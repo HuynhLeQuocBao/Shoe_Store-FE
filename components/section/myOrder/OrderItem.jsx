@@ -138,7 +138,6 @@ const OrderItem = ({ data, stateOrder, index }) => {
       <Modal
         onClose={() => setIsOpenModalReviews(false)}
         isVisible={isOpenModalReviews}
-        className=""
       >
         {isRated ? (
           <ReviewList
