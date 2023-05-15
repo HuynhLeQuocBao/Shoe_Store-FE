@@ -184,11 +184,11 @@ export function Login() {
                           >
                             Log in
                           </button>
-                          <Link href="#">
+                          {/* <Link href="#">
                             <span className="cursor-pointer ml-1 underline hover:text-primary">
                               Forgot password?
                             </span>
-                          </Link>
+                          </Link> */}
                         </div>
                         <div className="text-xl text-center">
                           <p>Log in with</p>

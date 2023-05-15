@@ -15,15 +15,10 @@ import PreviewImage from "./PreviewImage";
 import Modal from "../modal/Modal";
 import Stars from "../reviews/Stars";
 import Comments from "../reviews/Comments";
-import { Configure, Pagination, connectHits } from "react-instantsearch-dom";
+import { connectHits } from "react-instantsearch-dom";
 import { Product } from ".";
-import { DiGitCompare } from "react-icons/di";
-import AddToCart from "../orders/AddToCart";
-import Link from "next/link";
 
 export function ProductDetail({ data }) {
-  console.log(data.listAnotherCate);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [colorId, setColorId] = useState("");
@@ -145,16 +140,19 @@ export function ProductDetail({ data }) {
     });
   };
 
-  const Hits = ({ hits }) => (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
-      {hits.map((hit) => {
-        if (hit?.style[0] == data?.listAnotherCate[1])
-          return (
-            <div
-              key={hit?._id}
-              className="cursor-pointer hover-parent relative"
-            >
-              <div className="hover-child-1">
+  const Hits = ({ hits }) => {
+    let count = 0;
+    return (
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        {hits.map((hit) => {
+          if (count == 4) return;
+          if (
+            hit?.style[0] == data?.listAnotherCate[1] &&
+            hit?._id != data?._id
+          ) {
+            count++;
+            return (
+              <div key={hit?._id} className="cursor-pointer">
                 <Product
                   id={hit?._id}
                   image={hit?.avatar}
@@ -162,26 +160,12 @@ export function ProductDetail({ data }) {
                   price={hit?.price}
                 />
               </div>
-              <div className="hover-child-2 absolute top-1/3 left-0 right-0 flex items-center justify-evenly">
-                <div
-                  className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-cart"
-                  onClick={() => handleAddToCart(hit?._id)}
-                >
-                  <FaShoppingCart className="z-20" />
-                  <span className="icon-cart-details">Add to cart</span>
-                </div>
-                <div className="text-black w-10 h-10 bg-white rounded-full flex items-center justify-center shadow-icon-product hover:bg-primary relative icon-compare">
-                  <Link href={`/compare/${hit?._id}`}>
-                    <DiGitCompare className="z-20" />
-                  </Link>
-                  <span className="icon-compare-details">Compare</span>
-                </div>
-              </div>
-            </div>
-          );
-      })}
-    </div>
-  );
+            );
+          }
+        })}
+      </div>
+    );
+  };
 
   const CustomHits = connectHits(Hits);
 
@@ -208,7 +192,7 @@ export function ProductDetail({ data }) {
                 {data?.introduce}
               </p>
             </div>
-            <div className="mb-8 col-span-2 ">
+            <div className="mb-8 col-span-2">
               <div className="block lg:hidden">
                 <Slider {...settings}>
                   {imageList?.map((item, index) => (
@@ -367,19 +351,12 @@ export function ProductDetail({ data }) {
               </div>
             </div>
           </div>
-          <div>
+          <Container>
             <h2 className="text-center font-bold text-3xl">Related products</h2>
-            <div className="my-5">
-              {/* <Configure hitsPerPage={4} /> */}
+            <div className="my-10 mx-5 md:mx-0">
               <CustomHits />
             </div>
-            <Modal
-              onClose={() => setIsOpenModal(false)}
-              isVisible={isOpenModal}
-            >
-              <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
-            </Modal>
-          </div>
+          </Container>
         </div>
         <Modal
           isVisible={openModal}
