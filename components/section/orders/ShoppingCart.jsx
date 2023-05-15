@@ -155,6 +155,8 @@ export function ShoppingCart() {
                         layout="intrinsic"
                         width={80}
                         height={80}
+                        blurDataURL={`${baseURL + item.image}`}
+                        placeholder="blur"
                       />
                       <div className="ml-2">
                         <span>{item.name}</span>
@@ -250,6 +252,8 @@ export function ShoppingCart() {
                       className="w-32 h-32 object-cover p-2 "
                       width={128}
                       height={170}
+                      blurDataURL={`${baseURL + item.image}`}
+                      placeholder="blur"
                     />
                   </div>
 

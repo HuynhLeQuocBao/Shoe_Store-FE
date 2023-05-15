@@ -31,7 +31,7 @@ const ReviewList = ({ id, onClose }) => {
           <LoadingPage />
         </div>
       ) : (
-        <div className="p-5 h-full">
+        <div className=" h-full">
           <div className="sticky h-[10%] w-full bg-white  top-0 shadow-md z-10">
             <h1 className="flex items-center justify-center font-bold font-bold text-[22px] mb-4">
               {edit ? "Edit Reviews" : "Reviews"}
@@ -42,7 +42,7 @@ const ReviewList = ({ id, onClose }) => {
               orderDetail.map((item, index) => (
                 <>
                   <div className="flex-center items-center p-2">
-                    <ItemReviews data={item} key={index} />
+                    <ItemReviews data={item} isEdit={true} key={index} />
                     <div
                       className="hidden md:flex justify-end items-start hover:cursor-pointer"
                       onClick={() => {
@@ -50,7 +50,7 @@ const ReviewList = ({ id, onClose }) => {
                         setProductId(item.shoeId);
                       }}
                     >
-                      Edit
+                      <HiPencilAlt className="w-6 h-6" />
                     </div>
                     <div
                       className="md:hidden flex justify-end items-start hover:cursor-pointer"

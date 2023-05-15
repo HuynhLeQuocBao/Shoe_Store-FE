@@ -306,6 +306,8 @@ export const Checkout = () => {
                       layout="intrinsic"
                       width={80}
                       height={80}
+                      blurDataURL={`${baseURL + item.image}`}
+                      placeholder="blur"
                     />
                   </div>
                   <div className="flex justify-center items-center col-span-2 ml-2">

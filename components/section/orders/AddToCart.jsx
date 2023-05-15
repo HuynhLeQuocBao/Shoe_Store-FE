@@ -149,6 +149,8 @@ const AddToCart = ({ id, onClose }) => {
                   height={400}
                   layout="intrinsic"
                   priority={true}
+                  blurDataURL={baseUrl + current.image}
+                  placeholder="blur"
                 />
               </div>
               <div className="col-span-1">
@@ -164,6 +166,8 @@ const AddToCart = ({ id, onClose }) => {
                         height={80}
                         className="hover:border-[1px] hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg"
                         onClick={() => handleChangeImageList(color.id)}
+                        blurDataURL={baseUrl + color.avatar}
+                        placeholder="blur"
                       />
                     ))}
                   </div>

@@ -172,10 +172,10 @@ export function Header({ products, carts }) {
     >
       <div className="flex flex-col justify-evenly md:h-[80px]">
         <div className="flex mx-0 flex-row justify-between">
-          <div className="flex flex-row items-center justify-between md:mb-0">
+          <div className="flex flex-row items-center justify-between md:mb-0 hover:cursor-pointer">
             <Link
               href="/"
-              className="text-secondary text-4xl font-bold h-full w-[130px]"
+              className="text-secondary text-4xl font-bold h-full w-[130px] "
             >
               <Image alt="Footwear" src={logo} width={130} height={70} />
             </Link>

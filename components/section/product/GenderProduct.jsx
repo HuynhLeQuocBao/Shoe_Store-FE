@@ -46,22 +46,22 @@ export function GenderProduct({ gender }) {
                     price={hit?.price}
                   />
                 </div>
-                <div className="hover-child-2 absolute md:top-1/3 md:left-0 flex items-end justify-evenly flex-col md:flex-row gap-2 w-fit md:w-full top-2 right-2">
+                <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
                   <div
-                    className=" text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-cart"
+                    className=" text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
                     onClick={() => handleAddToCart(hit?._id)}
                   >
                     <FaShoppingCart className=" z-20" />
-                    <p className="md:hidden">Add to cart</p>
-                    <span className="hidden md:block icon-cart-details">
+                    <p className="lg:hidden">Add to cart</p>
+                    <span className="hidden lg:block icon-cart-details">
                       Add to cart
                     </span>
                   </div>
                   <Link href={`/compare/${hit?._id}`}>
-                    <div className="z-20 text-black w-fit px-2 py-1 md:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 md:w-10 md:h-10 bg-teal-500 md:bg-white rounded-lg md:rounded-full flex items-center justify-center shadow-icon-product  relative icon-compare">
+                    <div className="z-20 text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                       <DiGitCompare className="" />
-                      <p className="md:hidden">Compare</p>
-                      <span className="hidden md:block icon-compare-details">
+                      <p className="lg:hidden">Compare</p>
+                      <span className="hidden lg:block icon-compare-details">
                         Compare
                       </span>
                     </div>

@@ -198,7 +198,7 @@ input[type="number"] {
 .hover-parent:hover .hover-child-2 {
   opacity: 1;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 1024px) {
   .hover-child-2 {
     opacity: 1;
     z-index: 1;

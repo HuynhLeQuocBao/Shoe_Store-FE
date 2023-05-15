@@ -205,6 +205,8 @@ export function ProductDetail({ data }) {
                         width={250}
                         height={250}
                         priority={true}
+                        blurDataURL={`${process.env.NEXT_PUBLIC_API_URL}/uploadWithRefactorDB/${item}`}
+                        placeholder="blur"
                       />
                     </div>
                   ))}

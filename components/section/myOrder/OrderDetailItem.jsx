@@ -13,6 +13,8 @@ const OrderDetailItem = ({ data, stateOrder }) => {
             className="w-20 h-20 object-cover"
             width={80}
             height={80}
+            blurDataURL={`${baseURL + data.image}`}
+            placeholder="blur"
           />
           <div className="ml-2">
             <span>{data.productName}</span>
@@ -39,6 +41,8 @@ const OrderDetailItem = ({ data, stateOrder }) => {
               className="w- h-30 object-cover p-2 "
               width={112}
               height={112}
+              blurDataURL={`${baseURL + data.image}`}
+              placeholder="blur"
             />
           </div>
 

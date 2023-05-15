@@ -88,6 +88,8 @@ export function Login() {
                           width={200}
                           height={80}
                           className=""
+                          blurDataURL={logo}
+                          placeholder="blur"
                         />
                       </div>
                       <form onSubmit={handleSubmit(onSubmit)}>

@@ -3,7 +3,6 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Menu, Transition } from "@headlessui/react";
-import Image from "next/image";
 
 export function MenuProfile() {
   const { data: session } = useSession();

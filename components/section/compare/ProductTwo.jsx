@@ -8,13 +8,14 @@ const ProductTwo = ({ image, name, price }) => {
     <div className=" flex flex-col items-center justify-center shadow-product-line ">
       <div>
         <Image
-          loader={() => src}
           src={src}
           alt="footwear image"
           width={500}
           height={500}
           objectFit="cover"
           priority={true}
+          blurDataURL={src}
+          placeholder="blur"
         />
       </div>
       <div className="text-center font-Rokkitt text-lg w-full h-[70px] text-ellipsis flex items-center justify-center">
