@@ -291,6 +291,17 @@ input[type="number"] {
 .ais-Pagination-link {
   @apply px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white;
 }
+.ais-SortBy-select:focus-visible, .ais-SortBy-select:focus {
+  border: none;
+  outline: none;
+}
+.ais-SortBy {
+  border: 1px solid;
+}
+.ais-SortBy-select, .ais-SortBy-option {
+  cursor: pointer;
+}
+
 .banner {
   @apply h-[650px] w-full relative;
 }

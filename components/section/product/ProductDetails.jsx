@@ -17,6 +17,7 @@ import Stars from "../reviews/Stars";
 import Comments from "../reviews/Comments";
 import { connectHits } from "react-instantsearch-dom";
 import { Product } from ".";
+import Collapse from "@/components/common/Collapse";
 
 export function ProductDetail({ data }) {
   console.log(data);
@@ -315,42 +316,28 @@ export function ProductDetail({ data }) {
                   </button>
                 </div>
                 <div className="my-5">
-                  <div className="">
-                    <div
-                      className="flex justify-between items-center cursor-pointer"
-                      onClick={() => setOpenDescription(!openDescription)}
-                    >
-                      <h4 className="mb-2 text-2xl font-semibold">
-                        Description
-                      </h4>
-                      {openDescription ? <FaAngleUp /> : <FaAngleDown />}
+                  <Collapse
+                    title="Description"
+                    className="mb-2 text-2xl font-semibold"
+                    openDefault
+                  >
+                    <div className="overflow-y-auto max-h-96 mb-5">
+                      <p>{data?.description}</p>
                     </div>
-                    {openDescription && (
-                      <div className="overflow-y-auto max-h-96 mb-5">
-                        <p>{data?.description}</p>
-                      </div>
-                    )}
-                  </div>
-                  <div className="">
-                    <div
-                      className="flex justify-between items-center cursor-pointer"
-                      onClick={() => setOpenReview(!openReview)}
-                    >
-                      <h4 className="mb-2 text-2xl font-semibold">
-                        Review and Rating ({data?.listUserComment.length})
-                      </h4>
-                      {openReview ? <FaAngleUp /> : <FaAngleDown />}
+                  </Collapse>
+                  <Collapse
+                    title={`Review and Rating (${data?.listUserComment.length})`}
+                    className="mb-2 text-2xl font-semibold"
+                    openDefault
+                  >
+                    <div className="overflow-y-auto max-h-96">
+                      <Comments
+                        commentAndRate={data?.commentAndRate}
+                        listUserComment={data?.listUserComment}
+                        shoeId={data?._id}
+                      />
                     </div>
-                    {openReview && (
-                      <div className="overflow-y-auto max-h-96">
-                        <Comments
-                          commentAndRate={data?.commentAndRate}
-                          listUserComment={data?.listUserComment}
-                          shoeId={data?._id}
-                        />
-                      </div>
-                    )}
-                  </div>
+                  </Collapse>
                 </div>
               </div>
             </div>
