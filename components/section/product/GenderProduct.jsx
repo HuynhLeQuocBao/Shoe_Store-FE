@@ -2,11 +2,9 @@ import { Container } from "@/components/common/index";
 import { Product } from "./Product";
 import { Category } from "./Category";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
 import { Configure, Pagination, connectHits } from "react-instantsearch-dom";
-import { useRouter } from "next/router";
 import AddToCart from "../orders/AddToCart";
 import Modal from "../modal/Modal";
 import { useState } from "react";
@@ -46,7 +44,7 @@ export function GenderProduct({ gender }) {
                 </div>
                 <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
                   <div
-                    className=" text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
+                    className=" text-white xl:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
                     onClick={() => handleAddToCart(hit?._id)}
                   >
                     <FaShoppingCart className=" z-20" />
@@ -56,7 +54,7 @@ export function GenderProduct({ gender }) {
                     </span>
                   </div>
                   <Link href={`/compare/${hit?._id}`}>
-                    <div className="z-20 text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
+                    <div className="z-20 text-white xl:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                       <DiGitCompare className="" />
                       <p className="lg:hidden">Compare</p>
                       <span className="hidden lg:block icon-compare-details">
@@ -76,7 +74,10 @@ export function GenderProduct({ gender }) {
 
   return (
     <Container>
-      <div className="grid grid-cols-1 md:grid-cols-4 md:gap-8 mx-6 md:mx-0">
+      <div
+        className="grid grid-cols-1 md:grid-cols-4 md:gap-8 mx-6 md:mx-0"
+        id="gender-product"
+      >
         <div className="col-span-1">
           <Category />
         </div>

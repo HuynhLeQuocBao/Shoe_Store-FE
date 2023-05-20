@@ -40,9 +40,11 @@ export function Men() {
                 <p className="xl:text-center text-xl xl:text-4xl font-normal text-white font-Rokkitt h-[70px]">
                   {item.title}
                 </p>
-                <button className="text-sm py-[18px] px-9 hover:bg-primary text-white md:text-base rounded-[30px] bg-secondary cursor-pointer">
-                  <a href="#">Shop now</a>
-                </button>
+                <a href="#gender-product">
+                  <button className="text-sm py-[18px] px-9 hover:bg-teal-600 text-white md:text-base rounded-[30px] bg-primary cursor-pointer">
+                    Shop now
+                  </button>
+                </a>
               </div>
             </div>
           ))}

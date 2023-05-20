@@ -25,6 +25,7 @@ export function Banner() {
     slidesToScroll: 1,
     pauseOnHover: false,
     autoplay: true,
+    speed: 1000,
     autoplaySpeed: 5000,
   };
   return (
@@ -51,7 +52,7 @@ export function Banner() {
                 {!session ? "NEW MEMBER" : "THE VOUCHER IS SENT YOUR EMAIL"}
               </div>
               <Link href={!session ? "/register" : "#best-seller"}>
-                <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
+                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
                   {!session ? "SIGN UP" : "SHOP COLLECTION"}
                 </button>
               </Link>
@@ -77,7 +78,7 @@ export function Banner() {
                 EACH ORDER COMPLETED
               </div>
               <Link href="#best-seller">
-                <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
                   SHOP COLLECTION
                 </button>
               </Link>
@@ -106,7 +107,7 @@ export function Banner() {
                 New stylish shoes for men
               </div>
               <Link href="#best-seller">
-                <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
                   SHOP COLLECTION
                 </button>
               </Link>

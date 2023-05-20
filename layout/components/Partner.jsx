@@ -9,7 +9,8 @@ export function Partner() {
     slidesToShow: 4,
     slidesToScroll: 1,
     autoplay: true,
-    speed: 1000,
+    speed: 2000,
+    autoplaySpeed: 2000,
     responsive: [
       {
         breakpoint: 1024,
@@ -31,8 +32,8 @@ export function Partner() {
   const images = [
     "brand-1.jpg",
     "brand-2.jpg",
-    "brand-3.jpg",
     "brand-7.png",
+    "brand-3.jpg",
     "brand-4.jpg",
     "brand-5.jpg",
     "brand-6.png",
@@ -44,7 +45,6 @@ export function Partner() {
         <div className="text-xl pb-10 text-center text-[#0000004D] font-Rokkitt font-semibold">
           <p>TRUSTED PARTNERS</p>
         </div>
-        {/* <div className="flex flex-col items-center justify-center md:flex-row"> */}
         <Slider {...settings}>
           {images.map((image, index) => (
             <div
@@ -62,7 +62,6 @@ export function Partner() {
             </div>
           ))}
         </Slider>
-        {/* </div> */}
       </div>
     </Container>
   );

@@ -212,7 +212,7 @@ export function Header({ products, carts }) {
                       <button
                         aria-label="search"
                         type="submit"
-                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-teal-600"
                       >
                         <div className="text-2xl flex items-center justify-center">
                           <MdSearch />
@@ -325,7 +325,7 @@ export function Header({ products, carts }) {
                   <button
                     aria-label="search"
                     type="submit"
-                    className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                    className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-teal-600"
                   >
                     <div className="text-2xl flex items-center justify-center">
                       <MdSearch />

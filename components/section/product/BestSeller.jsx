@@ -42,7 +42,7 @@ export function BestSeller({ data }) {
             </div>
             <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
               <div
-                className=" text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
+                className="text-white lg:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
                 onClick={() => handleAddToCart(hit?._id)}
               >
                 <FaShoppingCart className=" z-20" />
@@ -52,7 +52,7 @@ export function BestSeller({ data }) {
                 </span>
               </div>
               <Link href={`/compare/${hit?._id}`}>
-                <div className="z-20 text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
+                <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                   <DiGitCompare className="" />
                   <p className="lg:hidden">Compare</p>
                   <span className="hidden lg:block icon-compare-details">
@@ -119,7 +119,7 @@ export function BestSeller({ data }) {
                 </div>
                 <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
                   <div
-                    className=" text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
+                    className="text-white lg:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
                     onClick={() => handleAddToCart(item?._id)}
                   >
                     <FaShoppingCart className=" z-20" />
@@ -129,7 +129,7 @@ export function BestSeller({ data }) {
                     </span>
                   </div>
                   <Link href={`/compare/${item._id}`}>
-                    <div className="z-20 text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
+                    <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                       <DiGitCompare className="" />
                       <p className="lg:hidden">Compare</p>
                       <span className="hidden lg:block icon-compare-details">
@@ -143,7 +143,7 @@ export function BestSeller({ data }) {
           </div>
           <div className="mb-5 flex items-center justify-center">
             <button
-              className="text-sm py-[18px] px-9 bg-primary text-white md:text-xl rounded-[30px] hover:bg-secondary hover:text-white"
+              className="text-sm py-[18px] px-9 bg-primary text-white md:text-xl rounded-[30px] hover:bg-teal-600 hover:text-white"
               onClick={showAll}
             >
               Show All Products
