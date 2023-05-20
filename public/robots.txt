@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://shoe-store-fe.vercel.app
+
+# Sitemaps
+Sitemap: https://shoe-store-fe.vercel.app/sitemap.xml

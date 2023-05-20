@@ -1,13 +1,12 @@
-import { ContactSection } from '@/components/section/contact';
-import { Breadcum } from '@/components/section/title';
-import React from 'react';
+import { ContactSection } from "@/components/section/contact";
+import { Breadcrumbs } from "@/components/section/title";
+import React from "react";
 
-
-export default function About() {
-    return (
-      <div>
-          <Breadcum />
-          <ContactSection />
-      </div>
-    )
+export default function Contact() {
+  return (
+    <div>
+      <Breadcrumbs />
+      <ContactSection />
+    </div>
+  );
 }

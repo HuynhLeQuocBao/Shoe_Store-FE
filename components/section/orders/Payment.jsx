@@ -1,5 +1,3 @@
-import { useSession } from "next-auth/react";
-import { useState } from "react";
 import Image from "next/image";
 
 export function PaymentItem({ name, image }) {
@@ -11,6 +9,7 @@ export function PaymentItem({ name, image }) {
         layout="intrinsic"
         width={40}
         height={40}
+        alt="payment"
       />
       <p>Using {name}</p>
     </div>

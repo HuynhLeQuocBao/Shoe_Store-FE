@@ -20,7 +20,6 @@ import { Product } from ".";
 import Collapse from "@/components/common/Collapse";
 
 export function ProductDetail({ data }) {
-  console.log(data);
   const [loading, setLoading] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [colorId, setColorId] = useState("");
@@ -28,8 +27,6 @@ export function ProductDetail({ data }) {
   const [sizeInfo, setSizeInfo] = useState();
   const [size, setSize] = useState();
   const [openModal, setOpenModal] = useState(false);
-  const [openDescription, setOpenDescription] = useState(true);
-  const [openReview, setOpenReview] = useState(true);
   const { data: session } = useSession();
   const router = useRouter();
   const productId = router.query.slug;
@@ -176,7 +173,7 @@ export function ProductDetail({ data }) {
       <LoadingPageComponent loading={loading} />
       <Container>
         <div>
-          <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-12 mx-6 lg:mx-0 py-10">
+          <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-12 mx-6 lg:mx-0">
             <div className="flex flex-col justify-between lg:hidden">
               <h2 className="mb-2 text-3xl font-semibold">{data?.name}</h2>
               <h3 className="mb-2 text-lg">

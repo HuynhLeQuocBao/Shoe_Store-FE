@@ -13,6 +13,7 @@ const ItemReviews = ({ data, isEdit }) => {
           height={90}
           blurDataURL={baseURL + data.image}
           placeholder="blur"
+          alt="review"
         />
       </div>
       <div className="col-span-7 md:col-span-9  flex flex-col gap-1">

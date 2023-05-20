@@ -1,11 +1,11 @@
 import { ShoppingCart } from "@/components/section/orders";
-import { Breadcum } from "@/components/section/title";
+import { Breadcrumbs } from "@/components/section/title";
 
-export default function Cart() {
-    return (
-        <div>
-            <Breadcum />
-            <ShoppingCart />
-        </div>
-    )
+export default function CartPage() {
+  return (
+    <div>
+      <Breadcrumbs />
+      <ShoppingCart />
+    </div>
+  );
 }

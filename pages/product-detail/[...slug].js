@@ -1,12 +1,12 @@
 import { productApi } from "@/apiClient/product";
 import { ProductDetail } from "@/components/section/product";
-import { Breadcum } from "@/components/section/title";
+import { Breadcrumbs } from "@/components/section/title";
 import React from "react";
 
-export default function productDetails({ data }) {
+export default function productDetailPage({ data }) {
   return (
     <div>
-      <Breadcum />
+      <Breadcrumbs />
       <ProductDetail data={data} />
     </div>
   );

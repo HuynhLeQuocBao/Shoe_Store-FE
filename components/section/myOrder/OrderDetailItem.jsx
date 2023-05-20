@@ -15,6 +15,7 @@ const OrderDetailItem = ({ data, stateOrder }) => {
             height={80}
             blurDataURL={`${baseURL + data.image}`}
             placeholder="blur"
+            alt="orderitem"
           />
           <div className="ml-2">
             <span>{data.productName}</span>
@@ -43,6 +44,7 @@ const OrderDetailItem = ({ data, stateOrder }) => {
               height={112}
               blurDataURL={`${baseURL + data.image}`}
               placeholder="blur"
+              alt="orderitem"
             />
           </div>
 

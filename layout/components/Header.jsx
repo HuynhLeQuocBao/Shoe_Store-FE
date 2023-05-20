@@ -7,8 +7,6 @@ import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { MenuItem, MenuProfile } from "@/components/menu/index";
 import { MdSearch } from "react-icons/md";
-import { cartApi } from "@/apiClient/cartAPI";
-import { productApi } from "@/apiClient/product";
 import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
@@ -212,6 +210,7 @@ export function Header({ products, carts }) {
                         value={keyword}
                       />
                       <button
+                        aria-label="search"
                         type="submit"
                         className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
                       >
@@ -324,6 +323,7 @@ export function Header({ products, carts }) {
                     </div>
                   ) : null}
                   <button
+                    aria-label="search"
                     type="submit"
                     className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
                   >

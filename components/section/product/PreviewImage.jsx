@@ -25,7 +25,7 @@ const PreviewImage = ({ arrayImage, index }) => {
       <Image
         className="w-full h-full object-cover cursor-zoom-in hover:opacity-70"
         src={BASE_URL + arrayImage[index]}
-        alt="product details"
+        alt={arrayImage[index]}
         width={350}
         height={350}
         onClick={() => setIsOpen(!isOpen)}

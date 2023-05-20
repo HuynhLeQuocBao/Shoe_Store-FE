@@ -109,7 +109,12 @@ export function Footer() {
             </div>
             <div className="flex items-center space-x-4 mb-2">
               {socials.map((item) => (
-                <a className="text-white" key={item} href={item.link}>
+                <a
+                  aria-label="logo social"
+                  className="text-white"
+                  key={item}
+                  href={item.link}
+                >
                   {item.logo}
                 </a>
               ))}

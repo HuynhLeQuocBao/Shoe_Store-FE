@@ -2,7 +2,7 @@
 import { Container } from "@/components/common/index";
 import { useRouter } from "next/router";
 import Link from "next/link";
-export function Breadcum() {
+export function Breadcrumbs() {
   const router = useRouter();
   const navigation = [
     {
@@ -52,7 +52,7 @@ export function Breadcum() {
   ];
   return (
     <Container>
-      <div className="py-3 mx-4 md:mx-0 text-base font-Rokkitt text-primary">
+      <div className="py-8 mx-4 md:mx-0 text-base font-Rokkitt text-primary">
         <Link href="/">
           <div className="cursor-pointer uppercase max-w-fit">
             Home /

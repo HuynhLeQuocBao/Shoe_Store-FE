@@ -1,15 +1,9 @@
-import { Breadcum } from "@/components/section/title";
-import { Men } from "@/components/section/type";
-import { GenderProduct } from "@/components/section/product";
 import React from "react";
-import { BannerChild } from "@/components/section/banner";
 import { SearchProduct } from "@/components/section/product/SearchProduct";
-import { productApi } from "@/apiClient/product";
 
-export default function About() {
+export default function SearchPage() {
   return (
     <div>
-      {/* <Men /> */}
       <SearchProduct />
     </div>
   );

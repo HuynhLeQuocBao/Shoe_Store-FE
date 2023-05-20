@@ -10,7 +10,7 @@ export function MenuProfile() {
   return (
     <Menu as="div" className="relative">
       <div className="flex items-center space-x-2 justify-center cursor-pointer">
-        <Menu.Button as={session ? "button" : "div"}>
+        <Menu.Button as="button">
           {!session ? (
             <Link href="/login">
               <div className="flex-center">

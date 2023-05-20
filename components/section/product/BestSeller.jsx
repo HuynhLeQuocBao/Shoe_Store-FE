@@ -97,7 +97,7 @@ export function BestSeller({ data }) {
     );
   }
   return (
-    <Container>
+    <Container id="best-seller">
       {flag ? (
         <div className="mx-6 md:mx-0">
           <div className="font-Rokkitt text-4xl font-bold text-center py-10">

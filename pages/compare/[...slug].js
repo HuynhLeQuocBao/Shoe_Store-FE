@@ -1,18 +1,18 @@
 import { productApi } from "@/apiClient/product";
 import { CompareSection } from "@/components/section/compare";
-import { Breadcum } from "@/components/section/title";
+import { Breadcrumbs } from "@/components/section/title";
 import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 
-export default function Compare({ productOne, products }) {
+export default function ComparePage({ productOne, products }) {
   const [productArray, setProductArray] = useState(products);
   useEffect(() => {
     setProductArray(products.filter((e) => e._id !== productOne?._id));
   }, [products]);
   return (
     <div>
-      <Breadcum />
+      <Breadcrumbs />
       <CompareSection productList={productArray} productOne={productOne} />
     </div>
   );

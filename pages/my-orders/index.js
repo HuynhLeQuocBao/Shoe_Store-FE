@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { setToken } from "@/apiClient/axiosClient";
 
-export default function MyOrder({ orderList }) {
+export default function MyOrderPage({ orderList }) {
   return (
     <div>
       <MyOrders orderList={orderList} />

@@ -32,6 +32,7 @@ const Comments = ({ listUserComment, shoeId }) => {
                     className="rounded-full"
                     width={100}
                     height={100}
+                    alt="avatar"
                   />
                 </div>
                 <div className="col-span-6 flex flex-col gap-1">

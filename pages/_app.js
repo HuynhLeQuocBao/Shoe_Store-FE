@@ -4,12 +4,12 @@ import { AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/globals.css";
-import { MainLayout, isTest } from "@/layout/index";
+import { MainLayout } from "@/layout/index";
 import axiosClient, { setToken } from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
 import { store, persistor } from "../store/store";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -52,12 +52,6 @@ function MyApp(props) {
           content="The purpose of this website is for the graduation thesis with the task of learning NextJS on the Front-end side and ExpressJS on the Back-end side to build an e-commerce website."
         />
         <meta name="keywords" content="shoe, shoe-store, bao, cat, kltn20" />
-        <meta name="robots" content="index,follow" />
-        <meta
-          name="google-site-verification"
-          content="411OybsylKe6hQWEP7kwBIJ0avMzknO63TzOF1J6ceY"
-        />
-
         <meta name="author" content="Bao Huynh - Cat Le" />
 
         <meta property="og:type" content="website" />
@@ -120,6 +114,7 @@ function MyApp(props) {
 
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
+
   const session = await getSession(context);
   setToken(session?.accessToken);
   const req = context.ctx.req;
@@ -134,6 +129,7 @@ MyApp.getInitialProps = async (context) => {
           .split("=")[1]
       : null
     : localStorage.getItem("persist:root");
+
   const localStorageCart = JSON.parse(value);
   if (localStorageCart && session) {
     const cartRedux = JSON.parse(localStorageCart?.cart);
@@ -155,6 +151,7 @@ MyApp.getInitialProps = async (context) => {
       cartsCache = await cartApi.getAllCart();
     }
   }
+
   const isOrderCompleteOrCheckout =
     context.router.state?.route === "/order-complete" ||
     context.router.state?.route === "/checkout";
@@ -180,6 +177,7 @@ MyApp.getInitialProps = async (context) => {
       },
     };
   }
+
   const navigationProps = {
     products: productsCache,
     carts: cartsCache,

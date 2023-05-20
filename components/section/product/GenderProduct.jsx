@@ -15,8 +15,6 @@ import LoadingProduct from "../loading/LoadingProduct";
 export function GenderProduct({ gender }) {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [productId, setProductId] = useState();
-  const { data: session } = useSession();
-  const router = useRouter();
 
   const handleAddToCart = (id) => {
     setProductId(id);

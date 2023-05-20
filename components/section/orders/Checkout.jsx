@@ -318,6 +318,7 @@ export const Checkout = () => {
                       height={80}
                       blurDataURL={`${baseURL + item.image}`}
                       placeholder="blur"
+                      alt="checkout"
                     />
                   </div>
                   <div className="flex justify-center items-center col-span-2 ml-2">

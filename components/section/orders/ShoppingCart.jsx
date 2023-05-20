@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Container } from "@/components/common";
 import { cartApi } from "@/apiClient/cartAPI";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import { ProgressCart } from "./ProgressCart";
 import { HiMinusSm, HiOutlineX, HiPlusSm } from "react-icons/hi";
@@ -157,6 +157,7 @@ export function ShoppingCart() {
                         height={80}
                         blurDataURL={`${baseURL + item.image}`}
                         placeholder="blur"
+                        alt="product"
                       />
                       <div className="ml-2">
                         <span>{item.name}</span>
@@ -254,6 +255,7 @@ export function ShoppingCart() {
                       height={170}
                       blurDataURL={`${baseURL + item.image}`}
                       placeholder="blur"
+                      alt="product"
                     />
                   </div>
 

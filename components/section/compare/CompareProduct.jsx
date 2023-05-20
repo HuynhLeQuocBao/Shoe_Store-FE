@@ -79,6 +79,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
                 onClick={() => handleCurrentProductInfo({ colorId: color.id })}
                 src={baseURL + color?.avatar}
                 layout="fill"
+                alt="color"
               />
             </div>
           ))}

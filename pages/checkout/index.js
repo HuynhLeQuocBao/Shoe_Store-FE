@@ -1,11 +1,11 @@
 import { Checkout } from "@/components/section/orders";
-import { Breadcum } from "@/components/section/title";
+import { Breadcrumbs } from "@/components/section/title";
 
-export default function CheckOut() {
-    return (
-        <div>
-            <Breadcum />
-            <Checkout />
-        </div>
-    )
+export default function CheckoutPage() {
+  return (
+    <div>
+      <Breadcrumbs />
+      <Checkout />
+    </div>
+  );
 }

@@ -151,6 +151,7 @@ const AddToCart = ({ id, onClose }) => {
                   priority={true}
                   blurDataURL={baseUrl + current.image}
                   placeholder="blur"
+                  alt={current.image}
                 />
               </div>
               <div className="col-span-1">
@@ -168,6 +169,7 @@ const AddToCart = ({ id, onClose }) => {
                         onClick={() => handleChangeImageList(color.id)}
                         blurDataURL={baseUrl + color.avatar}
                         placeholder="blur"
+                        alt={color.avatar}
                       />
                     ))}
                   </div>
