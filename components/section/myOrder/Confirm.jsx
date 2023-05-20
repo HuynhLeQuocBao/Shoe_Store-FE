@@ -31,11 +31,11 @@ const Confirm = ({ onClose, id }) => {
     <div className="h-full w-full p-5">
       <LoadingPageComponent loading={loading} />
       <div className="flex flex-col ">
-        <h1 className=" font-bold text-xl mb-5">
+        <h1 className="text-center font-bold text-xl mb-5">
           Do you want to cancel your order?
         </h1>
-        <div className="w-full min-h-[1px] bg-black "></div>
-        <div className="flex justify-end px-4 py-2 gap-6">
+        <div className="w-full min-h-[1px] bg-black"></div>
+        <div className="flex justify-center px-4 py-5 gap-6">
           <button
             className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"
             onClick={() => onClose()}

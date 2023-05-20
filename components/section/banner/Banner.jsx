@@ -32,7 +32,15 @@ export function Banner() {
     <div className="font-Rokkitt max-w-full">
       <Slider {...settings}>
         <div className="banner">
-          <Image src="/images/banner/banner1.jpg" alt="banner1" layout="fill" />
+          <Image
+            src="/images/banner/banner1.jpg"
+            alt="banner1"
+            layout="fill"
+            style={{ objectFit: "cover" }}
+            priority={true}
+            blurDataURL="/images/banner/banner1.jpg"
+            placeholder="blur"
+          />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
@@ -60,7 +68,15 @@ export function Banner() {
           </div>
         </div>
         <div className="banner">
-          <Image src="/images/banner/banner2.jpg" alt="banner2" layout="fill" />
+          <Image
+            src="/images/banner/banner2.jpg"
+            alt="banner2"
+            layout="fill"
+            style={{ objectFit: "cover" }}
+            priority={true}
+            blurDataURL="/images/banner/banner2.jpg"
+            placeholder="blur"
+          />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
@@ -86,7 +102,15 @@ export function Banner() {
           </div>
         </div>
         <div className="banner">
-          <Image src="/images/banner/banner3.jpg" alt="banner3" layout="fill" />
+          <Image
+            src="/images/banner/banner3.jpg"
+            alt="banner3"
+            layout="fill"
+            style={{ objectFit: "cover" }}
+            priority={true}
+            blurDataURL="/images/banner/banner3.jpg"
+            placeholder="blur"
+          />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <motion.div
               variants={variants}

@@ -1,5 +1,6 @@
 import React from "react";
 import { BestSeller } from "../product";
+import { AiOutlineCloseCircle } from "react-icons/ai";
 
 const Modal = ({ isVisible, onClose, children, className }) => {
   if (!isVisible) return null;
@@ -13,14 +14,16 @@ const Modal = ({ isVisible, onClose, children, className }) => {
       id="wrapper"
       onClick={handleClose}
     >
-      <div className={`w-3/4 h-3/4  flex flex-col ${className}`}>
-        <button
-          className="text-white font-bold place-self-end text-2xl hover:text-red-500  "
-          onClick={() => onClose()}
-        >
-          X
-        </button>
-        <div className="bg-white  rounded-lg h-full overflow-y-auto">
+      <div
+        className={`bg-white w-full h-full md:w-3/4 md:h-3/4 md:rounded-lg ${className}`}
+      >
+        <div className="pt-10 h-full overflow-y-auto relative">
+          <button
+            className="text-black font-bold text-3xl hover:text-red-500 absolute top-3 right-3"
+            onClick={() => onClose()}
+          >
+            <AiOutlineCloseCircle />
+          </button>
           {children}
         </div>
       </div>

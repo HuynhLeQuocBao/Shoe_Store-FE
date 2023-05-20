@@ -43,10 +43,10 @@ function TabletNavigation() {
   const { data: session } = useSession();
 
   return (
-    <Popover className="lg:hidden z-[9998] flex items-center justify-center">
+    <Popover className="lg:hidden z-[50] flex items-center justify-center">
       {({ open, close }) => (
         <>
-          <Popover.Button className="relative z-[9999] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl text-white text-2xl">
+          <Popover.Button className="relative z-[51] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl text-white text-2xl">
             <span className="sr-only">Toggle Navigation</span>
             {open ? <AiOutlineClose /> : <AiOutlineMenuUnfold />}
           </Popover.Button>

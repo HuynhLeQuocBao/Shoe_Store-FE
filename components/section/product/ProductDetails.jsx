@@ -346,15 +346,11 @@ export function ProductDetail({ data }) {
             </div>
           </Container>
         </div>
-        <Modal
-          isVisible={openModal}
-          onClose={() => setOpenModal(false)}
-          className="h-[80%] md:h-full"
-        >
-          <div>
+        <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+          <div className="w-full h-full">
             <Image
               src="/images/banner/size_chart.jpg"
-              alt=""
+              alt="size-chart"
               width={500}
               height={500}
               layout="responsive"
