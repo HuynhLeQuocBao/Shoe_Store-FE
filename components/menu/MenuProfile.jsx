@@ -63,7 +63,11 @@ export function MenuProfile() {
             <Menu.Item>
               <button
                 className="w-full p-2 hover:bg-primary hover:text-white"
-                onClick={() => signOut()}
+                onClick={() =>
+                  signOut({
+                    callbackUrl: `${window.location.origin}`,
+                  })
+                }
               >
                 Log out
               </button>
