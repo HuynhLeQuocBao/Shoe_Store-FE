@@ -46,7 +46,7 @@ function TabletNavigation() {
     <Popover className="lg:hidden z-[50] flex items-center justify-center">
       {({ open, close }) => (
         <>
-          <Popover.Button className="relative z-[51] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl text-white text-2xl">
+          <Popover.Button className="relative z-[51] flex h-10 w-10 items-center justify-center [&:not(:focus-visible)]:focus:outline-none bg-primary outline-none rounded-2xl text-black text-2xl">
             <span className="sr-only">Toggle Navigation</span>
             {open ? <AiOutlineClose /> : <AiOutlineMenuUnfold />}
           </Popover.Button>
@@ -212,9 +212,9 @@ export function Header({ products, carts }) {
                       <button
                         aria-label="search"
                         type="submit"
-                        className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-teal-600"
+                        className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 hover:text-white"
                       >
-                        <div className="text-2xl flex items-center justify-center">
+                        <div className="text-2xl flex items-center justify-center font-bold">
                           <MdSearch />
                         </div>
                       </button>
@@ -325,9 +325,9 @@ export function Header({ products, carts }) {
                   <button
                     aria-label="search"
                     type="submit"
-                    className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-teal-600"
+                    className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 hover:text-white"
                   >
-                    <div className="text-2xl flex items-center justify-center">
+                    <div className="text-2xl flex items-center justify-center font-bold">
                       <MdSearch />
                     </div>
                   </button>

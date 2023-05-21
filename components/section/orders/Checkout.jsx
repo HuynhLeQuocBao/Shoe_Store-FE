@@ -234,7 +234,7 @@ export const Checkout = () => {
                   <a
                     type="button"
                     onClick={handleVoucher}
-                    className="bg-primary hover:bg-secondary hover:text-white py-2 px-3 cursor-pointer"
+                    className="bg-primary hover:bg-teal-600 hover:text-white py-2 px-3 cursor-pointer"
                   >
                     Apply
                   </a>
@@ -256,7 +256,7 @@ export const Checkout = () => {
                 <div className="font-bold text-2xl py-4 flex justify-between items-center">
                   <h1>Cart Total</h1>
                   <span
-                    className="p-2 cursor-pointer hover:text-white bg-primary hover:bg-secondary text-base rounded-3xl"
+                    className="p-2 cursor-pointer hover:text-white bg-primary hover:bg-teal-600 text-base rounded-3xl"
                     type="button"
                     onClick={() => setOpenModal(true)}
                   >
@@ -288,7 +288,7 @@ export const Checkout = () => {
       </div>
       <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
         <div className="w-full p-5">
-          <div className="w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl items-center justify-center uppercase grid grid-cols-12 mb-6">
+          <div className="hidden md:grid w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl uppercase grid-cols-12 mb-6">
             <div className="text-center col-span-4">
               <span>PRODUCT DETAILS</span>
             </div>

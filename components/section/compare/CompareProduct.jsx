@@ -107,7 +107,7 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           {productInfo.sizes.map((size) => (
             <div
               key={size.sizeName}
-              className="h-8 w-8 flex-center bg-primary text-white cursor-pointer hover:bg-teal-500"
+              className="h-8 w-8 flex-center bg-primary text-black font-bold cursor-pointer hover:text-white active:text-white hover:bg-teal-500 active:bg-teal-500"
               onClick={() => handleCurrentProductInfo({ size: size.sizeName })}
             >
               {size.sizeName}

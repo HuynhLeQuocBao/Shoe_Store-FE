@@ -81,13 +81,13 @@ export function CompareSection({ productList, productOne }) {
             <div className="col-span-5 md:col-span-4 content-center grid">
               <div className="flex-center flex-col gap-2">
                 <div
-                  className="bg-primary rounded-full cursor-pointer hover:scale-125  duration-300"
+                  className="bg-primary rounded-full cursor-pointer hover:bg-teal-600 hover:scale-125  duration-300"
                   onClick={() => {
                     setOpenModal(true);
                     setIsLoading(true);
                   }}
                 >
-                  <HiPlus className="w-14 h-14  text-white font-bold " />
+                  <HiPlus className="w-14 h-14 text-black hover:text-white font-bold" />
                 </div>
                 <div className="text-[10px] md:text-base text-slate-500">
                   Choose products to compare

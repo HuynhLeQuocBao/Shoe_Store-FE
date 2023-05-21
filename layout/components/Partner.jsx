@@ -42,7 +42,7 @@ export function Partner() {
   return (
     <Container>
       <div className="py-14 overflow-x-hidden ">
-        <div className="text-xl pb-10 text-center text-[#0000004D] font-Rokkitt font-semibold">
+        <div className="text-2xl pb-10 text-center text-[#0000004D] font-Rokkitt font-bold">
           <p>TRUSTED PARTNERS</p>
         </div>
         <Slider {...settings}>

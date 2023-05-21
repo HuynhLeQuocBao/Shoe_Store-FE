@@ -45,7 +45,7 @@ function MyApp(props) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        <title>Footwear from KLTN-20</title>
+        <title>Footwear from KLTN 20</title>
 
         <meta
           name="description"
@@ -55,8 +55,8 @@ function MyApp(props) {
         <meta name="author" content="Bao Huynh - Cat Le" />
 
         <meta property="og:type" content="website" />
-        <meta property="og:title" content="Footwear from KLTN-20" />
-        <meta property="og:site_name" content="Footwear from KLTN-20" />
+        <meta property="og:title" content="Footwear from KLTN 20" />
+        <meta property="og:site_name" content="Footwear from KLTN 20" />
         <meta property="og:url" content="https://shoe-store-fe.vercel.app" />
         <meta
           property="og:description"
@@ -66,7 +66,7 @@ function MyApp(props) {
           property="og:image"
           content="https://shoe-store-fe.vercel.app/SEO_image.png"
         />
-        <meta property="og:image:alt" content="Footwear from KLTN-20" />
+        <meta property="og:image:alt" content="Footwear from KLTN 20" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="567" />
 

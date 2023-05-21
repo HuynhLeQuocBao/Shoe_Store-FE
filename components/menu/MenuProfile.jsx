@@ -14,7 +14,7 @@ export function MenuProfile() {
           {!session ? (
             <Link href="/login">
               <div className="flex-center">
-                <button className="text-sm md:text-base w-full bg-primary px-3 py-2 md:px-4 lg:px-6 flex-center  duration-300 hover:bg-teal-600 text-white font-semibold rounded-lg">
+                <button className="text-sm md:text-base w-full bg-primary text-black px-3 py-2 md:px-4 lg:px-6 flex-center  duration-300 hover:bg-teal-600 hover:text-white font-semibold rounded-lg">
                   Sign in
                 </button>
               </div>
@@ -55,14 +55,14 @@ export function MenuProfile() {
             </Menu.Item> */}
             <Menu.Item>
               <Link href="/my-orders">
-                <button className="w-full p-2 hover:bg-primary hover:text-white">
+                <button className="w-full p-2 hover:bg-teal-600 hover:text-white">
                   My order{" "}
                 </button>
               </Link>
             </Menu.Item>
             <Menu.Item>
               <button
-                className="w-full p-2 hover:bg-primary hover:text-white"
+                className="w-full p-2 hover:bg-teal-600 hover:text-white"
                 onClick={() =>
                   signOut({
                     callbackUrl: `${window.location.origin}`,

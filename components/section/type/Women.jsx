@@ -42,7 +42,7 @@ export function Women() {
                   {item.title}
                 </p>
                 <a href="#gender-product">
-                  <button className="text-sm py-[18px] px-9 hover:bg-teal-600 text-white md:text-base rounded-[30px] bg-primary cursor-pointer">
+                  <button className="font-bold text-sm py-[18px] px-9 hover:bg-teal-600 hover:text-white md:text-base rounded-[30px] bg-primary text-black cursor-pointer">
                     Shop now
                   </button>
                 </a>

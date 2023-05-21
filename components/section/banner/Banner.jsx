@@ -60,7 +60,7 @@ export function Banner() {
                 {!session ? "NEW MEMBER" : "THE VOUCHER IS SENT YOUR EMAIL"}
               </div>
               <Link href={!session ? "/register" : "#best-seller"}>
-                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
+                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
                   {!session ? "SIGN UP" : "SHOP COLLECTION"}
                 </button>
               </Link>
@@ -94,7 +94,7 @@ export function Banner() {
                 EACH ORDER COMPLETED
               </div>
               <Link href="#best-seller">
-                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
                   SHOP COLLECTION
                 </button>
               </Link>
@@ -131,7 +131,7 @@ export function Banner() {
                 New stylish shoes for men
               </div>
               <Link href="#best-seller">
-                <button className="bg-primary hover:bg-teal-600 px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
                   SHOP COLLECTION
                 </button>
               </Link>

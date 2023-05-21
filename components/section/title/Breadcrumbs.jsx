@@ -52,7 +52,7 @@ export function Breadcrumbs() {
   ];
   return (
     <Container>
-      <div className="py-8 mx-4 md:mx-0 text-base font-Rokkitt text-primary">
+      <div className="py-8 mx-4 md:mx-0 text-base font-Rokkitt text-teal-600">
         <Link href="/">
           <div className="cursor-pointer uppercase max-w-fit">
             Home /

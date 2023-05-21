@@ -266,7 +266,7 @@ input[type="number"] {
 }
 
 .ais-RefinementList-count {
-  @apply bg-primary absolute text-white rounded-md px-2 flex items-center justify-center text-xs right-0;
+  @apply bg-primary absolute text-black font-bold rounded-md px-2 flex items-center justify-center text-xs right-0;
 }
 
 .ais-Pagination {
@@ -276,20 +276,20 @@ input[type="number"] {
   @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
 }
 .ais-Pagination-item--page {
-  @apply py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white;
+  @apply py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-black font-bold;
 }
 .ais-Pagination-item--nextPage {
   @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
 }
 .ais-Pagination-item--selected {
-  @apply bg-primary text-white;
+  @apply bg-primary text-black font-bold;
 }
 .ais-Pagination-item--firstPage {
   @apply py-2 cursor-pointer rounded font-normal hover:text-primary text-xl;
 }
 .ais-Pagination-link--selected,
 .ais-Pagination-link {
-  @apply px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-white;
+  @apply px-4 py-2 cursor-pointer rounded font-normal hover:bg-primary hover:text-black font-bold;
 }
 .ais-SortBy-select:focus-visible, .ais-SortBy-select:focus {
   border: none;

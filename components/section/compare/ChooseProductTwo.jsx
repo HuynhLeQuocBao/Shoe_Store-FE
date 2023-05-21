@@ -74,7 +74,7 @@ const ChooseProductTwo = ({
                 />
                 <button
                   type="submit"
-                  className="w-[40px] h-[40px] rounded-full bg-primary text-white focus:outline-none absolute right-0 hover:bg-secondary"
+                  className="w-[40px] h-[40px] rounded-full bg-primary text-black hover:text-white focus:outline-none absolute right-0 hover:bg-teal-600"
                 >
                   <div className="text-2xl flex items-center justify-center">
                     <MdSearch />
@@ -103,7 +103,7 @@ const ChooseProductTwo = ({
                 price={item.price}
               />
               <button
-                className="w-full bg-green-500 hover:bg-green-700 duration-500 hover:cursor-pointer hover:rounded-lg hover:font-semibold px-4 py-2 text-white text-xl"
+                className="w-full bg-primary hover:bg-teal-600 duration-200 hover:cursor-pointer hover:rounded-lg hover:font-semibold px-4 py-2 text-black hover:text-white text-xl"
                 onClick={() => getIdProduct(item._id)}
               >
                 Choose

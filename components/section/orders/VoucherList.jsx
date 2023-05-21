@@ -35,7 +35,7 @@ export function VoucherItem({ data, isCode }) {
       <div>
         <button
           onClick={() => handleVoucher(data.code, data.discount)}
-          className="bg-primary disabled:bg-green-500 hover:bg-secondary hover:text-white disabled:text-white p-2"
+          className="bg-primary disabled:bg-teal-600 hover:bg-teal-600 hover:text-white disabled:text-white p-2"
           disabled={use}
         >
           {!use ? "Apply" : <AiOutlineCheck />}

@@ -41,7 +41,7 @@ export function PaymentList({ paymentMethod }) {
           />
           <label
             for={item.name}
-            className="inline-flex items-center justify-between w-full p-2 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-primary peer-checked:text-primary duration-150"
+            className="inline-flex items-center justify-between w-full p-2 bg-white border-2 border-gray-200 rounded-lg cursor-pointer peer-checked:border-teal-600 peer-checked:text-teal-600 duration-150"
           >
             <PaymentItem name={item.name} image={item.image} />
           </label>

@@ -6,11 +6,11 @@ export function MenuItem({ name, href, isActive }) {
     <Link href={href}>
       <a
         className={clsx(
-          ` text-white lg:text-black text-base font-Rokkitt font-normal
-            hover:text-primary
+          ` text-white xl:text-black text-base font-Rokkitt font-normal
+            hover:text-teal-600
           `,
           {
-            "text-secondary lg:text-primary border-b-2 lg:border-primary border-secondary":
+            "text-secondary xl:text-teal-600 border-b-2 xl:border-teal-600 border-secondary":
               isActive,
           }
         )}
