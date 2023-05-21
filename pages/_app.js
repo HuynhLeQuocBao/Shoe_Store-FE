@@ -155,7 +155,7 @@ MyApp.getInitialProps = async (context) => {
   const isOrderCompleteOrCheckout =
     context.router.state?.route === "/order-complete" ||
     context.router.state?.route === "/checkout";
-  if ((session && !cartsCache) || isOrderCompleteOrCheckout) {
+  if ((session && !cartsCache) || (session && isOrderCompleteOrCheckout)) {
     cartsCache = await cartApi.getAllCart();
   }
   if (!productsCache) {
