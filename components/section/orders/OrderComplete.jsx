@@ -4,7 +4,7 @@ import { ProgressCart } from "./";
 import { HiCheck, HiShoppingCart } from "react-icons/hi";
 import { Title } from "../title";
 
-export function Ordercomplete() {
+export function OrderComplete() {
   return (
     <Container>
       <ProgressCart />

@@ -1,11 +1,16 @@
 import { orderApi } from "@/apiClient/order";
 import { MyOrders } from "@/components/section/myOrder/MyOrders";
-import { getSession } from "next-auth/react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { setToken } from "@/apiClient/axiosClient";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
 
-export default function MyOrderPage({ orderList }) {
+export default function MyOrderPage({ orderList, session }) {
+  const router = useRouter();
+  useEffect(() => {
+    if (!session) router.push("/login");
+  }, [session]);
   return (
     <div>
       <MyOrders orderList={orderList} />
@@ -14,17 +19,14 @@ export default function MyOrderPage({ orderList }) {
 }
 
 export const getServerSideProps = async (context) => {
+  const session = await getServerSession(context.req, context.res, authOptions);
   try {
-    const session = await getServerSession(
-      context.req,
-      context.res,
-      authOptions
-    );
     setToken(session?.accessToken);
     const data = await orderApi.getAllOrder();
     return {
       props: {
         orderList: data,
+        session,
       },
     };
   } catch (error) {
@@ -32,6 +34,7 @@ export const getServerSideProps = async (context) => {
     return {
       props: {
         orderList: [],
+        session,
       },
     };
   }

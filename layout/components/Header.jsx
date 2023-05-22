@@ -118,9 +118,9 @@ export function Header({ products, carts }) {
   });
 
   useEffect(() => {
-    if (quantity > 0 && !session) {
-      dispatch(resetCart());
-    }
+    // if (quantity > 0 && !session) {
+    //   dispatch(resetCart());
+    // }
     if (carts?.message === "Cart empty") {
       dispatch(resetCart());
       dispatch(

@@ -6,7 +6,7 @@ export function MenuItem({ name, href, isActive }) {
     <Link href={href}>
       <a
         className={clsx(
-          ` text-white xl:text-black text-base font-Rokkitt font-normal
+          ` text-black xl:text-black text-base font-Rokkitt font-normal
             hover:text-teal-600
           `,
           {

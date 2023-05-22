@@ -1,30 +1,73 @@
 import { voucherApi } from "@/apiClient/voucher";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AiOutlineCheck } from "react-icons/ai";
 import { updateTotalCart } from "store/features/cartSlice";
 import { toast } from "react-toastify";
+import LoadingPageComponent from "../loading/LoadingPageComponent";
 
 export function VoucherItem({ data, isCode }) {
   const total = useSelector((state) => state.cart.total);
   const [use, setUse] = useState(false);
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const handleVoucher = async (voucherCode, discount) => {
-    toast.success("Use voucher successfully!", {
-      position: toast.POSITION.TOP_RIGHT,
-    });
-    setUse(true);
-    isCode(discount, voucherCode);
 
-    const applyVoucher = await voucherApi.applyVoucher({
-      cartTotal: total,
-      listPromoCode: [voucherCode],
-    });
-    dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
+  useEffect(() => {
+    const discountStorage = localStorage.getItem("discount");
+    if (!discountStorage) {
+      return;
+    }
+    dispatch(updateTotalCart({ total: total + parseFloat(discountStorage) }));
+    localStorage.removeItem("discount");
+  }, []);
+
+  const handleVoucher = async (e, voucherCode, discount) => {
+    e.preventDefault();
+    setLoading(true);
+
+    if (!use) {
+      const applyVoucher = await voucherApi.applyVoucher({
+        cartTotal: total,
+        listPromoCode: [voucherCode],
+      });
+      if (applyVoucher && applyVoucher?.discount) {
+        const discountStorage = localStorage.getItem("discount");
+        if (!discountStorage) {
+          localStorage.setItem("discount", applyVoucher?.discount);
+        } else {
+          localStorage.setItem(
+            "discount",
+            parseFloat(discountStorage) + applyVoucher?.discount
+          );
+        }
+        dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
+        isCode(discount, voucherCode);
+        setUse(!use);
+      } else {
+        toast.error(applyVoucher.message, {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+      }
+      setLoading(false);
+    } else {
+      dispatch(updateTotalCart({ total: total + discount }));
+      isCode(-discount, voucherCode);
+      const discountStorage = localStorage.getItem("discount");
+      if (!discountStorage) {
+        localStorage.setItem("discount", discount);
+      } else {
+        localStorage.setItem(
+          "discount",
+          parseFloat(discountStorage) - discount
+        );
+      }
+      setUse(!use);
+      setLoading(false);
+    }
   };
 
   return (
     <div className="w-full flex items-center justify-between bg-white py-2 px-3 rounded">
+      <LoadingPageComponent loading={loading} />
       <div className="flex flex-col">
         <p className="font-bold text-lg">Discount: $ {data.discount}</p>
         <p className="text-base">{data.description}</p>
@@ -34,11 +77,15 @@ export function VoucherItem({ data, isCode }) {
       </div>
       <div>
         <button
-          onClick={() => handleVoucher(data.code, data.discount)}
-          className="bg-primary disabled:bg-teal-600 hover:bg-teal-600 hover:text-white disabled:text-white p-2"
-          disabled={use}
+          onClick={(e) => handleVoucher(e, data.code, data.discount)}
+          className={` disabled:opacity-60 disabled:cursor-default disabled:hover:bg-primary disabled:hover:text-black hover duration-200 rounded-sm p-2 ${
+            !use
+              ? "bg-primary hover:bg-teal-600 hover:text-white"
+              : "bg-red-600 hover:bg-red-400 text-white"
+          }`}
+          disabled={total === 0 && !use}
         >
-          {!use ? "Apply" : <AiOutlineCheck />}
+          {!use ? "Apply" : "Cancel"}
         </button>
       </div>
     </div>

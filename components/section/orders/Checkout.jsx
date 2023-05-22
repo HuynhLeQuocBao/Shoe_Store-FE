@@ -9,13 +9,37 @@ import { useSession } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { resetCart, updateTotalCart } from "store/features/cartSlice";
 import { toast } from "react-toastify";
-import LoadingPage from "../loading/LoadingPage";
 import { VoucherList } from "./VoucherList";
 import { PaymentList } from "./Payment";
 import { voucherApi } from "@/apiClient/voucher";
 import Modal from "../modal/Modal";
-import Image from "next/image";
 import LoadingPageComponent from "../loading/LoadingPageComponent";
+import ViewItemCheckout from "./ViewItemCheckout";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+
+const isVNMobilePhone =
+  /^(0|\+84)(\s|\.)?((3[2-9])|(5[689])|(7[06-9])|(8[1-689])|(9[0-46-9]))(\d)(\s|\.)?(\d{3})(\s|\.)?(\d{3})$/;
+
+const schema = yup.object().shape({
+  fullname: yup.string().required("This field is required"),
+
+  email: yup
+    .string()
+    .email("Email is not valid")
+    .required("This field is required"),
+
+  address: yup.string().required("This field is required"),
+
+  numberPhone: yup
+    .string()
+    .required("This field is required")
+    .matches(isVNMobilePhone, "Phone number is not valid"),
+  paymentMethod: yup
+    .string()
+    .nullable("This field is required")
+    .required("This field is required"),
+});
 
 export const Checkout = () => {
   const { data: session } = useSession();
@@ -28,7 +52,7 @@ export const Checkout = () => {
   const [dataVoucherInput, setDataVoucherInput] = useState("");
   const [voucherList, setVoucherList] = useState([]);
   const [voucherListSubmit, setVoucherListSubmit] = useState([]);
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
+
   const [discount, setDiscount] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState();
 
@@ -37,18 +61,16 @@ export const Checkout = () => {
     control,
     handleSubmit,
     formState: { errors },
+    getValues,
     setValue,
   } = useForm({
     mode: "onChange",
+    resolver: yupResolver(schema),
   });
-  useEffect(() => {
-    if (products.length === 0) {
-      router.push("/shopping-cart");
-    }
-  }, []);
 
   const onSubmit = (data) => {
     setLoading(true);
+    console.log(data);
     try {
       const fetchCheckoutCart = async () => {
         const dataCheckout = {
@@ -59,7 +81,7 @@ export const Checkout = () => {
           listPromoCode: voucherListSubmit,
         };
         let result;
-        if (!paymentMethod) {
+        if (data.paymentMethod === "Ship COD") {
           result = await cartApi.checkoutCart(dataCheckout);
         } else {
           result = await cartApi.checkoutPaypal(dataCheckout);
@@ -143,9 +165,16 @@ export const Checkout = () => {
                           id="fullname"
                           placeholder="Full Name"
                           defaultValue={session?.user?.fullname}
-                          className="w-full p-2 rounded-xl my-2"
+                          className={`w-full p-2 outline-none rounded-xl my-2 ${
+                            errors && errors.fullname && "border-red-500 border"
+                          }`}
                           {...register("fullname")}
                         />
+                        {errors && errors.fullname && (
+                          <span className="text-red-500">
+                            {errors.fullname.message}
+                          </span>
+                        )}
                       </div>
                     )}
                   />
@@ -164,9 +193,16 @@ export const Checkout = () => {
                         id="address"
                         placeholder="Address"
                         defaultValue={session?.user?.address}
-                        className="w-full p-2 rounded-xl my-2"
+                        className={`w-full p-2 outline-none rounded-xl my-2 ${
+                          errors && errors.address && "border-red-500 border"
+                        }`}
                         {...register("address")}
                       />
+                      {errors && errors.address && (
+                        <span className="text-red-500">
+                          {errors.address.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />
@@ -184,9 +220,18 @@ export const Checkout = () => {
                         id="phone"
                         placeholder="Number Phone"
                         defaultValue={session?.user?.numberPhone}
-                        className="w-full p-2 rounded-xl my-2"
+                        className={`w-full p-2 outline-none rounded-xl my-2 ${
+                          errors &&
+                          errors.numberPhone &&
+                          "border-red-500 border"
+                        }`}
                         {...register("numberPhone")}
                       />
+                      {errors && errors.numberPhone && (
+                        <span className="text-red-500">
+                          {errors.numberPhone.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />
@@ -205,9 +250,16 @@ export const Checkout = () => {
                         name="email"
                         defaultValue={session?.user?.email}
                         placeholder="Email"
-                        className="w-full p-2 rounded-xl my-2"
+                        className={`w-full p-2 outline-none rounded-xl my-2 ${
+                          errors && errors.email && "border-red-500 border"
+                        }`}
                         {...register("email")}
                       />
+                      {errors && errors.email && (
+                        <span className="text-red-500">
+                          {errors.email.message}
+                        </span>
+                      )}
                     </div>
                   )}
                 />
@@ -219,7 +271,9 @@ export const Checkout = () => {
                   <h1>Payment Methods</h1>
                 </div>
                 <PaymentList
-                  paymentMethod={(method) => setPaymentMethod(method)}
+                  paymentMethod={(method) => setValue("paymentMethod", method)}
+                  register={register}
+                  errors={errors}
                 />
               </div>
               <div className="w-full p-4 bg-[#f5f5f5] font-medium mb-5">
@@ -239,7 +293,7 @@ export const Checkout = () => {
                     Apply
                   </a>
                 </div>
-                <div className="border border-[0.5px] border-[#898787] w-full"></div>
+                <div className=" border-[0.5px] border-[#898787] w-full"></div>
                 <div className="w-full mb-2">
                   <h2 className="text-center font-bold text-xl py-4">
                     Voucher Available
@@ -287,57 +341,7 @@ export const Checkout = () => {
         </form>
       </div>
       <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
-        <div className="w-full p-5">
-          <div className="hidden md:grid w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl uppercase grid-cols-12 mb-6">
-            <div className="text-center col-span-4">
-              <span>PRODUCT DETAILS</span>
-            </div>
-            <div className="text-center col-span-3">
-              <span>PRICE</span>
-            </div>
-            <div className="text-center col-span-3">
-              <span>SIZE</span>
-            </div>
-            <div className="text-center col-span-2">
-              <span>QUANTITY</span>
-            </div>
-          </div>
-          {products?.map((item) => {
-            return (
-              <div
-                key={item}
-                className="w-full text-sm grid grid-cols-12  border border-b-2 duration-500 py-1 mb-2"
-              >
-                <div className="text-center col-span-4 flex items-center justify-start">
-                  <div className="flex justify-center items-center">
-                    <Image
-                      src={`${baseURL + item.image}`}
-                      className="w-20 h-20 object-cover col-span-2"
-                      layout="intrinsic"
-                      width={80}
-                      height={80}
-                      blurDataURL={`${baseURL + item.image}`}
-                      placeholder="blur"
-                      alt="checkout"
-                    />
-                  </div>
-                  <div className="flex justify-center items-center col-span-2 ml-2">
-                    <span>{item.name}</span>
-                  </div>
-                </div>
-                <div className="text-center col-span-3 flex justify-center items-center">
-                  <span>$ {item.price}</span>
-                </div>
-                <div className="text-center col-span-3 flex justify-center items-center">
-                  <span>{item.size}</span>
-                </div>
-                <div className="col-span-2 text-center flex justify-center items-center">
-                  <span>{item.quantityProduct}</span>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+        <ViewItemCheckout data={products} />
       </Modal>
     </Container>
   );

@@ -1,7 +1,7 @@
 /* This example requires Tailwind CSS v2.0+ */
 import { Container } from "@/components/common";
 import { cartApi } from "@/apiClient/cartAPI";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { ProgressCart } from "./ProgressCart";
 import { HiMinusSm, HiOutlineX, HiPlusSm } from "react-icons/hi";
@@ -23,6 +23,7 @@ export function ShoppingCart() {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.cart.isLoading);
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
+
   const handleDeleteCartItem = async (id) => {
     setLoading(true);
     try {
@@ -132,11 +133,7 @@ export function ShoppingCart() {
               <span>REMOVE</span>
             </div>
           </div>
-          {isLoading ? (
-            <div className="flex-center h-24">
-              <LoadingPage />
-            </div>
-          ) : cartList?.length === 0 ? (
+          {isLoading || cartList?.length === 0 ? (
             <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
               No products
             </div>
