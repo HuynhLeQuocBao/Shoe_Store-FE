@@ -3,20 +3,36 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
+import { useIsMedium, useIsSmall } from "@/utils/mediaQuery";
 
 export function Banner() {
   const { data: session } = useSession();
-  const variants = {
-    hidden: {
-      y: -100,
-      opacity: 0,
-    },
-    visible: {
-      y: -250,
-      opacity: 1,
-      transition: { ease: "easeOut", duration: 2 },
-    },
-  };
+  const isSmall = useIsSmall();
+  const isMedium = useIsMedium();
+
+  const variants = isSmall
+    ? {
+        hidden: {
+          y: -100,
+          opacity: 0,
+        },
+        visible: {
+          y: -290,
+          opacity: 1,
+          transition: { ease: "easeOut", duration: 2 },
+        },
+      }
+    : {
+        hidden: {
+          y: -100,
+          opacity: 0,
+        },
+        visible: {
+          y: -150,
+          opacity: 1,
+          transition: { ease: "easeOut", duration: 2 },
+        },
+      };
   const settings = {
     dots: true,
     arrows: false,

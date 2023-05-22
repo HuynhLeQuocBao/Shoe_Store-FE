@@ -158,14 +158,17 @@ const AddToCart = ({ id, onClose }) => {
                 <div className="w-full">
                   <h3 className="font-bold  md:text-lg">Select color</h3>
                   <div className="w-full flex flex-wrap gap-2 py-4">
-                    {productDetails.color.map((color) => (
+                    {productDetails.color.map((color, index) => (
                       <Image
-                        key={color.id}
+                        key={index}
                         src={baseUrl + color.avatar}
                         layout="intrinsic"
                         width={80}
                         height={80}
-                        className="hover:border-[1px] hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg"
+                        className={`hover:border hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg ${
+                          current.colorId === color.id &&
+                          "border border-black border-solid"
+                        }`}
                         onClick={() => handleChangeImageList(color.id)}
                         blurDataURL={baseUrl + color.avatar}
                         placeholder="blur"

@@ -58,14 +58,22 @@ export function Register() {
 
   const onSubmitRegister = async (data) => {
     setLoading(true);
-    const ok = await authApi.registerUser(data);
-    if (ok) {
-      toast.success("Register Successfully !", {
+    try {
+      const ok = await authApi.registerUser(data);
+      if (ok) {
+        toast.success("Register Successfully !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        setTimeout(() => {
+          router.push("/login");
+        }, 2000);
+        setLoading(false);
+      }
+    } catch (error) {
+      console.log(error.response.data.message);
+      toast.error(error.response.data.message, {
         position: toast.POSITION.TOP_RIGHT,
       });
-      setTimeout(() => {
-        router.push("/login");
-      }, 2000);
       setLoading(false);
     }
   };

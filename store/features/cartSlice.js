@@ -26,7 +26,7 @@ export const cartSlice = createSlice({
   },
   reducers: {
     resetCart: (state, action) => {
-      // localStorage.removeItem("persist:root");
+      localStorage.removeItem("persist:root");
       state.products = [];
       state.total = 0;
       state.quantity = 0;

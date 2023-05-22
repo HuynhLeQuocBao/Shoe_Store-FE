@@ -246,7 +246,10 @@ export function ProductDetail({ data }) {
                       layout="intrinsic"
                       width={80}
                       height={80}
-                      className="hover:border-[1px] hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg"
+                      className={`hover:border hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg ${
+                        colorId === color.id &&
+                        "border border-solid border-black"
+                      }`}
                       onClick={() => handleChangeImageList(color.id)}
                     />
                   ))}
