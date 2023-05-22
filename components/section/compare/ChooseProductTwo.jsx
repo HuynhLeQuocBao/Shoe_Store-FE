@@ -91,9 +91,9 @@ const ChooseProductTwo = ({
         </div>
       )}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 sm:gap-4 md:gap-8">
-        {currentItems.map((item, index) => (
+        {currentItems.map((item) => (
           <div
-            key={index}
+            key={item._id}
             className="cursor-pointer hover-parent relative hover:shadow-primary hover:shadow-lg mb-8"
           >
             <div>

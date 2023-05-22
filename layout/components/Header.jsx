@@ -172,7 +172,9 @@ export function Header({ products, carts }) {
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px] "
             >
-              <Image alt="Footwear" src={logo} width={130} height={70} />
+              <div>
+                <Image alt="Footwear" src={logo} width={130} height={70} />
+              </div>
             </Link>
           </div>
 
@@ -219,7 +221,7 @@ export function Header({ products, carts }) {
                         <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                           {productSearchList.map((product, index) => (
                             <Link
-                              key={index}
+                              key={product._id}
                               href={`${HOST}/product-detail/${product._id}`}
                             >
                               <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300">
@@ -292,7 +294,7 @@ export function Header({ products, carts }) {
                     <div className="absolute bg-white min-h-[100px] w-full max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
                       {productSearchList.map((product, index) => (
                         <Link
-                          key={index}
+                          key={product._id}
                           href={`${HOST}/product-detail/${product._id}`}
                         >
                           <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300 ">

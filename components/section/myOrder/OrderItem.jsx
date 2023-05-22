@@ -77,7 +77,9 @@ const OrderItem = ({ data, stateOrder, index }) => {
         </div>
         <div className="col-span-1 md:col-span-2 flex justify-center md:justify-end items-center  md:pr-14">
           <Link href={`/order-detail/${data._id}`}>
-            <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+            <div>
+              <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+            </div>
           </Link>
         </div>
       </div>
@@ -131,7 +133,9 @@ const OrderItem = ({ data, stateOrder, index }) => {
           </div>
           <div className="flex items-center justify-center">
             <Link href={`/order-detail/${data._id}`}>
-              <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+              <div>
+                <HiOutlineChevronRight className=" w-11 h-11 p-2 text-gray-700 rounded-full  hover:bg-slate-300 hover:cursor-pointer duration-200" />
+              </div>
             </Link>
           </div>
         </div>

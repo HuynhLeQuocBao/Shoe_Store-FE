@@ -23,7 +23,7 @@ const ViewItemCheckout = ({ data }) => {
         {data?.map((item) => {
           return (
             <div
-              key={item}
+              key={item.productId}
               className="w-full text-sm grid grid-cols-12  border border-b-2 duration-500 py-1 mb-2"
             >
               <div className="text-center col-span-4 flex items-center justify-start">
@@ -59,7 +59,7 @@ const ViewItemCheckout = ({ data }) => {
       <div className=" sm:hidden w-full p-5">
         {data.map((item, index) => (
           <div
-            key={index}
+            key={item.productId}
             className="w-full grid grid-cols-12 mb-5 shadow-lg rounded-lg py-2"
           >
             <div className=" relative w-[90%] h-full col-span-4">

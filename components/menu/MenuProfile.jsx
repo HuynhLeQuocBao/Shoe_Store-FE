@@ -26,9 +26,9 @@ export function MenuProfile() {
           {!session ? (
             <Link href="/login">
               <div className="flex-center">
-                <button className="text-sm md:text-base w-full bg-primary text-black px-3 py-2 md:px-4 lg:px-6 flex-center  duration-300 hover:bg-teal-600 hover:text-white font-semibold rounded-lg">
+                <div className="text-sm md:text-base w-full bg-primary text-black px-3 py-2 md:px-4 lg:px-6 flex-center  duration-300 hover:bg-teal-600 hover:text-white font-semibold rounded-lg">
                   Sign in
-                </button>
+                </div>
               </div>
             </Link>
           ) : (

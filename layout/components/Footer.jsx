@@ -108,11 +108,11 @@ export function Footer() {
               </p>
             </div>
             <div className="flex items-center space-x-4 mb-2">
-              {socials.map((item) => (
+              {socials.map((item, index) => (
                 <a
                   aria-label="logo social"
                   className="text-white"
-                  key={item}
+                  key={index}
                   href={item.link}
                 >
                   {item.logo}

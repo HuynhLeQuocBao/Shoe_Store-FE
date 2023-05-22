@@ -91,9 +91,9 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           {product?.introduce}
         </div>
         <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {product?.listAnotherCate?.map((brand) => (
+          {product?.listAnotherCate?.map((brand, index) => (
             <div
-              key={brand}
+              key={brand + index}
               className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
             >
               {brand}
@@ -104,9 +104,9 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
           {productInfo?.amount > 0 ? "In stock" : "Not available"}
         </div>
         <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
-          {productInfo.sizes.map((size) => (
+          {productInfo.sizes.map((size, index) => (
             <div
-              key={size.sizeName}
+              key={size.sizeName + index}
               className="h-8 w-8 flex-center bg-primary text-black font-bold cursor-pointer hover:text-white active:text-white hover:bg-teal-500 active:bg-teal-500"
               onClick={() => handleCurrentProductInfo({ size: size.sizeName })}
             >
