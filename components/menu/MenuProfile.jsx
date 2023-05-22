@@ -3,9 +3,21 @@ import { Fragment } from "react";
 import Link from "next/link";
 import { useSession, signOut } from "next-auth/react";
 import { Menu, Transition } from "@headlessui/react";
+import { useDispatch } from "react-redux";
+import { resetCart } from "store/features/cartSlice";
 
 export function MenuProfile() {
   const { data: session } = useSession();
+  const dispatch = useDispatch();
+
+  const handleLogout = () => {
+    signOut({
+      callbackUrl: `${window.location.origin}`,
+    });
+    setTimeout(() => {
+      dispatch(resetCart());
+    });
+  };
 
   return (
     <Menu as="div" className="relative">
@@ -63,11 +75,7 @@ export function MenuProfile() {
             <Menu.Item>
               <button
                 className="w-full p-2 hover:bg-teal-600 hover:text-white"
-                onClick={() =>
-                  signOut({
-                    callbackUrl: `${window.location.origin}`,
-                  })
-                }
+                onClick={handleLogout}
               >
                 Log out
               </button>

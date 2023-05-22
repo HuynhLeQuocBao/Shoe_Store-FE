@@ -116,6 +116,9 @@ MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
 
   const session = await getSession(context);
+
+  if (!session) cartsCache = null;
+
   setToken(session?.accessToken);
   const req = context.ctx.req;
   const value = req
@@ -131,7 +134,9 @@ MyApp.getInitialProps = async (context) => {
     : localStorage.getItem("persist:root");
 
   const localStorageCart = JSON.parse(value);
+  console.log("ngoài if", localStorageCart);
   if (localStorageCart && session) {
+    console.log("trong if", localStorageCart);
     const cartRedux = JSON.parse(localStorageCart?.cart);
     const isCartAvailable =
       cartRedux?.products?.length > 0 && cartRedux?.quantity > 0;
@@ -139,8 +144,11 @@ MyApp.getInitialProps = async (context) => {
     if (isCartAvailable && !cartsCache) {
       //when the page loads for the first time
       cartsCache = await cartApi.getAllCart();
+      console.log("when the page loads for the first time");
     } else if (isCartAvailable && isCartsCacheMessageAvailable) {
       //when there is data in redux and cache is message
+      console.log("when there is data in redux and cache is message");
+
       cartsCache = await cartApi.getAllCart();
     } else if (
       cartRedux.products.length === 0 &&
@@ -148,6 +156,9 @@ MyApp.getInitialProps = async (context) => {
       !isCartsCacheMessageAvailable
     ) {
       //when there is no data in redux and cache message is not available
+      console.log(
+        "when there is no data in redux and cache message is not available"
+      );
       cartsCache = await cartApi.getAllCart();
     }
   }
@@ -160,6 +171,7 @@ MyApp.getInitialProps = async (context) => {
   }
   if (!productsCache) {
     const products = await productApi.getAllProducts();
+    console.log("trong product chưa cache", cartsCache);
     const navigationProps = {
       products,
       carts: cartsCache,
@@ -168,6 +180,8 @@ MyApp.getInitialProps = async (context) => {
     return { ...appProps, session, navigationProps };
   }
   if (productsCache) {
+    console.log("trong product có cache", cartsCache);
+
     return {
       ...appProps,
       session,

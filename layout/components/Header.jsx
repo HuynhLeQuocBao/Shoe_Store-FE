@@ -118,9 +118,6 @@ export function Header({ products, carts }) {
   });
 
   useEffect(() => {
-    // if (quantity > 0 && !session) {
-    //   dispatch(resetCart());
-    // }
     if (carts?.message === "Cart empty") {
       dispatch(resetCart());
       dispatch(
@@ -129,7 +126,7 @@ export function Header({ products, carts }) {
           total: 0,
         })
       );
-    } else if (quantity === 0 && session?.user) {
+    } else if (session?.user) {
       dispatch(resetCart());
       carts?.results?.map((cartItem) => {
         dispatch(
