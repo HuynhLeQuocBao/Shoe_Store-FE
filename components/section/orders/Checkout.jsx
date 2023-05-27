@@ -82,10 +82,15 @@ export const Checkout = () => {
           result = await cartApi.checkoutCart(dataCheckout);
         } else {
           result = await cartApi.checkoutPaypal(dataCheckout);
-          window.location.href = result.url;
         }
-
-        if (result) {
+        if (result?.url) {
+          window.location.href = result.url;
+        } else if (result?.message !== "Checkout success") {
+          toast.warning(result.message, {
+            position: toast.POSITION.TOP_RIGHT,
+          });
+          setLoading(false);
+        } else if (result) {
           dispatch(resetCart());
           router.push("/order-complete");
         }
@@ -298,7 +303,16 @@ export const Checkout = () => {
                   <VoucherList
                     isCode={(discountVoucher, voucherCode) => {
                       setDiscount(parseInt(discountVoucher) + discount);
-                      setVoucherListSubmit([...voucherListSubmit, voucherCode]);
+                      if (discountVoucher < 0) {
+                        setVoucherListSubmit((prev) =>
+                          prev.filter((voucher) => voucher !== voucherCode)
+                        );
+                      } else {
+                        setVoucherListSubmit([
+                          ...voucherListSubmit,
+                          voucherCode,
+                        ]);
+                      }
                     }}
                   />
                 </div>

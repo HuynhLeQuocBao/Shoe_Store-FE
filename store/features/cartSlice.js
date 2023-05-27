@@ -1,6 +1,5 @@
 import { cartApi } from "@/apiClient/cartAPI";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { useSession } from "next-auth/react";
 
 export const getCartItems = createAsyncThunk(
   "cart/getCartItems",
@@ -94,8 +93,13 @@ export const cartSlice = createSlice({
     },
     [getCartItems.fulfilled]: (state, action) => {
       if (action.payload.message === "Cart empty") {
-        return;
+        localStorage.removeItem("persist:root");
+        state.products = [];
+        state.total = 0;
+        state.quantity = 0;
+        state.isLoading = false;
       } else if (action.payload.results.length > 0) {
+        localStorage.removeItem("persist:root");
         state.products = [];
         state.total = 0;
         state.quantity = 0;

@@ -5,7 +5,7 @@ export function PaymentItem({ name, image }) {
     <div className="w-full flex items-center justify-between bg-white py-2 px-3 rounded cursor-pointer">
       <Image
         src={`/images/logo/${image}`}
-        classNameName="w-10 h-10 object-cover"
+        className="w-10 h-10 object-cover"
         layout="intrinsic"
         width={40}
         height={40}
