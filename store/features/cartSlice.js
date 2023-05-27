@@ -1,16 +1,15 @@
 import { cartApi } from "@/apiClient/cartAPI";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { useSession } from "next-auth/react";
 
-export const updateQuantity = createAsyncThunk(
-  "cart/increaseQuantity",
-  async ({ productId }, { dispatch, rejectWithValue }) => {
+export const getCartItems = createAsyncThunk(
+  "cart/getCartItems",
+  async (name, thunkAPI) => {
     try {
-      // Gọi API để cập nhật số lượng sản phẩm tăng lên 1
-      const updatedCart = await cartApi.updateCart(productId);
-      // Thực hiện cập nhật số lượng sản phẩm trong store
-      dispatch(updateCart(updatedCart));
+      const results = await cartApi.getAllCart();
+      return results;
     } catch (error) {
-      return rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue("error");
     }
   }
 );
@@ -21,8 +20,7 @@ export const cartSlice = createSlice({
     products: [],
     total: 0,
     quantity: 0,
-    isLoading: true,
-    isCheckout: false,
+    isLoading: false,
   },
   reducers: {
     resetCart: (state, action) => {
@@ -30,35 +28,11 @@ export const cartSlice = createSlice({
       state.products = [];
       state.total = 0;
       state.quantity = 0;
-      state.isLoading = true;
-      state.isCheckout = false;
-    },
-    checkout: (state, action) => {
-      state.isCheckout = true;
+      state.isLoading = false;
     },
     updateTotalCart: (state, action) => {
       const { total } = action.payload;
       state.total = total;
-    },
-    getDataFromCartApi: (state, action) => {
-      const { cartItem, total } = action.payload;
-      if (cartItem) {
-        state.products.push({
-          cartId: cartItem?._id,
-          productId: cartItem?.productId,
-          colorId: cartItem?.colorId,
-          image: cartItem?.image,
-          name: cartItem?.productName,
-          price: parseFloat(cartItem?.productPrice),
-          quantityProduct: cartItem?.quantity,
-          size: cartItem?.sizeName,
-          sizeId: cartItem?.sizeId,
-          totalProduct: cartItem?.total,
-        });
-      }
-      state.total = total;
-      state.quantity = state.products?.length;
-      state.isLoading = false;
     },
     addToCartStore: (state, action) => {
       const { product, cartItem } = action.payload;
@@ -112,6 +86,41 @@ export const cartSlice = createSlice({
       state.total -= state.products[index].totalProduct;
       state.quantity -= 1;
       state.products.splice(index, 1);
+    },
+  },
+  extraReducers: {
+    [getCartItems.pending]: (state, action) => {
+      // state.isLoading = true;
+    },
+    [getCartItems.fulfilled]: (state, action) => {
+      if (action.payload.message === "Cart empty") {
+        return;
+      } else if (action.payload.results.length > 0) {
+        state.products = [];
+        state.total = 0;
+        state.quantity = 0;
+        state.isLoading = false;
+        action.payload.results.map((item) =>
+          state.products.push({
+            cartId: item?._id,
+            productId: item?.productId,
+            colorId: item?.colorId,
+            image: item?.image,
+            name: item?.productName,
+            price: parseFloat(item?.productPrice),
+            quantityProduct: item?.quantity,
+            size: item?.sizeName,
+            sizeId: item?.sizeId,
+            totalProduct: item?.total,
+          })
+        );
+        state.total = action.payload.totalCart;
+        state.quantity = state.products?.length;
+        state.isLoading = false;
+      }
+    },
+    [getCartItems.rejected]: (state, action) => {
+      state.isLoading = false;
     },
   },
 });

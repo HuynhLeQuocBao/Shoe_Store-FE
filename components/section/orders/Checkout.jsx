@@ -52,9 +52,7 @@ export const Checkout = () => {
   const [dataVoucherInput, setDataVoucherInput] = useState("");
   const [voucherList, setVoucherList] = useState([]);
   const [voucherListSubmit, setVoucherListSubmit] = useState([]);
-
   const [discount, setDiscount] = useState(0);
-  const [paymentMethod, setPaymentMethod] = useState();
 
   const {
     register,
@@ -70,7 +68,6 @@ export const Checkout = () => {
 
   const onSubmit = (data) => {
     setLoading(true);
-    console.log(data);
     try {
       const fetchCheckoutCart = async () => {
         const dataCheckout = {

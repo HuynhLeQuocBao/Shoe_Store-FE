@@ -11,7 +11,11 @@ import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import { getDataFromCartApi, resetCart } from "store/features/cartSlice";
+import {
+  getCartItems,
+  getDataFromCartApi,
+  resetCart,
+} from "store/features/cartSlice";
 import { BsBagCheck } from "react-icons/bs";
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
 
@@ -93,13 +97,12 @@ function TabletNavigation() {
   );
 }
 
-export function Header({ products, carts }) {
+export function Header({ products }) {
   const router = useRouter();
   const { data: session } = useSession();
   const [isScrolled, setIsScrolled] = useState(false);
   const [keyword, setKeyword] = useState("");
   const [productSearchList, setProductSearchList] = useState([]);
-  const [open, setOpen] = useState(false);
   const quantity = useSelector((state) => state.cart.quantity);
   const dispatch = useDispatch();
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
@@ -118,28 +121,13 @@ export function Header({ products, carts }) {
   });
 
   useEffect(() => {
-    if (carts?.message === "Cart empty") {
+    if (session) {
+      dispatch(getCartItems());
+    } else {
       dispatch(resetCart());
-      dispatch(
-        getDataFromCartApi({
-          cartItem: null,
-          total: 0,
-        })
-      );
-    } else if (session?.user) {
-      dispatch(resetCart());
-      carts?.results?.map((cartItem) => {
-        dispatch(
-          getDataFromCartApi({
-            cartItem,
-            total: carts.totalCart,
-          })
-        );
-      });
     }
   }, [session]);
 
-  const ShowModal = () => setOpen(true);
   const onSubmit = async (value) => {
     if (keyword.length > 0) {
       router.push(`/search-product/${keyword}`);
@@ -268,10 +256,10 @@ export function Header({ products, carts }) {
               </Link>
             </div>
             <div className="mr-5 md:mr-10 xl:mr-0">
-              <MenuProfile ShowModal={ShowModal} />
+              <MenuProfile />
             </div>
             <div className="items-center justify-between flex">
-              <TabletNavigation ShowModal={ShowModal} />
+              <TabletNavigation />
             </div>
           </div>
         </div>

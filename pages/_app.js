@@ -18,12 +18,10 @@ import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
 import { productApi } from "@/apiClient/product";
-import { cartApi } from "@/apiClient/cartAPI";
 import { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 let productsCache;
-let cartsCache;
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
   const { Component, pageProps, session, navigationProps, router } = props;
@@ -90,10 +88,7 @@ function MyApp(props) {
                     searchClient={searchClient}
                     indexName="product"
                   >
-                    <Layout
-                      carts={navigationProps?.carts}
-                      products={navigationProps?.products}
-                    >
+                    <Layout products={navigationProps?.products}>
                       <ToastContainer />
                       <Component
                         {...pageProps}
@@ -117,87 +112,21 @@ MyApp.getInitialProps = async (context) => {
 
   const session = await getSession(context);
 
-  if (!session) cartsCache = null;
-
-  setToken(session?.accessToken);
-  const req = context.ctx.req;
-  const value = req
-    ? req.headers.cookie &&
-      req.headers.cookie
-        .split(";")
-        .some((cookie) => cookie.trim().startsWith("persist:root="))
-      ? req.headers.cookie
-          .split(";")
-          .filter((cookie) => cookie.trim().startsWith("persist:root="))[0]
-          .split("=")[1]
-      : null
-    : localStorage.getItem("persist:root");
-
-  const localStorageCart = JSON.parse(value);
-  console.log("ngoài if", localStorageCart);
-  if (localStorageCart && session) {
-    console.log("trong if", localStorageCart);
-    const cartRedux = JSON.parse(localStorageCart?.cart);
-    const isCartAvailable =
-      cartRedux?.products?.length > 0 && cartRedux?.quantity > 0;
-    const isCartsCacheMessageAvailable = cartsCache?.message;
-    if (isCartAvailable && !cartsCache) {
-      //when the page loads for the first time
-      cartsCache = await cartApi.getAllCart();
-      console.log("when the page loads for the first time");
-    } else if (isCartAvailable && isCartsCacheMessageAvailable) {
-      //when there is data in redux and cache is message
-      console.log("when there is data in redux and cache is message");
-
-      cartsCache = await cartApi.getAllCart();
-    } else if (
-      cartRedux.products.length === 0 &&
-      cartRedux.quantity === 0 &&
-      !isCartsCacheMessageAvailable
-    ) {
-      //when there is no data in redux and cache message is not available
-      console.log(
-        "when there is no data in redux and cache message is not available"
-      );
-      cartsCache = await cartApi.getAllCart();
-    }
-  }
-
-  const isOrderCompleteOrCheckout =
-    context.router.state?.route === "/order-complete" ||
-    context.router.state?.route === "/checkout" ||
-    context.router.state?.route === "/shopping-cart";
-  if ((session && !cartsCache) || (session && isOrderCompleteOrCheckout)) {
-    cartsCache = await cartApi.getAllCart();
-  }
   if (!productsCache) {
     const products = await productApi.getAllProducts();
-    console.log("trong product chưa cache", cartsCache);
     const navigationProps = {
       products,
-      carts: cartsCache,
     };
-    productsCache = navigationProps.products;
+    productsCache = products;
     return { ...appProps, session, navigationProps };
   }
-  if (productsCache) {
-    console.log("trong product có cache", cartsCache);
-
-    return {
-      ...appProps,
-      session,
-      navigationProps: {
-        products: productsCache,
-        carts: cartsCache,
-      },
-    };
-  }
-
-  const navigationProps = {
-    products: productsCache,
-    carts: cartsCache,
+  return {
+    ...appProps,
+    session,
+    navigationProps: {
+      products: productsCache,
+    },
   };
-  return { ...appProps, session, navigationProps };
 };
 
 export default MyApp;

@@ -109,7 +109,7 @@ export function ShoppingCart() {
 
   return (
     <div className="w-full h-full relative">
-      <LoadingPageComponent loading={loading} />
+      <LoadingPageComponent loading={loading || isLoading} />
       <Container className={`${loading && "h-full"} relative`}>
         <ProgressCart />
         <div className="hidden md:block w-full mt-32 mb-10">
@@ -133,7 +133,7 @@ export function ShoppingCart() {
               <span>REMOVE</span>
             </div>
           </div>
-          {isLoading || cartList?.length === 0 ? (
+          {cartList?.length === 0 ? (
             <div className="w-full text-sm border border-b-2 shadow-lg rounded-lg text-center duration-500 py-10 mb-2">
               No products
             </div>
@@ -229,11 +229,7 @@ export function ShoppingCart() {
           )}
         </div>
         <div className="w-full px-4 my-16 md:hidden">
-          {isLoading ? (
-            <div className="flex-center h-24">
-              <LoadingPage />
-            </div>
-          ) : cartList?.length === 0 ? (
+          {cartList?.length === 0 ? (
             <div className="w-full text-center shadow-lg rounded-lg py-10">
               No products
             </div>

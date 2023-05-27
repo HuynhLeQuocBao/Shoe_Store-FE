@@ -12,33 +12,27 @@ export function VoucherItem({ data, isCode }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const discountStorage = localStorage.getItem("discount");
-    if (!discountStorage) {
+    const totalCartStorage = localStorage.getItem("totalCart");
+    if (!totalCartStorage) {
       return;
     }
-    dispatch(updateTotalCart({ total: total + parseFloat(discountStorage) }));
-    localStorage.removeItem("discount");
+    dispatch(updateTotalCart({ total: parseFloat(totalCartStorage) }));
+    localStorage.removeItem("totalCart");
   }, []);
 
   const handleVoucher = async (e, voucherCode, discount) => {
+    const totalCartStorage = localStorage.getItem("totalCart");
+    if (!totalCartStorage) {
+      localStorage.setItem("totalCart", total);
+    }
     e.preventDefault();
     setLoading(true);
-
     if (!use) {
       const applyVoucher = await voucherApi.applyVoucher({
         cartTotal: total,
         listPromoCode: [voucherCode],
       });
-      if (applyVoucher && applyVoucher?.discount) {
-        const discountStorage = localStorage.getItem("discount");
-        if (!discountStorage) {
-          localStorage.setItem("discount", applyVoucher?.discount);
-        } else {
-          localStorage.setItem(
-            "discount",
-            parseFloat(discountStorage) + applyVoucher?.discount
-          );
-        }
+      if (applyVoucher?.discount) {
         dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
         isCode(discount, voucherCode);
         setUse(!use);
@@ -51,15 +45,6 @@ export function VoucherItem({ data, isCode }) {
     } else {
       dispatch(updateTotalCart({ total: total + discount }));
       isCode(-discount, voucherCode);
-      const discountStorage = localStorage.getItem("discount");
-      if (!discountStorage) {
-        localStorage.setItem("discount", discount);
-      } else {
-        localStorage.setItem(
-          "discount",
-          parseFloat(discountStorage) - discount
-        );
-      }
       setUse(!use);
       setLoading(false);
     }

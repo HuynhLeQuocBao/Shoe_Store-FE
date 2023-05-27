@@ -15,7 +15,7 @@ export default function CheckoutPage({ session }) {
     } else if (products.length === 0) {
       router.push("shopping-cart");
     }
-  }, [session, products]);
+  }, [session]);
   return (
     <div>
       <Breadcrumbs />
