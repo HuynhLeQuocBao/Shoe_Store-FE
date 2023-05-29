@@ -1,11 +1,10 @@
-import { SessionProvider, getSession } from "next-auth/react";
-import { SWRConfig } from "swr";
-import { AnimatePresence } from "framer-motion";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../styles/globals.css";
+import { SessionProvider, getSession } from "next-auth/react";
+import { SWRConfig } from "swr";
 import { MainLayout } from "@/layout/index";
-import axiosClient, { setToken } from "../apiClient/axiosClient";
+import axiosClient from "../apiClient/axiosClient";
 import Head from "next/head";
 import App from "next/app";
 import { store, persistor } from "../store/store";
@@ -18,24 +17,19 @@ import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
 import { productApi } from "@/apiClient/product";
-import { useEffect } from "react";
 import { Analytics } from "@vercel/analytics/react";
 
 let productsCache;
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
-  const { Component, pageProps, session, navigationProps, router } = props;
+  const { Component, pageProps, session, navigationProps } = props;
   const Layout = Component.Layout ?? MainLayout;
-  const handleExitComplete = () => {
-    if (typeof window !== "undefined") {
-      window.scrollTo({ top: 0 });
-    }
-  };
+
   const searchClient = algoliasearch(
     process.env.NEXT_PUBLIC_ALGOLIA_APP_ID,
     process.env.NEXT_PUBLIC_ALGOLIA_SEARCH_API_KEY
   );
-  useEffect(() => {}, [router.pathname]);
+
   return (
     <>
       <Head>
@@ -78,29 +72,24 @@ function MyApp(props) {
             shouldRetryOnError: false,
           }}
         >
-          <AnimatePresence exitBeforeEnter onExitComplete={handleExitComplete}>
-            <Provider store={store}>
-              <PersistGate loading={null} persistor={persistor}>
-                {isPageLoading ? (
-                  <LoadingPageGlobal loading={isPageLoading} />
-                ) : (
-                  <InstantSearch
-                    searchClient={searchClient}
-                    indexName="product"
-                  >
-                    <Layout products={navigationProps?.products}>
-                      <ToastContainer />
-                      <Component
-                        {...pageProps}
-                        products={navigationProps?.products}
-                      />
-                      <Analytics />
-                    </Layout>
-                  </InstantSearch>
-                )}
-              </PersistGate>
-            </Provider>
-          </AnimatePresence>
+          <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+              {isPageLoading ? (
+                <LoadingPageGlobal loading={isPageLoading} />
+              ) : (
+                <InstantSearch searchClient={searchClient} indexName="product">
+                  <Layout products={navigationProps?.products}>
+                    <ToastContainer />
+                    <Component
+                      {...pageProps}
+                      products={navigationProps?.products}
+                    />
+                    <Analytics />
+                  </Layout>
+                </InstantSearch>
+              )}
+            </PersistGate>
+          </Provider>
         </SWRConfig>
       </SessionProvider>
     </>
