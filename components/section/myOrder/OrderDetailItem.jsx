@@ -60,7 +60,7 @@ const OrderDetailItem = ({ data, stateOrder }) => {
             </div>
             <div className="w-full">
               {/* <FormQuantity quantity={data.quantity} cartId={data._id} productId={data.productId} size={data.size} /> */}
-              <span> {data.quantity}</span>
+              <span>Quantity: {data.quantity}</span>
             </div>
             <div className="w-full font-bold">
               <span>Total: ${data.quantity * data.price}</span>
