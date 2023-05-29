@@ -96,7 +96,6 @@ function MyApp(props) {
           </Provider>
         </SWRConfig>
       </SessionProvider>
-      /
     </>
   );
 }
