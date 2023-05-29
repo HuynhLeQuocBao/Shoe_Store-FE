@@ -10,6 +10,7 @@ const nextConfig = {
     domains: [
       "shoestore-backend-tjms.onrender.com",
       "lh3.googleusercontent.com",
+      "platform-lookaside.fbsbx.com",
       "localhost",
     ],
   },
