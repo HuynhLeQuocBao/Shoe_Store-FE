@@ -49,12 +49,12 @@ export function Banner() {
       <Slider {...settings}>
         <div className="banner">
           <Image
-            src="/images/banner/banner1.jpg"
+            src="/images/banner/banner1.webp"
             alt="banner1"
             layout="fill"
             style={{ objectFit: "cover" }}
             priority={true}
-            blurDataURL="/images/banner/banner1.jpg"
+            blurDataURL="/images/banner/banner1.webp"
             placeholder="blur"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
@@ -85,12 +85,12 @@ export function Banner() {
         </div>
         <div className="banner">
           <Image
-            src="/images/banner/banner2.jpg"
+            src="/images/banner/banner2.webp"
             alt="banner2"
             layout="fill"
             style={{ objectFit: "cover" }}
             priority={true}
-            blurDataURL="/images/banner/banner2.jpg"
+            blurDataURL="/images/banner/banner2.webp"
             placeholder="blur"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
@@ -119,12 +119,12 @@ export function Banner() {
         </div>
         <div className="banner">
           <Image
-            src="/images/banner/banner3.jpg"
+            src="/images/banner/banner3.webp"
             alt="banner3"
             layout="fill"
             style={{ objectFit: "cover" }}
             priority={true}
-            blurDataURL="/images/banner/banner3.jpg"
+            blurDataURL="/images/banner/banner3.webp"
             placeholder="blur"
           />
           <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
