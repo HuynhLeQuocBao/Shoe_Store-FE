@@ -279,25 +279,8 @@ export const Checkout = () => {
                 />
               </div>
               <div className="w-full p-4 bg-[#f5f5f5] font-medium mb-5">
-                <div className="w-full flex items-center justify-around pb-6">
-                  <input
-                    className="py-2 px-3 w-4/5"
-                    type="text"
-                    placeholder="Input your voucher..."
-                    onChange={(e) => setDataVoucherInput(e.target.value)}
-                    value={dataVoucherInput}
-                  />
-                  <a
-                    type="button"
-                    onClick={handleVoucher}
-                    className="bg-primary hover:bg-teal-600 hover:text-white py-2 px-3 cursor-pointer"
-                  >
-                    Apply
-                  </a>
-                </div>
-                <div className=" border-[0.5px] border-[#898787] w-full"></div>
                 <div className="w-full mb-2">
-                  <h2 className="text-center font-bold text-xl py-4">
+                  <h2 className="text-center font-bold text-2xl py-4">
                     Voucher Available
                   </h2>
                   <VoucherList
