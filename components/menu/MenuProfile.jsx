@@ -5,6 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { Menu, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
 import { resetCart } from "store/features/cartSlice";
+import Image from "next/image";
 
 export function MenuProfile() {
   const { data: session } = useSession();
@@ -33,10 +34,11 @@ export function MenuProfile() {
             </Link>
           ) : (
             <div className="flex items-center text-base">
-              <div className="w-10 h-10">
-                <img
+              <div className="w-10 h-10 relative">
+                <Image
                   src={`${session?.user?.picture || "/images/logo/admin.png"}`}
                   alt="avatar"
+                  layout="fill"
                   className="w-full rounded-full"
                 />
               </div>
