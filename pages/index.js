@@ -7,7 +7,7 @@ import { Banner } from "@/components/section/banner";
 import { productApi } from "@/apiClient/product";
 import dynamic from "next/dynamic";
 
-export default function Index() {
+export default function Index({ products }) {
   return (
     <>
       <Banner />
