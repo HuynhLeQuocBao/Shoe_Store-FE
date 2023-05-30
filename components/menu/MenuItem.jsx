@@ -1,19 +1,14 @@
 import Link from "next/link";
-import clsx from "clsx";
 
 export function MenuItem({ name, href, isActive }) {
+  const dynamicClass = isActive
+    ? "text-secondary xl:text-teal-600 border-b-2 xl:border-teal-600 border-secondary"
+    : "";
+
   return (
-    <Link href={href}>
+    <Link href={href} prefetch={false}>
       <a
-        className={clsx(
-          ` text-black xl:text-black text-base font-Rokkitt font-normal
-            hover:text-teal-600
-          `,
-          {
-            "text-secondary xl:text-teal-600 border-b-2 xl:border-teal-600 border-secondary":
-              isActive,
-          }
-        )}
+        className={`text-black xl:text-black text-base font-Rokkitt font-normal hover:text-teal-600 ${dynamicClass}`}
       >
         {name}
       </a>

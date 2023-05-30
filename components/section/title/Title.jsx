@@ -1,6 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import { motion } from 'framer-motion';
-import { Container } from '@/components/common/index';
+import { Container } from "@/components/common/index";
 
 export function Title({ ...props }) {
   return (

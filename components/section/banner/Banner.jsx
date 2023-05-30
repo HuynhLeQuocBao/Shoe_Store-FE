@@ -1,38 +1,22 @@
 import Slider from "react-slick";
-import { motion } from "framer-motion";
+// import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
 import { useIsMedium, useIsSmall } from "@/utils/mediaQuery";
 
 export function Banner() {
-  const { data: session } = useSession();
-  const isSmall = useIsSmall();
-  const isMedium = useIsMedium();
-
-  const variants = isSmall
-    ? {
-        hidden: {
-          y: -100,
-          opacity: 0,
-        },
-        visible: {
-          y: -290,
-          opacity: 1,
-          transition: { ease: "easeOut", duration: 2 },
-        },
-      }
-    : {
-        hidden: {
-          y: -100,
-          opacity: 0,
-        },
-        visible: {
-          y: -150,
-          opacity: 1,
-          transition: { ease: "easeOut", duration: 2 },
-        },
-      };
+  const variants = {
+    hidden: {
+      y: -100,
+      opacity: 0,
+    },
+    visible: {
+      y: -250,
+      opacity: 1,
+      transition: { ease: "easeOut", duration: 2 },
+    },
+  };
   const settings = {
     dots: true,
     arrows: false,
@@ -41,23 +25,18 @@ export function Banner() {
     slidesToScroll: 1,
     pauseOnHover: false,
     autoplay: true,
-    speed: 1000,
-    autoplaySpeed: 5000,
+    autoplaySpeed: 3000,
   };
   return (
     <div className="font-Rokkitt max-w-full">
       <Slider {...settings}>
-        <div className="banner">
-          <Image
-            src="/images/banner/banner1.webp"
+        <div className="h-[500px] w-full relative">
+          <img
+            className="w-full h-full object-cover"
+            src="/images/banner/banner1.jpg"
             alt="banner1"
-            layout="fill"
-            style={{ objectFit: "cover" }}
-            priority={true}
-            blurDataURL="/images/banner/banner1.webp"
-            placeholder="blur"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
+          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -65,35 +44,30 @@ export function Banner() {
               viewport={{ once: false, amount: 0.5 }}
             >
               <div className="text-3xl md:text-6xl font-bold my-2 md:my-4 ">
-                {!session
-                  ? "GIVE A VOUCHER"
-                  : `WELCOME ${session?.user?.fullname}`}
+                MEN
               </div>
               <div className="text-xl md:text-3xl font-bold my-2 md:my-4 ">
-                {!session ? "FOR" : "TO FOOTWEAR"}
+                SHOES
               </div>
               <div className="text-4xl md:text-[50px] my-2 md:my-4 font-thin">
-                {!session ? "NEW MEMBER" : "THE VOUCHER IS SENT YOUR EMAIL"}
+                COLLECTION
               </div>
-              <Link href={!session ? "/register" : "#best-seller"}>
-                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
-                  {!session ? "SIGN UP" : "SHOP COLLECTION"}
-                </button>
-              </Link>
+              <div className="text-[#ffffffcc] my-2 md:my-4">
+                NEW TRENDING SHOES
+              </div>
+              <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4">
+                SHOP COLLECTION
+              </button>
             </motion.div>
-          </div>
+          </div> */}
         </div>
-        <div className="banner">
-          <Image
-            src="/images/banner/banner2.webp"
+        <div className="h-[500px] w-full relative ">
+          <img
+            className="w-full h-full object-cover "
+            src="/images/banner/banner2.jpg"
             alt="banner2"
-            layout="fill"
-            style={{ objectFit: "cover" }}
-            priority={true}
-            blurDataURL="/images/banner/banner2.webp"
-            placeholder="blur"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
+          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -101,33 +75,30 @@ export function Banner() {
               viewport={{ once: false, amount: 0.5 }}
             >
               <div className="text-3xl md:text-6xl font-bold my-2 md:my-4 ">
-                GIVE A VOUCHER
+                HUGE
               </div>
-              <div className="text-xl md:text-3xl font-bold my-2 md:my-4 ">
-                ON
+              <div className="text-xl md:text-3xl font-bold my-2 md:my-4">
+                SALES
               </div>
               <div className="text-4xl md:text-[50px] my-2 md:my-4 font-thin">
-                EACH ORDER COMPLETED
+                <strong>50%</strong> OFF
               </div>
-              <Link href="#best-seller">
-                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
-                  SHOP COLLECTION
-                </button>
-              </Link>
+              <div className="text-[#ffffffcc] my-2 md:my-4">
+                Big sale sandals
+              </div>
+              <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                SHOP COLLECTION
+              </button>
             </motion.div>
-          </div>
+          </div> */}
         </div>
-        <div className="banner">
-          <Image
-            src="/images/banner/banner3.webp"
+        <div className="h-[500px] w-full relative">
+          <img
+            className="w-full h-full object-cover"
+            src="/images/banner/banner3.jpg"
             alt="banner3"
-            layout="fill"
-            style={{ objectFit: "cover" }}
-            priority={true}
-            blurDataURL="/images/banner/banner3.webp"
-            placeholder="blur"
           />
-          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -146,13 +117,11 @@ export function Banner() {
               <div className="text-[#ffffffcc] my-2 md:my-4">
                 New stylish shoes for men
               </div>
-              <Link href="#best-seller">
-                <button className="bg-primary font-semibold text-black hover:bg-teal-600 hover:text-white px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
-                  SHOP COLLECTION
-                </button>
-              </Link>
+              <button className="bg-[#616161] hover:bg-primary px-[30px] py-[15px] rounded-3xl my-2 md:my-4 ">
+                SHOP COLLECTION
+              </button>
             </motion.div>
-          </div>
+          </div> */}
         </div>
       </Slider>
     </div>
