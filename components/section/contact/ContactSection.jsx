@@ -27,8 +27,8 @@ export function ContactSection() {
     },
     {
       icon: <MdOutlineSupport className="w-full h-full" />,
-      content: "https://shoe-store-fe.vercel.app/",
-      link: "https://shoe-store-fe.vercel.app/",
+      content: "https://improve-performance.vercel.app/",
+      link: "https://improve-performance.vercel.app/",
     },
   ];
 

@@ -38,14 +38,14 @@ const HeadContent = () => (
     <meta property="og:type" content="website" />
     <meta property="og:title" content="Footwear from KLTN 20" />
     <meta property="og:site_name" content="Footwear from KLTN 20" />
-    <meta property="og:url" content="https://shoe-store-fe.vercel.app" />
+    <meta property="og:url" content="https://improve-performance.vercel.app" />
     <meta
       property="og:description"
       content="The purpose of this website is for the graduation thesis with the task of learning NextJS on the Front-end side and ExpressJS on the Back-end side to build an e-commerce website."
     />
     <meta
       property="og:image"
-      content="https://shoe-store-fe.vercel.app/SEO_image.png"
+      content="https://improve-performance.vercel.app/SEO_image.png"
     />
     <meta property="og:image:alt" content="Footwear from KLTN 20" />
     <meta property="og:image:width" content="1200" />
