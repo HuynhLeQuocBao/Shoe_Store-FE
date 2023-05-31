@@ -1,4 +1,3 @@
-import { isBuffer } from "lodash";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -35,7 +34,7 @@ export function ProgressCart() {
     { name: "COMPLETE", href: "#", step: "03", status: statusCompelete },
   ];
   return (
-    <nav aria-label="Progress" className="w-[88%] md:w-full">
+    <nav aria-label="Progress" className="w-full">
       <ol
         role="list"
         className="flex justify-center text-[12px] md:text-sm items-center w-full my-20 h-auto"
@@ -44,7 +43,7 @@ export function ProgressCart() {
           <li
             key={step.name}
             className={classNames(
-              stepIdx !== steps.length - 1 ? "w-full pl-10" : "pl-10 md:px-10 ",
+              stepIdx !== steps.length - 1 ? "w-full pl-10" : "px-10",
               " relative"
             )}
           >

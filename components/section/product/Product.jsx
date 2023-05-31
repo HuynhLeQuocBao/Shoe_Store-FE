@@ -7,7 +7,7 @@ export function Product({ image, name, price, id }) {
     process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/" + image;
 
   return (
-    <Link href={`/product-detail/${id}`}>
+    <Link href={`/product-detail/${id}`} prefetch={false}>
       <div className="mb-7 flex flex-col items-center justify-center md:mb-0 shadow-product-line cursor-pointer">
         <div>
           <Image

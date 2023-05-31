@@ -1,5 +1,5 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: "https://shoe-store-fe.vercel.app",
+  siteUrl: "https://improve-performance.vercel.app",
   generateRobotsTxt: true,
 };

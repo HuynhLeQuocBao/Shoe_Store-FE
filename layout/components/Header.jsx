@@ -3,7 +3,6 @@ import { Fragment, useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
-import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { MenuItem, MenuProfile } from "@/components/menu/index";
 import { MdSearch } from "react-icons/md";
@@ -11,11 +10,7 @@ import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCartItems,
-  getDataFromCartApi,
-  resetCart,
-} from "store/features/cartSlice";
+import { getCartItems, resetCart } from "store/features/cartSlice";
 import { BsBagCheck } from "react-icons/bs";
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
 
@@ -146,12 +141,9 @@ export function Header({ products }) {
 
   return (
     <header
-      className={clsx(
-        "md:sticky z-50 top-0 bg-white shadow-header-line px-5 py-5 md:py-0 md:px-8",
-        {
-          "md:shadow-lg": isScrolled,
-        }
-      )}
+      className={`md:sticky z-50 top-0 bg-white shadow-header-line px-5 py-5 md:py-0 md:px-8 ${
+        isScrolled && "md:shadow-lg"
+      }`}
     >
       <div className="flex flex-col justify-evenly md:h-[80px]">
         <div className="flex mx-0 flex-row justify-between">
@@ -159,6 +151,7 @@ export function Header({ products }) {
             <Link
               href="/"
               className="text-secondary text-4xl font-bold h-full w-[130px] "
+              prefetch={false}
             >
               <div>
                 <Image alt="Footwear" src={logo} width={130} height={70} />
@@ -211,6 +204,7 @@ export function Header({ products }) {
                             <Link
                               key={product._id}
                               href={`${HOST}/product-detail/${product._id}`}
+                              prefetch={false}
                             >
                               <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300">
                                 <Image
@@ -244,7 +238,10 @@ export function Header({ products }) {
               </form>
             </div>
             <div className="mr-5 md:mr-10">
-              <Link href={session ? "/shopping-cart" : "/login"}>
+              <Link
+                href={session ? "/shopping-cart" : "/login"}
+                prefetch={false}
+              >
                 <div className="flex cursor-pointer relative items-center justify-center">
                   <BsBagCheck className="w-10 h-10" />
                   {quantity > 0 && session?.user && (
@@ -284,6 +281,7 @@ export function Header({ products }) {
                         <Link
                           key={product._id}
                           href={`${HOST}/product-detail/${product._id}`}
+                          prefetch={false}
                         >
                           <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300 ">
                             <Image
