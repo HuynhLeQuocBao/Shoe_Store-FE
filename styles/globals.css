@@ -3,6 +3,9 @@
 @tailwind utilities;
 
 @layer base {
+  @font-face {
+    font-display: swap;
+  }
 }
 
 @layer components {
