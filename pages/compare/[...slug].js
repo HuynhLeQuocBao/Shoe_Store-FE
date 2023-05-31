@@ -17,14 +17,30 @@ export default function ComparePage({ productOne, products }) {
     </div>
   );
 }
-export const getServerSideProps = async (context) => {
-  const { params } = context;
+
+export async function getStaticPaths() {
+  const products = await productApi.getAllProducts();
+
+  // Tạo paths cho mỗi ID sản phẩm
+  const paths = products.map((product) => ({
+    params: { slug: [product._id] },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
+
+export async function getStaticProps({ params }) {
   const productId = params.slug;
   try {
     const productOne = await productApi.getProductById(productId);
+    const products = await productApi.getAllProducts();
     return {
       props: {
         productOne,
+        products,
       },
     };
   } catch (error) {
@@ -35,4 +51,4 @@ export const getServerSideProps = async (context) => {
       },
     };
   }
-};
+}
