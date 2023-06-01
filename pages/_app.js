@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
-import { SessionProvider, getSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
 
@@ -81,7 +81,7 @@ function MyApp(props) {
                 <LoadingPageGlobal loading={isPageLoading} />
               ) : (
                 <InstantSearch searchClient={searchClient} indexName="product">
-                  <Layout products={[]}>
+                  <Layout>
                     <ToastContainer />
                     <Component {...pageProps} />
                     <Analytics />
