@@ -1,23 +1,17 @@
 /* eslint-disable @next/next/no-img-element */
-import { Fragment, useState, useEffect, useRef } from "react";
+import { Fragment, useState, useEffect } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { Popover, Transition } from "@headlessui/react";
-import clsx from "clsx";
 import { useSession } from "next-auth/react";
 import { MenuItem, MenuProfile } from "@/components/menu/index";
-import { MdSearch } from "react-icons/md";
-import { useForm, Controller } from "react-hook-form";
 import Image from "next/image";
 import logo from "../../public/images/logo/logo.png";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  getCartItems,
-  getDataFromCartApi,
-  resetCart,
-} from "store/features/cartSlice";
+import { getCartItems, resetCart } from "store/features/cartSlice";
 import { BsBagCheck } from "react-icons/bs";
 import { AiOutlineMenuUnfold, AiOutlineClose } from "react-icons/ai";
+import SearchBar from "@/components/common/SearchBar";
 
 const navigation = [
   {
@@ -42,9 +36,91 @@ const navigation = [
   },
 ];
 
-function TabletNavigation() {
+export function Header() {
   const router = useRouter();
   const { data: session } = useSession();
+  const [isScrolled] = useState(false);
+  const quantity = useSelector((state) => state.cart.quantity);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (session) {
+      dispatch(getCartItems());
+    } else {
+      dispatch(resetCart());
+    }
+  }, [session]);
+
+  return (
+    <header
+      className={`md:sticky z-50 top-0 bg-white shadow-header-line px-5 py-5 md:py-0 md:px-8 ${
+        isScrolled && "md:shadow-lg"
+      }`}
+    >
+      <div className="flex flex-col justify-evenly md:h-[80px]">
+        <div className="flex mx-0 flex-row justify-between">
+          <div className="flex flex-row items-center justify-between md:mb-0 hover:cursor-pointer">
+            <Link
+              href="/"
+              className="text-secondary text-4xl font-bold h-full w-[130px] "
+              prefetch={false}
+            >
+              <div>
+                <Image alt="Footwear" src={logo} width={130} height={70} />
+              </div>
+            </Link>
+          </div>
+
+          <div className="hidden font-Rokkitt lg:flex md:flex-row md:justify-between">
+            <ul className="flex flex-row items-center">
+              {navigation.map((item) => (
+                <li key={item.name} className="mx-3 text-base">
+                  <MenuItem
+                    href={item.href}
+                    name={item.name}
+                    isActive={router.pathname === item.href}
+                  />
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex items-center justify-between">
+            <div className="hidden mr-10 md:mb-0 md:flex items-center">
+              <SearchBar />
+            </div>
+            <div className="mr-5 md:mr-10">
+              <Link
+                href={session ? "/shopping-cart" : "/login"}
+                prefetch={false}
+              >
+                <div className="flex cursor-pointer relative items-center justify-center">
+                  <BsBagCheck className="w-10 h-10" />
+                  {quantity > 0 && session?.user && (
+                    <p className="absolute bottom-1 text-white bg-red-500 w-7 h-7 rounded-full text-center top-[-5px] right-[-15px]">
+                      {quantity > 0 && session?.user ? quantity : 0}
+                    </p>
+                  )}
+                </div>
+              </Link>
+            </div>
+            <div className="mr-5 md:mr-10 xl:mr-0">
+              <MenuProfile />
+            </div>
+            <div className="items-center justify-between flex">
+              <TabletNavigation />
+            </div>
+          </div>
+        </div>
+        <div className="flex items-center md:mb-0 md:hidden">
+          <SearchBar />
+        </div>
+      </div>
+    </header>
+  );
+}
+function TabletNavigation() {
+  const router = useRouter();
 
   return (
     <Popover className="lg:hidden z-[50] flex items-center justify-center">
@@ -94,236 +170,5 @@ function TabletNavigation() {
         </>
       )}
     </Popover>
-  );
-}
-
-export function Header({ products }) {
-  const router = useRouter();
-  const { data: session } = useSession();
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [keyword, setKeyword] = useState("");
-  const [productSearchList, setProductSearchList] = useState([]);
-  const quantity = useSelector((state) => state.cart.quantity);
-  const dispatch = useDispatch();
-  const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
-  const HOST =
-    typeof window !== "undefined" && window.location.origin
-      ? window.location.origin
-      : "";
-  const {
-    register,
-    control,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm({
-    mode: "onChange",
-  });
-
-  useEffect(() => {
-    if (session) {
-      dispatch(getCartItems());
-    } else {
-      dispatch(resetCart());
-    }
-  }, [session]);
-
-  const onSubmit = async (value) => {
-    if (keyword.length > 0) {
-      router.push(`/search-product/${keyword}`);
-    } else {
-      router.push("/");
-    }
-  };
-
-  const handleSearch = (event) => {
-    setKeyword(event.target.value);
-    const results = products.filter((product) =>
-      product.name.toLowerCase().includes(event.target.value.toLowerCase())
-    );
-    setProductSearchList(results);
-  };
-
-  return (
-    <header
-      className={clsx(
-        "md:sticky z-50 top-0 bg-white shadow-header-line px-5 py-5 md:py-0 md:px-8",
-        {
-          "md:shadow-lg": isScrolled,
-        }
-      )}
-    >
-      <div className="flex flex-col justify-evenly md:h-[80px]">
-        <div className="flex mx-0 flex-row justify-between">
-          <div className="flex flex-row items-center justify-between md:mb-0 hover:cursor-pointer">
-            <Link
-              href="/"
-              className="text-secondary text-4xl font-bold h-full w-[130px] "
-            >
-              <div>
-                <Image alt="Footwear" src={logo} width={130} height={70} />
-              </div>
-            </Link>
-          </div>
-
-          <div className="hidden font-Rokkitt lg:flex md:flex-row md:justify-between">
-            <ul className="flex flex-row items-center">
-              {navigation.map((item) => (
-                <li key={item.name} className="mx-3 text-base">
-                  <MenuItem
-                    href={item.href}
-                    name={item.name}
-                    isActive={router.pathname === item.href}
-                  />
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="hidden mr-10 md:mb-0 md:flex items-center">
-              <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-                <Controller
-                  control={control}
-                  name="search"
-                  render={({ field }) => (
-                    <div className="flex relative">
-                      <input
-                        type="text"
-                        placeholder="Search"
-                        className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
-                        {...register("search")}
-                        onChange={handleSearch}
-                        value={keyword}
-                      />
-                      <button
-                        aria-label="search"
-                        type="submit"
-                        className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 hover:text-white"
-                      >
-                        <div className="text-2xl flex items-center justify-center font-bold">
-                          <MdSearch />
-                        </div>
-                      </button>
-                      {productSearchList.length > 0 && keyword !== "" ? (
-                        <div className="absolute bg-white min-h-[100px] w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
-                          {productSearchList.map((product, index) => (
-                            <Link
-                              key={product._id}
-                              href={`${HOST}/product-detail/${product._id}`}
-                            >
-                              <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300">
-                                <Image
-                                  src={`${baseURL + product?.avatar}`}
-                                  width={50}
-                                  height={50}
-                                />
-                                <div className="flex flex-col">
-                                  <p className="font-bold text-lg">
-                                    {product.name}
-                                  </p>
-                                  <p className="text-sm text-slate-500">
-                                    {product.price}$
-                                  </p>
-                                </div>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      ) : productSearchList.length === 0 &&
-                        keyword.length > 0 ? (
-                        <div className="absolute bg-white min-h-[60px] w-[375px] overflow-y-scroll top-12 left-0 shadow-lg z-20">
-                          <div className="flex-center py-5">
-                            No product found
-                          </div>
-                        </div>
-                      ) : null}
-                    </div>
-                  )}
-                />
-              </form>
-            </div>
-            <div className="mr-5 md:mr-10">
-              <Link href={session ? "/shopping-cart" : "/login"}>
-                <div className="flex cursor-pointer relative items-center justify-center">
-                  <BsBagCheck className="w-10 h-10" />
-                  {quantity > 0 && session?.user && (
-                    <p className="absolute bottom-1 text-white bg-red-500 w-7 h-7 rounded-full text-center top-[-5px] right-[-15px]">
-                      {quantity > 0 && session?.user ? quantity : 0}
-                    </p>
-                  )}
-                </div>
-              </Link>
-            </div>
-            <div className="mr-5 md:mr-10 xl:mr-0">
-              <MenuProfile />
-            </div>
-            <div className="items-center justify-between flex">
-              <TabletNavigation />
-            </div>
-          </div>
-        </div>
-        <div className="flex items-center md:mb-0 md:hidden">
-          <form onSubmit={handleSubmit(onSubmit)} className="w-full">
-            <Controller
-              control={control}
-              name="search"
-              render={({ field }) => (
-                <div className="flex relative">
-                  <input
-                    type="text"
-                    placeholder="Search"
-                    className="h-[40px] w-full rounded-[30px] pl-4 pr-[4.5rem] focus:outline-none overflow-hidden border"
-                    {...register("search")}
-                    onChange={handleSearch}
-                    value={keyword}
-                  />
-                  {productSearchList.length > 0 && keyword !== "" ? (
-                    <div className="absolute bg-white min-h-[100px] w-full max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
-                      {productSearchList.map((product, index) => (
-                        <Link
-                          key={product._id}
-                          href={`${HOST}/product-detail/${product._id}`}
-                        >
-                          <div className="w-full flex gap-2 hover:cursor-pointer hover:bg-slate-200 text-xl  border-b-2 border-solid p-1 duration-300 ">
-                            <Image
-                              src={`${baseURL + product?.avatar}`}
-                              alt={product.description}
-                              width={50}
-                              height={50}
-                            />
-                            <div className="flex flex-col">
-                              <p className="font-bold text-lg">
-                                {product.name}
-                              </p>
-                              <p className="text-sm text-slate-500">
-                                {product.price}$
-                              </p>
-                            </div>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  ) : productSearchList.length === 0 && keyword.length > 0 ? (
-                    <div className="absolute bg-white min-h-[60px] w-full overflow-y-scroll top-12 left-0 shadow-lg z-20">
-                      <div className="flex-center py-5">No product found</div>
-                    </div>
-                  ) : null}
-                  <button
-                    aria-label="search"
-                    type="submit"
-                    className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 hover:text-white"
-                  >
-                    <div className="text-2xl flex items-center justify-center font-bold">
-                      <MdSearch />
-                    </div>
-                  </button>
-                </div>
-              )}
-            />
-          </form>
-        </div>
-      </div>
-    </header>
   );
 }
