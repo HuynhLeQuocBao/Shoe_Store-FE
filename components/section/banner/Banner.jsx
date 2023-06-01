@@ -3,12 +3,11 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { useSession } from "next-auth/react";
-import { useIsMedium, useIsSmall } from "@/utils/mediaQuery";
+import { useIsSmall } from "@/utils/mediaQuery";
 
 export function Banner() {
   const { data: session } = useSession();
   const isSmall = useIsSmall();
-  const isMedium = useIsMedium();
 
   const variants = isSmall
     ? {

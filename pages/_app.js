@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import algoliasearch from "algoliasearch/lite";
 import { InstantSearch } from "react-instantsearch-dom";
-import { SessionProvider, getSession } from "next-auth/react";
+import { SessionProvider } from "next-auth/react";
 import { Analytics } from "@vercel/analytics/react";
 import Head from "next/head";
 
@@ -18,13 +18,12 @@ import axiosClient from "../apiClient/axiosClient";
 import { store, persistor } from "../store/store";
 import { usePageLoading } from "hooks/usePageLoading";
 import LoadingPageGlobal from "@/components/section/loading/LoadingPageGlobal";
-import { productApi } from "@/apiClient/product";
 import { SWRConfig } from "swr";
-let productsCache;
+
 const HeadContent = () => (
   <Head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta charSet="UTF-8" />
+    <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Footwear </title>
@@ -58,7 +57,7 @@ const HeadContent = () => (
 
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
-  const { Component, pageProps, session, navigationProps } = props;
+  const { Component, pageProps } = props;
   const Layout = Component.Layout ?? MainLayout;
 
   const searchClient = algoliasearch(
@@ -69,7 +68,7 @@ function MyApp(props) {
   return (
     <>
       <HeadContent />
-      <SessionProvider session={session}>
+      <SessionProvider session={pageProps.session}>
         <SWRConfig
           value={{
             fetcher: (url) => axiosClient.get(url),
@@ -82,12 +81,9 @@ function MyApp(props) {
                 <LoadingPageGlobal loading={isPageLoading} />
               ) : (
                 <InstantSearch searchClient={searchClient} indexName="product">
-                  <Layout products={navigationProps?.products}>
+                  <Layout>
                     <ToastContainer />
-                    <Component
-                      {...pageProps}
-                      products={navigationProps?.products}
-                    />
+                    <Component {...pageProps} />
                     <Analytics />
                   </Layout>
                 </InstantSearch>
@@ -99,25 +95,12 @@ function MyApp(props) {
     </>
   );
 }
+
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
-
-  const session = await getSession(context);
-
-  if (!productsCache) {
-    const products = await productApi.getAllProducts();
-    const navigationProps = {
-      products,
-    };
-    productsCache = products;
-    return { ...appProps, session, navigationProps };
-  }
   return {
     ...appProps,
-    session,
-    navigationProps: {
-      products: productsCache,
-    },
   };
 };
+
 export default MyApp;

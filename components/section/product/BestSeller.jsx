@@ -51,7 +51,7 @@ export function BestSeller({ data }) {
                   Add to cart
                 </span>
               </div>
-              <Link href={`/compare/${hit?._id}`}>
+              <Link href={`/compare/${hit?._id}`} prefetch={false}>
                 <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                   <DiGitCompare className="" />
                   <p className="lg:hidden">Compare</p>
@@ -128,7 +128,7 @@ export function BestSeller({ data }) {
                       Add to cart
                     </span>
                   </div>
-                  <Link href={`/compare/${item._id}`}>
+                  <Link href={`/compare/${item._id}`} prefetch={false}>
                     <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                       <DiGitCompare className="" />
                       <p className="lg:hidden">Compare</p>
