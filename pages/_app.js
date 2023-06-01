@@ -57,7 +57,7 @@ const HeadContent = () => (
 
 function MyApp(props) {
   const { isPageLoading } = usePageLoading();
-  const { Component, pageProps, session, navigationProps } = props;
+  const { Component, pageProps } = props;
   const Layout = Component.Layout ?? MainLayout;
 
   const searchClient = algoliasearch(
@@ -68,7 +68,7 @@ function MyApp(props) {
   return (
     <>
       <HeadContent />
-      <SessionProvider session={session}>
+      <SessionProvider session={pageProps.session}>
         <SWRConfig
           value={{
             fetcher: (url) => axiosClient.get(url),
@@ -98,10 +98,8 @@ function MyApp(props) {
 
 MyApp.getInitialProps = async (context) => {
   const appProps = await App.getInitialProps(context);
-  const session = await getSession(context);
   return {
     ...appProps,
-    session,
   };
 };
 
