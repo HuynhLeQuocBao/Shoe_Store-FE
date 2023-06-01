@@ -1,31 +1,37 @@
 import Slider from "react-slick";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
+import { useSession } from "next-auth/react";
+import { useIsSmall } from "@/utils/mediaQuery";
 
 export function Banner() {
-  // const variants = isSmall
-  //   ? {
-  //       hidden: {
-  //         y: -100,
-  //         opacity: 0,
-  //       },
-  //       visible: {
-  //         y: -290,
-  //         opacity: 1,
-  //         transition: { ease: "easeOut", duration: 2 },
-  //       },
-  //     }
-  //   : {
-  //       hidden: {
-  //         y: -100,
-  //         opacity: 0,
-  //       },
-  //       visible: {
-  //         y: -150,
-  //         opacity: 1,
-  //         transition: { ease: "easeOut", duration: 2 },
-  //       },
-  //     };
+  const { data: session } = useSession();
+  const isSmall = useIsSmall();
+
+  const variants = isSmall
+    ? {
+        hidden: {
+          y: -100,
+          opacity: 0,
+        },
+        visible: {
+          y: -290,
+          opacity: 1,
+          transition: { ease: "easeOut", duration: 2 },
+        },
+      }
+    : {
+        hidden: {
+          y: -100,
+          opacity: 0,
+        },
+        visible: {
+          y: -150,
+          opacity: 1,
+          transition: { ease: "easeOut", duration: 2 },
+        },
+      };
   const settings = {
     dots: true,
     arrows: false,
@@ -50,7 +56,7 @@ export function Banner() {
             blurDataURL="/images/banner/banner1.webp"
             placeholder="blur"
           />
-          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -74,7 +80,7 @@ export function Banner() {
                 </button>
               </Link>
             </motion.div>
-          </div> */}
+          </div>
         </div>
         <div className="banner">
           <Image
@@ -86,7 +92,7 @@ export function Banner() {
             blurDataURL="/images/banner/banner2.webp"
             placeholder="blur"
           />
-          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10 ">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -108,7 +114,7 @@ export function Banner() {
                 </button>
               </Link>
             </motion.div>
-          </div> */}
+          </div>
         </div>
         <div className="banner">
           <Image
@@ -120,7 +126,7 @@ export function Banner() {
             blurDataURL="/images/banner/banner3.webp"
             placeholder="blur"
           />
-          {/* <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+          <div className="absolute w-full text-white text-center top-[100%] left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
             <motion.div
               variants={variants}
               initial="hidden"
@@ -145,7 +151,7 @@ export function Banner() {
                 </button>
               </Link>
             </motion.div>
-          </div> */}
+          </div>
         </div>
       </Slider>
     </div>
