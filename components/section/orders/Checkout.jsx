@@ -59,7 +59,6 @@ export const Checkout = () => {
     control,
     handleSubmit,
     formState: { errors },
-    getValues,
     setValue,
   } = useForm({
     mode: "onChange",

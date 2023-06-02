@@ -8,23 +8,11 @@ import LoadingPageComponent from "../loading/LoadingPageComponent";
 export function VoucherItem({ data, isCode }) {
   const total = useSelector((state) => state.cart.total);
   const [use, setUse] = useState(false);
+  const [surplus, setSurplus] = useState(0);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    const totalCartStorage = localStorage.getItem("totalCart");
-    if (!totalCartStorage) {
-      return;
-    }
-    dispatch(updateTotalCart({ total: parseFloat(totalCartStorage) }));
-    localStorage.removeItem("totalCart");
-  }, []);
-
   const handleVoucher = async (e, voucherCode, discount) => {
-    const totalCartStorage = localStorage.getItem("totalCart");
-    if (!totalCartStorage) {
-      localStorage.setItem("totalCart", total);
-    }
     e.preventDefault();
     setLoading(true);
     if (!use) {
@@ -33,6 +21,9 @@ export function VoucherItem({ data, isCode }) {
         listPromoCode: [voucherCode],
       });
       if (applyVoucher?.discount) {
+        if (applyVoucher.discount > total) {
+          setSurplus(applyVoucher.discount - total);
+        }
         dispatch(updateTotalCart({ total: applyVoucher.totalCart }));
         isCode(discount, voucherCode);
         setUse(!use);
@@ -41,6 +32,11 @@ export function VoucherItem({ data, isCode }) {
           position: toast.POSITION.TOP_RIGHT,
         });
       }
+      setLoading(false);
+    } else if (surplus > 0) {
+      dispatch(updateTotalCart({ total: total + discount - surplus }));
+      isCode(-discount, voucherCode);
+      setUse(!use);
       setLoading(false);
     } else {
       dispatch(updateTotalCart({ total: total + discount }));
