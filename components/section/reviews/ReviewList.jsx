@@ -11,19 +11,33 @@ const ReviewList = ({ id, onClose }) => {
   const [orderDetail, setOrderDetail] = useState([]);
   const [edit, setEdit] = useState(false);
   const [productId, setProductId] = useState(false);
+
+  const fetchOrderDetail = async () => {
+    try {
+      const data = await orderApi.getOrderDetail(id);
+      setOrderDetail(data.results);
+    } catch (error) {
+      onClose();
+      console.log("getRate error: " + error);
+    }
+  };
   useEffect(() => {
-    let data;
-    const fetchOrderDetail = async () => {
-      try {
-        data = await orderApi.getOrderDetail(id);
-        setOrderDetail(data.results);
-      } catch (error) {
-        onClose();
-        console.log("getRate error: " + error);
-      }
-    };
     fetchOrderDetail();
   }, [id]);
+
+  const handleDataUpdate = (data) => {
+    const dataChange = orderDetail.map((item) => {
+      if (item.shoeId === data.shoeId) {
+        return {
+          ...item,
+          rateScore: data.rating,
+          comment: data.comment,
+        };
+      }
+      return item;
+    });
+    setOrderDetail(dataChange);
+  };
   return (
     <div className="h-full relative">
       {orderDetail.length === 0 ? (
@@ -33,7 +47,7 @@ const ReviewList = ({ id, onClose }) => {
       ) : (
         <div className=" h-full">
           <div className="sticky h-[10%] w-full bg-white  top-0 shadow-md z-10">
-            <h1 className="flex items-center justify-center font-bold font-bold text-[22px] mb-4">
+            <h1 className="flex items-center justify-center font-bold text-[22px] mb-4">
               {edit ? "Edit Reviews" : "Reviews"}
             </h1>
           </div>
@@ -69,7 +83,7 @@ const ReviewList = ({ id, onClose }) => {
               <FormEditReviews
                 shoeId={productId}
                 onBack={() => setEdit(false)}
-                dataUpdate={() => null}
+                dataUpdate={handleDataUpdate}
               />
             )}
           </div>

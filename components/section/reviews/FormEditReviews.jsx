@@ -14,8 +14,6 @@ function FormEditReviews({ shoeId, onBack, dataUpdate, indexReview }) {
   const [isStar, setIsStar] = useState(0);
   const {
     register,
-    setError,
-    clearErrors,
     setValue,
     handleSubmit,
     getValues,
