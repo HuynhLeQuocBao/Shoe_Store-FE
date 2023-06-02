@@ -5,7 +5,7 @@ import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { MdSearch } from "react-icons/md";
-import LoadingPage from "../section/loading/LoadingPage";
+import { ImSpinner2 } from "react-icons/im";
 
 const SearchBar = () => {
   const [query, setQuery] = useState();
@@ -24,6 +24,7 @@ const SearchBar = () => {
   useEffect(() => {
     if (!query) {
       setSearchResults([]);
+      setLoading(false);
     }
     return () => {
       clearTimeout(typingTimeout);
@@ -32,8 +33,8 @@ const SearchBar = () => {
 
   const handleSearch = async (searchQuery) => {
     if (!searchQuery) return;
-    setLoading(true);
     // Gọi API tìm kiếm dựa trên searchQuery
+    setLoading(true);
     try {
       const results = await productApi.searchProducts(searchQuery);
       setSearchResults(results);
@@ -77,24 +78,24 @@ const SearchBar = () => {
                 onChange={handleInputChange}
                 value={query}
               />
+
               <button
                 aria-label="search"
                 type="submit"
-                disabled={!query || query.length === 0}
-                className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 hover:text-white"
+                disabled={!query || query.length === 0 || loading}
+                className="w-[40px] h-[40px] rounded-full bg-primary text-black focus:outline-none absolute right-0 hover:bg-teal-600 text-white"
               >
                 <div className="text-2xl flex items-center justify-center font-bold">
-                  <MdSearch />
+                  {loading ? (
+                    <ImSpinner2 className="animation-spin" />
+                  ) : (
+                    <MdSearch />
+                  )}
                 </div>
               </button>
             </div>
           )}
         />
-        {loading && (
-          <div className="absolute bg-white min-h-[100px] w-full md:w-[375px] max-h-80 top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
-            <LoadingPage />
-          </div>
-        )}
         {searchResults.length > 0 && query && !loading ? (
           <div className="absolute bg-white min-h-[100px] w-full md:w-[375px] max-h-80 overflow-y-scroll top-12 left-0 flex flex-col gap-4 p-4 shadow-lg z-20">
             {searchResults.map((product) => (
@@ -116,10 +117,6 @@ const SearchBar = () => {
                 </div>
               </Link>
             ))}
-          </div>
-        ) : searchResults.length === 0 && query && !loading ? (
-          <div className="absolute bg-white min-h-[60px] w-full md:w-[375px] top-12 left-0 shadow-lg z-20">
-            <div className="flex-center py-5">No product found</div>
           </div>
         ) : null}
       </form>
