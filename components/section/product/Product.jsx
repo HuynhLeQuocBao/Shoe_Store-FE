@@ -1,8 +1,9 @@
 import { convertCurrency } from "@/utils/currency";
+import Stars from "../reviews/Stars";
 import Image from "next/image";
 import Link from "next/link";
 
-export function Product({ image, name, price, id }) {
+export function Product({ image, name, price, id, stars }) {
   const src =
     process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/" + image;
 
@@ -21,9 +22,17 @@ export function Product({ image, name, price, id }) {
             placeholder="blur"
           />
         </div>
-        <div className="text-center flex-col font-Rokkitt text-lg w-full h-[90px] flex-center">
-          <p className="h-[60px] text-ellipsis">{name}</p>
-          <p className="pb-4">{convertCurrency(price)}</p>
+        <div className="text-center flex-col font-Rokkitt text-lg w-full flex-center my-2">
+          <p>
+            <Stars
+              stars={stars}
+              reviews={0}
+              className="w-4 h-4"
+              disabled={true}
+            />
+          </p>
+          <p className="my-2 text-ellipsis">{name}</p>
+          <p>{convertCurrency(price)}</p>
         </div>
       </div>
     </Link>

@@ -6,7 +6,12 @@ import LoadingProduct from "../loading/LoadingProduct";
 import LoadingPage from "../loading/LoadingPage";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
-import { Pagination, Configure, connectHits } from "react-instantsearch-dom";
+import {
+  Pagination,
+  Configure,
+  connectHits,
+  ScrollTo,
+} from "react-instantsearch-dom";
 import { Category } from ".";
 import Modal from "../modal/Modal";
 import AddToCart from "../orders/AddToCart";
@@ -39,6 +44,7 @@ export function BestSeller({ data }) {
                 image={hit?.avatar}
                 name={hit?.name}
                 price={hit?.price}
+                stars={hit?.rateScore}
               />
             </div>
             <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
@@ -105,42 +111,46 @@ export function BestSeller({ data }) {
             <h2>Best Sellers</h2>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 xl:grid-cols-4 md:gap-8 pb-14">
-            {data?.slice(0, 8)?.map((item) => (
-              <div
-                key={item._id}
-                className="cursor-pointer hover-parent relative "
-              >
-                <div className="hover-child-1 ">
-                  <Product
-                    id={item?._id}
-                    image={item?.avatar}
-                    name={item?.name}
-                    price={item?.price}
-                  />
-                </div>
-                <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
-                  <div
-                    className="text-white lg:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
-                    onClick={() => handleAddToCart(item?._id)}
-                  >
-                    <FaShoppingCart className=" z-20" />
-                    <p className="lg:hidden">Add to cart</p>
-                    <span className="hidden lg:block icon-cart-details">
-                      Add to cart
-                    </span>
+            {data
+              .sort((a, b) => b.rateScore - a.rateScore)
+              .slice(0, 8)
+              ?.map((item) => (
+                <div
+                  key={item._id}
+                  className="cursor-pointer hover-parent relative "
+                >
+                  <div className="hover-child-1 ">
+                    <Product
+                      id={item?._id}
+                      image={item?.avatar}
+                      name={item?.name}
+                      price={item?.price}
+                      stars={item?.rateScore}
+                    />
                   </div>
-                  <Link href={`/compare/${item._id}`} prefetch={false}>
-                    <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
-                      <DiGitCompare className="" />
-                      <p className="lg:hidden">Compare</p>
-                      <span className="hidden lg:block icon-compare-details">
-                        Compare
+                  <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
+                    <div
+                      className="text-white lg:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
+                      onClick={() => handleAddToCart(item?._id)}
+                    >
+                      <FaShoppingCart className=" z-20" />
+                      <p className="lg:hidden">Add to cart</p>
+                      <span className="hidden lg:block icon-cart-details">
+                        Add to cart
                       </span>
                     </div>
-                  </Link>
+                    <Link href={`/compare/${item._id}`} prefetch={false}>
+                      <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
+                        <DiGitCompare className="" />
+                        <p className="lg:hidden">Compare</p>
+                        <span className="hidden lg:block icon-compare-details">
+                          Compare
+                        </span>
+                      </div>
+                    </Link>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
           </div>
           <div className="mb-5 flex items-center justify-center">
             <button
@@ -162,7 +172,9 @@ export function BestSeller({ data }) {
             </div>
             <div className="col-span-3 relative">
               <Configure hitsPerPage={9} />
-              <CustomHits />
+              <ScrollTo>
+                <CustomHits />
+              </ScrollTo>
               <div className="w-full overflow-hidden">
                 <Pagination showFirst={false} />
               </div>

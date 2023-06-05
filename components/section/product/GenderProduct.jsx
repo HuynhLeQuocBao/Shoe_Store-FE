@@ -4,7 +4,12 @@ import { Category } from "./Category";
 import Link from "next/link";
 import { FaShoppingCart } from "react-icons/fa";
 import { DiGitCompare } from "react-icons/di";
-import { Configure, Pagination, connectHits } from "react-instantsearch-dom";
+import {
+  Configure,
+  Pagination,
+  ScrollTo,
+  connectHits,
+} from "react-instantsearch-dom";
 import AddToCart from "../orders/AddToCart";
 import Modal from "../modal/Modal";
 import { useState } from "react";
@@ -40,6 +45,7 @@ export function GenderProduct({ gender }) {
                     image={hit?.avatar}
                     name={hit?.name}
                     price={hit?.price}
+                    stars={hit?.rateScore}
                   />
                 </div>
                 <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
@@ -83,7 +89,9 @@ export function GenderProduct({ gender }) {
         </div>
         <div className="col-span-3 relative">
           <Configure hitsPerPage={9} />
-          <CustomHits />
+          <ScrollTo>
+            <CustomHits />
+          </ScrollTo>
           <div className="hidden">
             <Pagination />
           </div>
