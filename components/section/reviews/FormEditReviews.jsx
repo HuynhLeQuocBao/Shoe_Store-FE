@@ -73,13 +73,13 @@ function FormEditReviews({ shoeId, onBack, dataUpdate, indexReview }) {
   return (
     <>
       {loading ? (
-        <div className="flex-center h-full">
+        <div className="flex-center w-full h-full">
           <LoadingPage />
         </div>
       ) : (
         <>
           <LoadingPageComponent loading={isLoading} />
-          <div className="relative h-full">
+          <div className="relative w-full h-full">
             <form onSubmit={handleSubmit(onSubmit)} className="h-full p-2">
               <div className="flex flex-col mb-4">
                 <div className="flex items-center gap-5">
@@ -130,7 +130,7 @@ function FormEditReviews({ shoeId, onBack, dataUpdate, indexReview }) {
                 )}
               </div>
             </form>
-            <div className="sticky bg-white bottom-0 justify-end shadow-top px-4 py-4 gap-6">
+            <div className="sticky bg-white bottom-0 justify-end px-4 py-4 gap-6">
               <div className="flex justify-end px-4  gap-6">
                 <button
                   className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"

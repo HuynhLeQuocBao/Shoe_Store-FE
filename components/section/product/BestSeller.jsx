@@ -13,12 +13,13 @@ import AddToCart from "../orders/AddToCart";
 
 export function BestSeller({ data }) {
   const [flag, setFlag] = useState(true);
-  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(false);
+
   const [productId, setProductId] = useState();
 
   const handleAddToCart = (id) => {
     setProductId(id);
-    setIsOpenModal(true);
+    setOpenModal(true);
   };
 
   const Hits = ({ hits }) => {
@@ -169,12 +170,13 @@ export function BestSeller({ data }) {
           </div>
         </div>
       )}
+
       <Modal
-        onClose={() => setIsOpenModal(false)}
-        isVisible={isOpenModal}
-        className=""
+        isVisible={openModal}
+        onClose={() => setOpenModal(false)}
+        title="Add To Cart"
       >
-        <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
+        <AddToCart id={productId} onClose={() => setOpenModal(false)} />
       </Modal>
     </Container>
   );

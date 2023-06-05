@@ -5,7 +5,7 @@ const ViewItemCheckout = ({ data }) => {
   const baseURL = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   return (
     <>
-      <div className="hidden sm:block w-full p-5">
+      <div className="hidden sm:block w-full h-full p-5">
         <div className="grid w-full bg-[#f0f0f0] py-3 font-semibold text-base rounded-3xl uppercase grid-cols-12 mb-6">
           <div className="text-center col-span-4">
             <span>PRODUCT DETAILS</span>
@@ -56,7 +56,7 @@ const ViewItemCheckout = ({ data }) => {
           );
         })}
       </div>
-      <div className=" sm:hidden w-full p-5">
+      <div className=" sm:hidden w-full h-full p-5">
         {data.map((item, index) => (
           <div
             key={item.productId}

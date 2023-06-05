@@ -92,7 +92,11 @@ export function GenderProduct({ gender }) {
           </div>
         </div>
       </div>
-      <Modal onClose={() => setIsOpenModal(false)} isVisible={isOpenModal}>
+      <Modal
+        onClose={() => setIsOpenModal(false)}
+        isVisible={isOpenModal}
+        title="Add To Cart"
+      >
         <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
       </Modal>
     </Container>

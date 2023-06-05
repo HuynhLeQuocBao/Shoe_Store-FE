@@ -333,7 +333,12 @@ export const Checkout = () => {
           </div>
         </form>
       </div>
-      <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
+      <Modal
+        isVisible={openModal}
+        onClose={() => setOpenModal(false)}
+        title="Checkout"
+        className="h-[80%]"
+      >
         <ViewItemCheckout data={products} />
       </Modal>
     </Container>

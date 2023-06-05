@@ -71,7 +71,7 @@ function FormRatingAndComment({ id, onClose, setEdit, isEdit }) {
     }
   };
   return (
-    <div className="relative h-full">
+    <div className="relative h-full w-full">
       {loading ? (
         <div className="flex-center h-full">
           <LoadingPage />
@@ -79,12 +79,6 @@ function FormRatingAndComment({ id, onClose, setEdit, isEdit }) {
       ) : (
         <div className=" h-full">
           <LoadingPageComponent loading={isLoading} />
-          <div className="sticky h-[10%] w-full bg-white  top-0 shadow-md z-10">
-            <h1 className="flex items-center justify-center font-bold text-[22px] md:text-2xl mb-4 ">
-              Reviews
-            </h1>
-          </div>
-
           <div className="h-[80%] overflow-y-scroll">
             {orderDetail &&
               orderDetail.map((item, index) => (

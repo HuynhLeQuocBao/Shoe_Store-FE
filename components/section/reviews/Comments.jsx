@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 import Stars from "./Stars";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useSession } from "next-auth/react";
 import Modal from "../modal/Modal";
 import FormEditReviews from "./FormEditReviews";
@@ -9,7 +9,6 @@ const Comments = ({ listUserComment, shoeId }) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [dataUpdate, setDataUpdate] = useState();
   const [indexReviews, setIndexReviews] = useState();
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL + "/uploadWithRefactorDB/";
   const { data: session } = useSession();
   return (
     <div>
@@ -74,7 +73,12 @@ const Comments = ({ listUserComment, shoeId }) => {
       ) : (
         <div>No reviews</div>
       )}
-      <Modal isVisible={isOpenModal} onClose={() => setIsOpenModal(false)}>
+      <Modal
+        isVisible={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+        title="Reviews Edit"
+        className="h-[79%] md:h-[70%]"
+      >
         <FormEditReviews
           onBack={() => setIsOpenModal(false)}
           shoeId={shoeId}

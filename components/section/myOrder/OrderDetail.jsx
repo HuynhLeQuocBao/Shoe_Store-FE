@@ -147,7 +147,8 @@ export function OrderDetail() {
       <Modal
         onClose={() => setIsOpenModal(false)}
         isVisible={isOpenModal}
-        className="!max-h-[250px]"
+        className="!h-fit md:h-fit"
+        title="Confirm Delete"
       >
         <Confirm id={router.query.slug} onClose={() => setIsOpenModal(false)} />
       </Modal>

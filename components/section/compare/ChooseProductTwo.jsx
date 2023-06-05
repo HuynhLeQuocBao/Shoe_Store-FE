@@ -57,14 +57,14 @@ const ChooseProductTwo = ({
   };
 
   return (
-    <div className="p-5">
+    <div className="h-full w-full p-5">
       <form>
         <div className="w-full pb-10 flex flex-shrink gap-4 justify-end items-center">
           <Controller
             control={control}
             name="search"
             render={({ field, onChange }) => (
-              <div className="flex relative">
+              <div className="flex relative w-full md:w-fit">
                 <input
                   type="text"
                   placeholder="Search"

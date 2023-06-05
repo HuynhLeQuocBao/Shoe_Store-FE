@@ -1,9 +1,7 @@
 import { Container } from "@/components/common/index";
-import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { productApi } from "@/apiClient/product";
 import { HiPlus } from "react-icons/hi2";
-import Image from "next/image";
 import Modal from "../modal/Modal";
 import LoadingProduct from "../loading/LoadingProduct";
 import ChooseProductTwo from "./ChooseProductTwo";
@@ -113,6 +111,7 @@ export function CompareSection({ productList, productOne }) {
           setOpenModal(false);
           setIsLoading(false);
         }}
+        title="Choose a product to compare"
       >
         {productList.length === 0 ? (
           <div className="w-full flex gap-10 pb-10 flex-wrap">

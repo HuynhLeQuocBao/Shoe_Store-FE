@@ -13,6 +13,7 @@ const OrderItem = ({ data, stateOrder, index }) => {
   const [isOpenModalReviews, setIsOpenModalReviews] = useState(false);
   const [orderId, setOrderId] = useState();
   const [checkAddReview, setCheckAddReviews] = useState();
+  const [isEdit, setIsEdit] = useState(false);
   const changeState = (state) => {
     if (state === 0) {
       return "pending";
@@ -143,11 +144,14 @@ const OrderItem = ({ data, stateOrder, index }) => {
       <Modal
         onClose={() => setIsOpenModalReviews(false)}
         isVisible={isOpenModalReviews}
+        title={isEdit ? "Edit Reviews" : "Reviews"}
+        className="h-[79%] md:h-[70%]"
       >
         {isRated ? (
           <ReviewList
             id={orderId}
             onClose={() => setIsOpenModalReviews(false)}
+            isEdit={(edit) => setIsEdit(edit)}
           />
         ) : (
           <FormRatingAndComment
