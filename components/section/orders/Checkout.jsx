@@ -337,7 +337,8 @@ export const Checkout = () => {
         isVisible={openModal}
         onClose={() => setOpenModal(false)}
         title="Checkout"
-        className="h-[80%]"
+        className="sm:!h-[70%] md:-mt-[10px]"
+        scroll={true}
       >
         <ViewItemCheckout data={products} />
       </Modal>

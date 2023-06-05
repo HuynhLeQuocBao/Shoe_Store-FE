@@ -145,7 +145,7 @@ const OrderItem = ({ data, stateOrder, index }) => {
         onClose={() => setIsOpenModalReviews(false)}
         isVisible={isOpenModalReviews}
         title={isEdit ? "Edit Reviews" : "Reviews"}
-        className="h-[79%] md:h-[70%]"
+        className="!h-full md:!h-[70%]"
       >
         {isRated ? (
           <ReviewList

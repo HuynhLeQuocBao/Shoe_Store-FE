@@ -39,14 +39,14 @@ const ReviewList = ({ id, onClose, isEdit }) => {
     setOrderDetail(dataChange);
   };
   return (
-    <div className="w-full h-full relative">
+    <div className="h-full w-full ">
       {orderDetail.length === 0 ? (
         <div className="flex-center h-full">
           <LoadingPage />
         </div>
       ) : (
-        <div className="h-full flex flex-col  ">
-          <div className=" bg-white h-full">
+        <div className=" h-full w-full">
+          <div className={`h-full ${!edit && "pb-20 overflow-y-auto"}`}>
             {!edit ? (
               orderDetail.map((item, index) => (
                 <>
@@ -88,13 +88,15 @@ const ReviewList = ({ id, onClose, isEdit }) => {
             )}
           </div>
           {!edit && (
-            <div className="flex justify-end px-4 gap-6 py-3 bg-white">
-              <button
-                className="bg-cyan-600 text-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-cyan-800 duration-200 hover:cursor-pointer"
-                onClick={() => onClose()}
-              >
-                OK
-              </button>
+            <div className="sticky bg-white bottom-10 md:bottom-0 justify-end shadow-top px-4 py-4 gap-6">
+              <div className="flex justify-end md:px-4 gap-6">
+                <button
+                  className="bg-cyan-600 text-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-cyan-800 duration-200 hover:cursor-pointer"
+                  onClick={() => onClose()}
+                >
+                  OK
+                </button>
+              </div>
             </div>
           )}
         </div>

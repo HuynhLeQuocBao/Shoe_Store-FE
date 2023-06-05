@@ -77,9 +77,9 @@ function FormRatingAndComment({ id, onClose, setEdit, isEdit }) {
           <LoadingPage />
         </div>
       ) : (
-        <div className=" h-full">
+        <div className=" h-full bg-white">
           <LoadingPageComponent loading={isLoading} />
-          <div className="h-[80%] overflow-y-scroll">
+          <div className="h-full overflow-y-auto  pb-20">
             {orderDetail &&
               orderDetail.map((item, index) => (
                 <form
@@ -153,7 +153,7 @@ function FormRatingAndComment({ id, onClose, setEdit, isEdit }) {
               ))}
           </div>
 
-          <div className="sticky bg-white bottom-0 justify-end shadow-top px-4 py-4 gap-6">
+          <div className="sticky bg-white bottom-10 md:bottom-0 justify-end shadow-top px-4 py-4 gap-6">
             <div className="flex justify-end px-4 gap-6">
               <button
                 className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"

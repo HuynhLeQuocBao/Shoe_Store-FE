@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 
-const Modal = ({ isVisible, onClose, children, title, className }) => {
+const Modal = ({ isVisible, onClose, children, title, className, scroll }) => {
   const handleClose = (e) => {
     if (e.target.id === "wrapper") onClose();
   };
@@ -27,13 +27,15 @@ const Modal = ({ isVisible, onClose, children, title, className }) => {
               <h1 className="text-base md:text-xl font-bold pl-2">{title}</h1>
               <div
                 onClick={() => onClose()}
-                className="w-10 h-10 rounded-full flex justify-center items-center text-2xl duration-200  hover:bg-slate-300 hover:cursor-pointer hover:text-red-500"
+                className="w-10 h-10 rounded-full flex justify-center items-center text-2xl duration-200 hover:bg-slate-300 hover:cursor-pointer hover:text-red-500"
               >
                 <AiOutlineClose />
               </div>
             </div>
             <div
-              className={`min-h-[60px] h-[95%] overflow-y-scroll flex items-center `}
+              className={`min-h-[60px] h-full flex items-center overflow-hidden z-10 bg-white ${
+                scroll ? "overflow-y-auto" : ""
+              }`}
             >
               {children}
             </div>

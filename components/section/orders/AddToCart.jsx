@@ -129,15 +129,15 @@ const AddToCart = ({ id, onClose }) => {
   };
 
   return (
-    <div className="h-full w-full p-5">
+    <div className="h-full w-full relative">
       {isLoading ? (
         <div className="flex-center h-full">
           <LoadingPage />
         </div>
       ) : (
-        <>
+        <div className=" h-full w-full  bg-white  ">
           <LoadingPageComponent loading={loadingAdd} />
-          <div className="h-full flex flex-col gap-5">
+          <div className="h-full flex flex-col gap-5 px-5 ">
             <h1 className="text-center text-2xl font-bold">
               {productDetails?.name}
             </h1>
@@ -225,23 +225,24 @@ const AddToCart = ({ id, onClose }) => {
                 </div>
               </div>
             </div>
-            <div className="w-full min-h-[1px] bg-black "></div>
-            <div className="flex justify-end px-4 pb-8 gap-6">
-              <button
-                className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"
-                onClick={() => onClose()}
-              >
-                Cancel
-              </button>
-              <button
-                className="bg-cyan-600 text-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-cyan-800 duration-200 hover:cursor-pointer"
-                onClick={handleAddToCart}
-              >
-                Add
-              </button>
+            <div className=" shadow-top px-4 py-4 gap-6 bg-white -mx-5 pb-14 md:pb-5 lg:pb-0">
+              <div className="flex justify-end px-4 py-3 gap-6 ">
+                <button
+                  className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"
+                  onClick={() => onClose()}
+                >
+                  Cancel
+                </button>
+                <button
+                  className="bg-cyan-600 text-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-cyan-800 duration-200 hover:cursor-pointer"
+                  onClick={handleAddToCart}
+                >
+                  Add
+                </button>
+              </div>
             </div>
           </div>
-        </>
+        </div>
       )}
     </div>
   );

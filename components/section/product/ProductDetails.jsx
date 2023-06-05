@@ -157,6 +157,7 @@ export function ProductDetail({ data }) {
                   image={hit?.avatar}
                   name={hit?.name}
                   price={hit?.price}
+                  stars={hit?.rateScore}
                 />
               </div>
             );
@@ -349,14 +350,19 @@ export function ProductDetail({ data }) {
             </div>
           </Container>
         </div>
-        <Modal isVisible={openModal} onClose={() => setOpenModal(false)}>
-          <div className="w-full h-full">
+        <Modal
+          isVisible={openModal}
+          onClose={() => setOpenModal(false)}
+          scroll={true}
+        >
+          <div className="w-full h-full ">
             <Image
               src="/images/banner/size_chart.jpg"
               alt="size-chart"
               width={500}
               height={500}
               layout="responsive"
+              className="pb-5"
             />
           </div>
         </Modal>

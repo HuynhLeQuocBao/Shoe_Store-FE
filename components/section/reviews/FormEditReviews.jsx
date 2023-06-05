@@ -130,8 +130,8 @@ function FormEditReviews({ shoeId, onBack, dataUpdate, indexReview }) {
                 )}
               </div>
             </form>
-            <div className="sticky bg-white bottom-0 justify-end px-4 py-4 gap-6">
-              <div className="flex justify-end px-4  gap-6">
+            <div className="sticky bg-white bottom-10 md:bottom-0 justify-end shadow-top px-4 py-4 gap-6">
+              <div className="flex justify-end px-4 gap-6">
                 <button
                   className="bg-white font-bold w-32 py-[5px] px-4 shadow-icon-product rounded-lg hover:bg-slate-200 duration-200 hover:cursor-pointer"
                   onClick={() => onBack()}

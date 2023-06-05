@@ -112,6 +112,8 @@ export function CompareSection({ productList, productOne }) {
           setIsLoading(false);
         }}
         title="Choose a product to compare"
+        scroll={true}
+        className=" sm:!h-[80%] md:!h-[80%]"
       >
         {productList.length === 0 ? (
           <div className="w-full flex gap-10 pb-10 flex-wrap">

@@ -104,6 +104,8 @@ export function GenderProduct({ gender }) {
         onClose={() => setIsOpenModal(false)}
         isVisible={isOpenModal}
         title="Add To Cart"
+        className="md:!h-[80%] lg:!h-[61%] md:!-mt-[20px]"
+        scroll={true}
       >
         <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
       </Modal>

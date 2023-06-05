@@ -77,7 +77,7 @@ const Comments = ({ listUserComment, shoeId }) => {
         isVisible={isOpenModal}
         onClose={() => setIsOpenModal(false)}
         title="Reviews Edit"
-        className="h-[79%] md:h-[70%]"
+        className="!h-full md:!h-[70%]"
       >
         <FormEditReviews
           onBack={() => setIsOpenModal(false)}
