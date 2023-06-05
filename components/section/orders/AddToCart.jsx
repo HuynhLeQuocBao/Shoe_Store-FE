@@ -86,6 +86,12 @@ const AddToCart = ({ id, onClose }) => {
   };
   const handleAddToCart = async () => {
     if (session?.user) {
+      if (quantity <= 0) {
+        toast.warn("Quantity must be larger zero !", {
+          position: toast.POSITION.TOP_RIGHT,
+        });
+        return;
+      }
       setLoadingAdd(true);
       try {
         const result = await cartApi.addCart({
@@ -165,9 +171,9 @@ const AddToCart = ({ id, onClose }) => {
                         layout="intrinsic"
                         width={80}
                         height={80}
-                        className={`hover:border hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg ${
+                        className={`hover:!border hover:!border-black hover:!border-solid hover:cursor-pointer duration-300 rounded-lg ${
                           current.colorId === color.id &&
-                          "border border-black border-solid"
+                          "!border !border-black !border-solid"
                         }`}
                         onClick={() => handleChangeImageList(color.id)}
                         blurDataURL={baseUrl + color.avatar}

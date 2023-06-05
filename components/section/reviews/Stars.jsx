@@ -35,7 +35,7 @@ const Stars = ({ stars, reviews, onRating, className, disabled }) => {
     );
   }, [stars]);
   return (
-    <div className="flex-center justify-start gap-2">
+    <div className="flex-center !justify-start gap-2">
       {ratingStar}
       <p className="text-base">
         {reviews > 0 && `(${reviews} customer reviews)`}

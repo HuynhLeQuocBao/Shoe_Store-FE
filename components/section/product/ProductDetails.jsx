@@ -174,7 +174,7 @@ export function ProductDetail({ data }) {
       <LoadingPageComponent loading={loading} />
       <Container>
         <div>
-          <div className="flex flex-col gap-2 lg:grid lg:grid-cols-3 lg:gap-12 mx-6 lg:mx-0">
+          <div className="flex flex-col gap-2 lg:grid lg:grid-cols-6 lg:gap-12 xl:grid-cols-10 xl:gap-0 mx-6 lg:mx-0">
             <div className="flex flex-col justify-between lg:hidden">
               <h2 className="mb-2 text-3xl font-semibold">{data?.name}</h2>
               <h3 className="mb-2 text-lg">
@@ -192,7 +192,7 @@ export function ProductDetail({ data }) {
                 {data?.introduce}
               </p>
             </div>
-            <div className="mb-8 col-span-2">
+            <div className="mb-8 col-span-4 xl:col-span-6">
               <div className="block lg:hidden">
                 <Slider {...settings}>
                   {imageList?.map((item, index) => (
@@ -211,7 +211,7 @@ export function ProductDetail({ data }) {
                   ))}
                 </Slider>
               </div>
-              <div className="hidden lg:flex flex-wrap gap-2">
+              <div className="hidden lg:flex flex-wrap gap-2 ">
                 {imageList?.map((item, index) => (
                   <PreviewImage
                     key={item.position}
@@ -221,7 +221,7 @@ export function ProductDetail({ data }) {
                 ))}
               </div>
             </div>
-            <div className="col-span-1">
+            <div className="col-span-2 xl:col-span-4">
               <div className="flex flex-col justify-between">
                 <h2 className="mb-2 text-3xl font-semibold hidden lg:block">
                   {data?.name}
@@ -247,9 +247,11 @@ export function ProductDetail({ data }) {
                       layout="intrinsic"
                       width={80}
                       height={80}
-                      className={`hover:border hover:border-black hover:border-solid hover:cursor-pointer duration-300 rounded-lg ${
+                      blurDataURL={BASE_URL + color?.avatar}
+                      placeholder="blur"
+                      className={`hover:!border hover:!border-black hover:!border-solid hover:!cursor-pointer duration-300 rounded-lg ${
                         colorId === color.id &&
-                        "border border-solid border-black"
+                        "!border !border-solid !border-black"
                       }`}
                       onClick={() => handleChangeImageList(color.id)}
                     />
@@ -291,11 +293,11 @@ export function ProductDetail({ data }) {
                       </a>
                     </h3>
                   </div>
-                  <div className="flex items-center justify-evenly md:justify-between flex-wrap gap-1 md:gap-3">
+                  <div className="flex items-center justify-evenly flex-wrap gap-1 md:gap-3">
                     {sizeInfo?.currentSizeListOfColor?.map((item, index) => (
                       <button
                         onClick={() => handleSizeInfo(item)}
-                        className={`w-36 md:w-40 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
+                        className={`w-36 lg:!w-32 shadow-sm border-[1px] borer-solid hover:border-black hover:borer-solid rounded duration-200 bg-white  cursor-pointer px-4 py-1 ${
                           size === item.sizeName ? "border-black" : ""
                         }`}
                         key={index}
@@ -363,6 +365,8 @@ export function ProductDetail({ data }) {
               height={500}
               layout="responsive"
               className="pb-5"
+              blurDataURL="/images/banner/size_chart.jpg"
+              placeholder="blur"
             />
           </div>
         </Modal>

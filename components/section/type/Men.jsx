@@ -20,13 +20,13 @@ export function Men() {
     },
   ];
   return (
-    <Container>
-      <div className="mx-4 md:mx-0">
+    <Container className="!mb-10">
+      <div className="mx-4 md:mx-0 ">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {content.map((item, index) => (
             <div
               key={index}
-              className="relative w-full flex flex-col items-center banner h-auto md:my-[28px]"
+              className="relative w-full flex flex-col items-center banner sm:!h-auto md:my-[28px]"
             >
               <Image
                 src={`/images/type/${item.image}`}
@@ -35,6 +35,8 @@ export function Men() {
                 layout="intrinsic"
                 width={380}
                 height={380}
+                blurDataURL={`/images/type/${item.image}`}
+                placeholder="blur"
               />
               <div className="absolute top-[50%] -translate-y-[50%] flex flex-col items-center justify-between z-10">
                 <p className="xl:text-center text-xl xl:text-4xl font-normal text-white font-Rokkitt h-[70px]">

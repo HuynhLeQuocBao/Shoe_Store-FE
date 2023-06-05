@@ -6,13 +6,7 @@ const LoadingPageGlobal = ({ loading }) => {
   if (!loading) return null;
   return (
     <div className="w-screen h-screen flex-center flex-col gap-2 ">
-      <Image
-        src={logo}
-        alt="logo footwear"
-        width={200}
-        height={80}
-        // className="animate-logo"
-      />
+      <Image src={logo} alt="logo footwear" width={200} height={80} />
       <div className="h-24 flex-center">
         <LoadingPage />
       </div>

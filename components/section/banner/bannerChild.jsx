@@ -10,7 +10,13 @@ export function BannerChild({ ...props }) {
     <Container>
       <div className="relative w-full h-auto font-Rokkitt">
         <div className="w-full h-[400px] mb-3 md:mb-0">
-          <Image src={image} alt="bannerChild" layout="fill" />
+          <Image
+            src={image}
+            alt="bannerChild"
+            layout="fill"
+            blurDataURL={image}
+            placeholder="blur"
+          />
         </div>
         <div className="absolute top-10 left-10 w-auto text-[40px] font-medium text-white">
           <h1>{props.text}</h1>

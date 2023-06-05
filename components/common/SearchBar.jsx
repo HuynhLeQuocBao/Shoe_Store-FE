@@ -109,6 +109,8 @@ const SearchBar = () => {
                     src={`${baseURL + product?.avatar}`}
                     width={50}
                     height={50}
+                    blurDataURL={`${baseURL + product?.avatar}`}
+                    placeholder="blur"
                   />
                   <div className="flex flex-col">
                     <p className="font-bold text-lg">{product.name}</p>

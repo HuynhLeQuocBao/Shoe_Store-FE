@@ -60,7 +60,7 @@ const ReviewList = ({ id, onClose, isEdit }) => {
                         setProductId(item.shoeId);
                       }}
                     >
-                      <HiPencilAlt className="w-6 h-6" />
+                      <HiPencilAlt className="w-6 h-6 hover:text-orange-500 duration-200" />
                     </div>
                     <div
                       className="md:hidden flex justify-end items-start hover:cursor-pointer"

@@ -10,6 +10,8 @@ export function PaymentItem({ name, image }) {
         width={40}
         height={40}
         alt="payment"
+        blurDataURL={`/images/logo/${image}`}
+        placeholder="blur"
       />
       <p>Using {name}</p>
     </div>

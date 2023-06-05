@@ -40,6 +40,10 @@ export function MenuProfile() {
                   alt="avatar"
                   layout="fill"
                   className="w-full rounded-full"
+                  blurDataURL={`${
+                    session?.user?.picture || "/images/logo/admin.png"
+                  }`}
+                  placeholder="blur"
                 />
               </div>
             </div>

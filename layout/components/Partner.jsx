@@ -58,6 +58,8 @@ export function Partner() {
                 layout="intrinsic"
                 width={200}
                 height={120}
+                blurDataURL={`/images/brand/${image}`}
+                placeholder="blur"
               />
             </div>
           ))}

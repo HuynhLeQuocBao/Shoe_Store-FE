@@ -55,9 +55,6 @@ export function Login() {
       });
       setLoading(false);
     } else {
-      toast.success("Login Successfully!", {
-        position: toast.POSITION.TOP_RIGHT,
-      });
       setLoading(false);
     }
   };
@@ -102,7 +99,7 @@ export function Login() {
                                   id="accountName"
                                   className={`input-floating peer ${
                                     errors.accountName?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500  focus:border-red-500"
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -111,7 +108,7 @@ export function Login() {
                                   htmlFor="accountName"
                                   className={`label-floating ${
                                     errors.accountName?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -140,7 +137,7 @@ export function Login() {
                                   type="password"
                                   className={`input-floating peer ${
                                     errors.password?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -149,7 +146,7 @@ export function Login() {
                                   htmlFor="password"
                                   className={`label-floating ${
                                     errors.password?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -204,6 +201,8 @@ export function Login() {
                                 layout="responsive"
                                 width={40}
                                 height={40}
+                                blurDataURL="/images/logo/facebook.png"
+                                placeholder="blur"
                               />
                             </button>
                           </div>
@@ -222,6 +221,8 @@ export function Login() {
                                 layout="responsive"
                                 width={40}
                                 height={40}
+                                blurDataURL="/images/logo/google.png"
+                                placeholder="blur"
                               />
                             </button>
                           </div>

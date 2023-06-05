@@ -21,7 +21,7 @@ const Modal = ({ isVisible, onClose, children, title, className, scroll }) => {
           onClick={handleClose}
         >
           <div
-            className={`bg-white mx-auto w-[400px] sm:w-[576px] md:w-[768px] rounded-md h-full md:-mt-[40px] md:h-[95%] ${className}`}
+            className={`bg-white mx-auto w-[400px] sm:w-[576px] md:w-[768px] md:rounded-md h-full md:-mt-[40px] md:h-[95%] ${className}`}
           >
             <div className="w-full flex justify-between items-center border-b border-zinc-300 px-5 sm:px-0">
               <h1 className="text-base md:text-xl font-bold pl-2">{title}</h1>

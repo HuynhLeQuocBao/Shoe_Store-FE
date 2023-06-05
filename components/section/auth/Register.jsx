@@ -95,7 +95,8 @@ export function Register() {
                           alt="logo footwear"
                           width={200}
                           height={80}
-                          className=""
+                          blurDataURL={logo}
+                          placeholder="blur"
                         />
                       </div>
                       <form onSubmit={handleSubmit(onSubmitRegister)}>
@@ -113,7 +114,7 @@ export function Register() {
                                   id="fullname"
                                   className={`input-floating peer ${
                                     errors.fullname?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -122,7 +123,7 @@ export function Register() {
                                   htmlFor="fullname"
                                   className={`label-floating ${
                                     errors.fullname?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -153,7 +154,7 @@ export function Register() {
                                   id="accountName"
                                   className={`input-floating peer ${
                                     errors.accountName?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -162,7 +163,7 @@ export function Register() {
                                   htmlFor="accountName"
                                   className={`label-floating ${
                                     errors.accountName?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -190,7 +191,7 @@ export function Register() {
                                   id="email"
                                   className={`input-floating peer ${
                                     errors.email?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -199,7 +200,7 @@ export function Register() {
                                   htmlFor="email"
                                   className={`label-floating ${
                                     errors.email?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -227,7 +228,7 @@ export function Register() {
                                   id="address"
                                   className={`input-floating peer ${
                                     errors.address?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -236,7 +237,7 @@ export function Register() {
                                   htmlFor="address"
                                   className={`label-floating ${
                                     errors.address?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -266,7 +267,7 @@ export function Register() {
                                   id="numberPhone"
                                   className={`input-floating peer ${
                                     errors.numberPhone?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -275,7 +276,7 @@ export function Register() {
                                   htmlFor="numberPhone"
                                   className={`label-floating ${
                                     errors.numberPhone?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >
@@ -304,7 +305,7 @@ export function Register() {
                                   type="password"
                                   className={`input-floating peer ${
                                     errors.password?.message.length > 0
-                                      ? "border-red-500 focus:border-red-500 "
+                                      ? "!border-red-500 focus:border-red-500 "
                                       : ""
                                   }`}
                                   placeholder=" "
@@ -313,7 +314,7 @@ export function Register() {
                                   htmlFor="password"
                                   className={`label-floating ${
                                     errors.password?.message.length > 0
-                                      ? "text-red-500 peer-placeholder-shown:-translate-y-[85%]"
+                                      ? "peer-focus:!text-red-500 peer-placeholder-shown:-translate-y-[85%]"
                                       : ""
                                   }`}
                                 >

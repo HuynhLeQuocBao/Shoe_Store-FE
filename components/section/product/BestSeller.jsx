@@ -187,7 +187,7 @@ export function BestSeller({ data }) {
         isVisible={openModal}
         onClose={() => setOpenModal(false)}
         title="Add To Cart"
-        className="md:!h-[80%] lg:!h-[61%] md:!-mt-[20px]"
+        className="md:!h-[62%]"
         scroll={true}
       >
         <AddToCart id={productId} onClose={() => setOpenModal(false)} />

@@ -51,63 +51,71 @@ const CompareProduct = ({ product, onDelete, isDelete }) => {
     }
   };
   return (
-    <div className="col-span-5 md:col-span-4 border-[1px] border-solid">
+    <div className="col-span-5 md:col-span-4 border border-solid">
       <div className="flex flex-col text-xs md:text-base">
         <div className="h-10 flex justify-end items-center pr-4 ">
           {isDelete && (
             <div
-              className="w-7 h-7 hover:scale-125 duration-200 flex-center rounded-full font-bold hover:bg-red-500 hover:cursor-pointer text-red-500 hover:text-white border-2 border-red-500 border-solid"
+              className="!w-7 !h-7 hover:scale-125 duration-200 flex-center rounded-full font-bold hover:bg-red-500 hover:cursor-pointer text-red-500 hover:text-white border-2 border-red-500 border-solid"
               onClick={() => onDelete()}
             >
               <AiOutlineDelete />
             </div>
           )}
         </div>
-        <div className="flex-col flex-center max-h-[288px] border-[1px] border-solid border-r-0">
+        <div className="flex-col flex-center max-h-[288px] border border-solid border-r-0">
           <div className="w-40 h-40 md:w-72 md:h-72 p-4 hover:cursor-zoom-in  ">
             <PreviewImage arrayImage={productInfo.images} index={0} />
           </div>
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0 ">
+        <div className="h-20 border border-solid flex-center border-r-0 ">
           {product?.name}
         </div>
-        <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-3">
+        <div className="h-28 border border-solid flex-center border-r-0 flex-wrap gap-3">
           {product?.color?.map((color) => (
             <div key={color.id} className="w-10 h-10 md:w-20 md:h-20 relative">
               <Image
-                className="flex-center hover:cursor-pointer w-10 h-10"
+                className={`flex-center hover:cursor-pointer w-10 h-10 hover:!border hover:!border-black hover:!border-solid ${
+                  productInfo.colorCurrent.id === color.id &&
+                  "!border !border-black !border-solid"
+                }`}
                 onClick={() => handleCurrentProductInfo({ colorId: color.id })}
                 src={baseURL + color?.avatar}
                 layout="fill"
                 alt="color"
+                blurDataURL={baseURL + color?.avatar}
+                placeholder="blur"
               />
             </div>
           ))}
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+        <div className="h-20 border border-solid flex-center border-r-0">
           $ {productInfo?.price}
         </div>
-        <div className="h-48 border-[1px] border-solid flex justify-center items-start xl:items-center border-r-0 p-2 overflow-y-auto">
+        <div className="h-48 border border-solid flex justify-center items-start xl:items-center border-r-0 p-2 overflow-y-auto">
           {product?.introduce}
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
+        <div className="h-20 border border-solid flex-center border-r-0 flex-wrap gap-1">
           {product?.listAnotherCate?.map((brand, index) => (
             <div
               key={brand + index}
-              className="h-8 flex-center bg-green-500 w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
+              className="h-8 flex-center bg-green-500 !w-fit text-white px-2 py-1 md:px-4 md:py-2 rounded-2xl font-bold"
             >
               {brand}
             </div>
           ))}
         </div>
-        <div className="h-20 border-[1px] border-solid flex-center border-r-0">
+        <div className="h-20 border border-solid flex-center border-r-0">
           {productInfo?.amount > 0 ? "In stock" : "Not available"}
         </div>
-        <div className="h-28 border-[1px] border-solid flex-center border-r-0 flex-wrap gap-1">
+        <div className="h-28 border border-solid flex-center border-r-0 flex-wrap gap-1">
           {productInfo.sizes.map((size, index) => (
             <div
               key={size.sizeName + index}
-              className="h-8 w-8 flex-center bg-primary text-black font-bold cursor-pointer hover:text-white active:text-white hover:bg-teal-500 active:bg-teal-500"
+              className={`!h-8 !w-8 flex-center bg-primary text-black font-bold cursor-pointer hover:text-white active:text-white hover:bg-teal-500  ${
+                productInfo.sizeCurrent === size.sizeName &&
+                "bg-teal-500 text-white"
+              }`}
               onClick={() => handleCurrentProductInfo({ size: size.sizeName })}
             >
               {size.sizeName}

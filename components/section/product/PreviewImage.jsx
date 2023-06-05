@@ -26,8 +26,8 @@ const PreviewImage = ({ arrayImage, index }) => {
         className="w-full h-full object-cover cursor-zoom-in hover:opacity-70"
         src={BASE_URL + arrayImage[index]}
         alt={arrayImage[index]}
-        width={350}
-        height={350}
+        width={300}
+        height={300}
         onClick={() => setIsOpen(!isOpen)}
         priority={true}
         blurDataURL={BASE_URL + arrayImage[index]}

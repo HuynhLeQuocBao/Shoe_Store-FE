@@ -32,6 +32,12 @@ const Comments = ({ listUserComment, shoeId }) => {
                     width={100}
                     height={100}
                     alt="avatar"
+                    blurDataURL={
+                      item?.picture !== ""
+                        ? item?.picture
+                        : "/images/logo/admin.png"
+                    }
+                    placeholder="blur"
                   />
                 </div>
                 <div className="col-span-6 flex flex-col gap-1">

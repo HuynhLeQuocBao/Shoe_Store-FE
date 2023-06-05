@@ -50,7 +50,7 @@ export function GenderProduct({ gender }) {
                 </div>
                 <div className="hover-child-2 absolute lg:top-1/3 lg:left-0 flex items-end justify-evenly flex-col lg:flex-row gap-2 w-fit lg:w-full top-2 right-2">
                   <div
-                    className=" text-white xl:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
+                    className=" text-white lg:text-black w-[120px]  px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white  duration-200 gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center lg:justify-center  shadow-icon-product  relative icon-cart"
                     onClick={() => handleAddToCart(hit?._id)}
                   >
                     <FaShoppingCart className=" z-20" />
@@ -60,7 +60,7 @@ export function GenderProduct({ gender }) {
                     </span>
                   </div>
                   <Link href={`/compare/${hit?._id}`}>
-                    <div className="z-20 text-white xl:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
+                    <div className="z-20 text-white lg:text-black w-[120px] px-2 py-1 lg:p-0 hover:bg-teal-600 hover:text-white   duration-200  gap-2 lg:w-10 lg:h-10 bg-teal-500 lg:bg-white rounded-lg lg:rounded-full flex items-center  lg:justify-center shadow-icon-product  relative icon-compare">
                       <DiGitCompare className="" />
                       <p className="lg:hidden">Compare</p>
                       <span className="hidden lg:block icon-compare-details">
@@ -104,7 +104,7 @@ export function GenderProduct({ gender }) {
         onClose={() => setIsOpenModal(false)}
         isVisible={isOpenModal}
         title="Add To Cart"
-        className="md:!h-[80%] lg:!h-[61%] md:!-mt-[20px]"
+        className="md:!h-[62%]"
         scroll={true}
       >
         <AddToCart id={productId} onClose={() => setIsOpenModal(false)} />
