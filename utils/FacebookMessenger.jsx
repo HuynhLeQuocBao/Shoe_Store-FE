@@ -7,7 +7,6 @@ const FacebookMessenger = () => {
       <div id="fb-customer-chat" className="fb-customerchat"></div>
       <Script>
         {`
-        setTimeout(function() {
           var chatbox = document.getElementById('fb-customer-chat');
           chatbox.setAttribute("page_id", "123346977339174");
           chatbox.setAttribute("attribution", "biz_inbox");
@@ -26,7 +25,6 @@ const FacebookMessenger = () => {
             js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
           }(document, 'script', 'facebook-jssdk'));
-        }, 10000)
         `}
       </Script>
     </div>
