@@ -27,6 +27,10 @@ const HeadContent = () => (
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Footwear </title>
+    <meta
+      name="google-site-verification"
+      content="411OybsylKe6hQWEP7kwBIJ0avMzknO63TzOF1J6ceY"
+    />
 
     <meta
       name="description"
