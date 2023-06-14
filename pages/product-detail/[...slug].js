@@ -1,37 +1,32 @@
 import { productApi } from "@/apiClient/product";
 import { ProductDetail } from "@/components/section/product";
 import { Breadcrumbs } from "@/components/section/title";
+import React from "react";
 
-export default function productDetailPage({ product }) {
+export default function productDetailPage({ data }) {
   return (
     <div>
       <Breadcrumbs />
-      <ProductDetail data={product} />
+      <ProductDetail data={data} />
     </div>
   );
 }
-
-export async function getStaticPaths() {
-  const products = await productApi.getAllProducts();
-
-  // Tạo paths cho mỗi ID sản phẩm
-  const paths = products.map((product) => ({
-    params: { slug: [product._id] },
-  }));
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export async function getStaticProps({ params }) {
+export const getServerSideProps = async (context) => {
+  const { params } = context;
   const productId = params.slug;
-  const product = await productApi.getProductById(productId[0]);
-
-  return {
-    props: {
-      product,
-    },
-  };
-}
+  try {
+    const productDetails = await productApi.getProductById(productId);
+    return {
+      props: {
+        data: productDetails,
+      },
+    };
+  } catch (error) {
+    console.log(error);
+    return {
+      props: {
+        data: [],
+      },
+    };
+  }
+};
