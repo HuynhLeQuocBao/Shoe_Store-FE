@@ -19,12 +19,14 @@ export async function getStaticProps() {
       props: {
         products,
       },
+      revalidate: 5,
     };
   } catch (error) {
     return {
       props: {
         products: [],
       },
+      revalidate: 5,
     };
   }
 }
