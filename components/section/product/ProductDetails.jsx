@@ -146,7 +146,7 @@ export function ProductDetail({ data }) {
         {hits.map((hit) => {
           if (count == 4) return;
           if (
-            data?.listAnotherCate.includes(hit?.style[0]) &&
+            data?.listAnotherCate.includes(hit?.style[0]?.toLowerCase()) &&
             hit?._id != data?._id
           ) {
             count++;
