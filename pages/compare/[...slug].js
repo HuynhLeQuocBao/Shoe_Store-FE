@@ -42,7 +42,7 @@ export async function getStaticProps({ params }) {
         productOne,
         products,
       },
-      revalidate: 10,
+      revalidate: 5,
     };
   } catch (error) {
     console.log(error);
@@ -50,7 +50,7 @@ export async function getStaticProps({ params }) {
       props: {
         productOne: [],
       },
-      revalidate: 10,
+      revalidate: 5,
     };
   }
 }
