@@ -13,9 +13,6 @@ export default function LoginPage() {
 
 export async function getStaticProps() {
   return {
-    props: {
-      productOne: [],
-    },
-    revalidate: 1,
+    props: {},
   };
 }
