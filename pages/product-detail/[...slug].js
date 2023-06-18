@@ -33,6 +33,6 @@ export async function getStaticProps({ params }) {
     props: {
       product,
     },
-    revalidate: 5,
+    revalidate: 1,
   };
 }
