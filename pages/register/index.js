@@ -13,6 +13,9 @@ export default function RegisterPage() {
 
 export async function getStaticProps() {
   return {
-    props: {},
+    props: {
+      productOne: [],
+    },
+    revalidate: 1,
   };
 }
