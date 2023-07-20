@@ -12,6 +12,7 @@ const nextConfig = {
   images: {
     domains: [
       "shoestore-backend-tjms.onrender.com",
+      "shoe-store-be.vercel.app",
       "lh3.googleusercontent.com",
       "platform-lookaside.fbsbx.com",
       "localhost",
