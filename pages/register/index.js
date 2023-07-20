@@ -10,3 +10,12 @@ export default function RegisterPage() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {
+      productOne: [],
+    },
+    revalidate: 1,
+  };
+}

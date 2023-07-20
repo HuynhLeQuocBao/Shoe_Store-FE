@@ -10,3 +10,9 @@ export default function About() {
     </div>
   );
 }
+
+export async function getStaticProps() {
+  return {
+    props: {},
+  };
+}
