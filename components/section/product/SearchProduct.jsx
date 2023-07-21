@@ -41,7 +41,7 @@ export function SearchProduct() {
         </div> */}
         <div className="col-span-4">
           {data?.length > 0 ? (
-            <Pagination data={dataFilter} itemsPerPage={9} />
+            <Pagination data={data} itemsPerPage={9} />
           ) : isLoading ? (
             <div className="flex-center h-24">
               <LoadingPage />

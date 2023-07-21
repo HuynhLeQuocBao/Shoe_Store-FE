@@ -37,15 +37,15 @@ export function Pagination({ ...props }) {
       });
     }
   };
-
   return (
     <>
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 md:gap-8 pb-14">
         {currentItems.map((item) => (
           <div key={item._id} className="cursor-pointer hover-parent relative">
-            <Link href={`/product-detail/${item._id}`}>
+            <Link href={`/product-detail/${item?._id}`}>
               <div className="hover-child-1">
                 <Product
+                  id={item?._id}
                   image={item.avatar}
                   name={item.name}
                   price={item.price}
