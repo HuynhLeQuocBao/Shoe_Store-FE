@@ -24,7 +24,8 @@ const PreviewImage = ({ arrayImage, index }) => {
     <>
       <Image
         className="w-full h-full object-cover cursor-zoom-in hover:opacity-70"
-        src={BASE_URL + arrayImage[index]}
+        // src={BASE_URL + arrayImage[index]}
+        src="https://shoe-store-be.vercel.app/uploadWithRefactorDB/d35fd628-8d5f-441c-9151-fb39b053b2ed.webp?fbclid=IwAR3Ik3oerrPRJgI6lAQM28oHmwglUygiJ4zjG6rJbqCcnuIIUbjCKj1bz5g"
         alt={arrayImage[index]}
         width={300}
         height={300}
