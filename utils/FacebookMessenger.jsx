@@ -15,7 +15,7 @@ const FacebookMessenger = () => {
             FB.init({
               xfbml            : true,
               version          : 'v16.0'
-            });
+            })
           };
 
           (function(d, s, id) {
