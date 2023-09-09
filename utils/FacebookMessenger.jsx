@@ -24,7 +24,7 @@ const FacebookMessenger = () => {
             js = d.createElement(s); js.id = id;
             js.src = 'https://connect.facebook.net/vi_VN/sdk/xfbml.customerchat.js';
             fjs.parentNode.insertBefore(js, fjs);
-          }(document, 'script', 'facebook-jssdk'));
+          }(document, 'script', 'facebook-jssdk'))
         `}
       </Script>
     </div>
