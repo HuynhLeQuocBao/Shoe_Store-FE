@@ -8,7 +8,7 @@ const FacebookMessenger = () => {
       <Script>
         {`
           var chatbox = document.getElementById('fb-customer-chat');
-          chatbox.setAttribute("page_id", "123346977339174");
+          chatbox.setAttribute("page_id", "123346977339174")
           chatbox.setAttribute("attribution", "biz_inbox");
 
           window.fbAsyncInit = function() {
