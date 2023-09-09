@@ -8,9 +8,11 @@ const persistConfig = {
   key: "root",
   storage,
 };
+
 const rootReducer = combineReducers({
   cart: cartReducer,
 });
+
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
